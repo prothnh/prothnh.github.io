@@ -4,63 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Struts 1.1 REST API Modernization | Technical Analysis & Decision Framework</title>
-    
-    <script>
-        // Authentication check - redirect to login if not authenticated
-        (function() {
-            const isAuthenticated = localStorage.getItem('struts-auth') === 'authenticated';
-            const accessTime = localStorage.getItem('struts-access-time');
-            
-            if (!isAuthenticated) {
-                // Not authenticated, redirect to login
-                window.location.href = 'index.html';
-                return;
-            }
-            
-            // Check session timeout (24 hours)
-            if (accessTime) {
-                const now = new Date();
-                const access = new Date(accessTime);
-                const diffHours = (now - access) / (1000 * 60 * 60);
-                
-                if (diffHours > 24) {
-                    // Session expired
-                    localStorage.removeItem('struts-auth');
-                    localStorage.removeItem('struts-user');
-                    localStorage.removeItem('struts-access-time');
-                    alert('Session expired. Please log in again.');
-                    window.location.href = 'index.html';
-                    return;
-                }
-            }
-            
-            // Set up inactivity timeout (30 minutes)
-            let lastActivity = Date.now();
-            let activityTimer;
-            
-            function resetActivityTimer() {
-                lastActivity = Date.now();
-                clearTimeout(activityTimer);
-                
-                activityTimer = setTimeout(() => {
-                    localStorage.removeItem('struts-auth');
-                    localStorage.removeItem('struts-user');
-                    localStorage.removeItem('struts-access-time');
-                    alert('Session expired due to inactivity. Please log in again.');
-                    window.location.href = 'index.html';
-                }, 30 * 60 * 1000); // 30 minutes
-            }
-            
-            // Start monitoring activity once DOM is loaded
-            document.addEventListener('DOMContentLoaded', function() {
-                document.addEventListener('mousemove', resetActivityTimer);
-                document.addEventListener('keypress', resetActivityTimer);
-                document.addEventListener('click', resetActivityTimer);
-                document.addEventListener('scroll', resetActivityTimer);
-                resetActivityTimer(); // Initialize timer
-            });
-        })();
-    </script>
 
     <style>
         * {
@@ -218,40 +161,6 @@
             background: rgba(255, 255, 255, 0.1);
             border-radius: 9999px;
             backdrop-filter: blur(10px);
-        }
-
-        /* User Section */
-        .user-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-left: 1rem;
-            padding-left: 1rem;
-            border-left: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .user-info {
-            font-size: 0.875rem;
-            color: #e2e8f0;
-            font-weight: 500;
-        }
-
-        .logout-btn {
-            background: rgba(239, 68, 68, 0.2);
-            color: #fca5a5;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            padding: 0.375rem 1rem;
-            border-radius: 6px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .logout-btn:hover {
-            background: rgba(239, 68, 68, 0.3);
-            border-color: rgba(239, 68, 68, 0.5);
-            color: #fee2e2;
         }
 
         /* Modern Navigation */
@@ -1146,10 +1055,6 @@
                     <div class="trust-badge">
                         <span>📊 Data-Driven</span>
                     </div>
-                </div>
-                <div class="user-section">
-                    <span class="user-info" id="userInfo">👤 Guest</span>
-                    <button class="logout-btn" onclick="logout()">Logout</button>
                 </div>
             </div>
         </div>
@@ -2134,8 +2039,12 @@
 
 
                 <div class="decision-matrix">
-                    <h3 class="card-title">Decision Scoring Matrix</h3>
-                    <table class="matrix-table">
+                    <h3 class="card-title">Interactive Decision Scoring Matrix</h3>
+                    <p style="margin-bottom: 1rem; font-size: 0.875rem; color: #64748b;">
+                        Adjust weights and scores to explore different scenarios. Scoring: 1 (Poor) to 5 (Excellent).
+                    </p>
+                    
+                    <table class="matrix-table" id="interactiveMatrix">
                         <thead>
                             <tr>
                                 <th>Factor</th>
@@ -2148,56 +2057,139 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr data-factor="implementation">
                                 <td>Implementation Speed</td>
-                                <td>20%</td>
-                                <td>5</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>2</td>
-                                <td>4</td>
+                                <td><input type="number" class="weight-input" value="20" min="0" max="100" step="5">%</td>
+                                <td><input type="number" class="score-input" data-approach="html" value="5" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="db" value="2" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="service" value="3" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="dual" value="2" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="model" value="4" min="1" max="5"></td>
                             </tr>
-                            <tr>
+                            <tr data-factor="risk">
                                 <td>Risk Level</td>
-                                <td>25%</td>
-                                <td>5</td>
-                                <td>1</td>
-                                <td>3</td>
-                                <td>4</td>
-                                <td>3</td>
+                                <td><input type="number" class="weight-input" value="25" min="0" max="100" step="5">%</td>
+                                <td><input type="number" class="score-input" data-approach="html" value="5" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="db" value="1" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="service" value="3" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="dual" value="4" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="model" value="3" min="1" max="5"></td>
                             </tr>
-                            <tr>
+                            <tr data-factor="viability">
                                 <td>Long-term Viability</td>
-                                <td>25%</td>
-                                <td>1</td>
-                                <td>5</td>
-                                <td>4</td>
-                                <td>5</td>
-                                <td>3</td>
+                                <td><input type="number" class="weight-input" value="25" min="0" max="100" step="5">%</td>
+                                <td><input type="number" class="score-input" data-approach="html" value="1" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="db" value="5" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="service" value="4" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="dual" value="5" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="model" value="3" min="1" max="5"></td>
                             </tr>
-                            <tr>
+                            <tr data-factor="maintenance">
                                 <td>Maintenance Effort</td>
-                                <td>15%</td>
-                                <td>2</td>
-                                <td>5</td>
-                                <td>4</td>
-                                <td>3</td>
-                                <td>3</td>
+                                <td><input type="number" class="weight-input" value="15" min="0" max="100" step="5">%</td>
+                                <td><input type="number" class="score-input" data-approach="html" value="2" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="db" value="5" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="service" value="4" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="dual" value="3" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="model" value="3" min="1" max="5"></td>
                             </tr>
-                            <tr>
+                            <tr data-factor="performance">
                                 <td>Performance</td>
-                                <td>15%</td>
-                                <td>2</td>
-                                <td>5</td>
-                                <td>4</td>
-                                <td>4</td>
-                                <td>4</td>
+                                <td><input type="number" class="weight-input" value="15" min="0" max="100" step="5">%</td>
+                                <td><input type="number" class="score-input" data-approach="html" value="2" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="db" value="5" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="service" value="4" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="dual" value="4" min="1" max="5"></td>
+                                <td><input type="number" class="score-input" data-approach="model" value="4" min="1" max="5"></td>
                             </tr>
                         </tbody>
                     </table>
-                    <p style="margin-top: 1rem; font-size: 0.875rem; color: #64748b;">
-                        Scoring: 1 (Poor) to 5 (Excellent). Higher weighted scores indicate better fit.
-                    </p>
+                    
+                    <div style="margin-top: 1rem; display: flex; align-items: center; gap: 1rem;">
+                        <button class="calculate-btn" onclick="calculateWinner()">Calculate Winner</button>
+                        <button class="reset-btn" onclick="resetMatrix()">Reset to Defaults</button>
+                        <span id="weightTotal" style="font-size: 0.875rem; color: #64748b;">Total Weight: 100%</span>
+                    </div>
+                    
+                    <div id="matrixResults" style="margin-top: 1.5rem; display: none;">
+                        <h4 style="margin-bottom: 0.5rem;">Results:</h4>
+                        <div id="resultsContent"></div>
+                    </div>
+                    
+                    <style>
+                        .weight-input, .score-input {
+                            width: 60px;
+                            padding: 0.25rem;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 4px;
+                            text-align: center;
+                            font-size: 0.875rem;
+                        }
+                        
+                        .weight-input {
+                            width: 50px;
+                        }
+                        
+                        .calculate-btn {
+                            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+                            color: white;
+                            border: none;
+                            padding: 0.5rem 1.5rem;
+                            border-radius: 6px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                        }
+                        
+                        .calculate-btn:hover {
+                            transform: translateY(-2px);
+                            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+                        }
+                        
+                        .reset-btn {
+                            background: #f3f4f6;
+                            color: #4b5563;
+                            border: 1px solid #d1d5db;
+                            padding: 0.5rem 1rem;
+                            border-radius: 6px;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                        }
+                        
+                        .reset-btn:hover {
+                            background: #e5e7eb;
+                        }
+                        
+                        .winner-card {
+                            background: linear-gradient(135deg, #10b981, #059669);
+                            color: white;
+                            padding: 1rem;
+                            border-radius: 8px;
+                            margin-bottom: 1rem;
+                        }
+                        
+                        .scores-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 0.5rem;
+                        }
+                        
+                        .scores-table th, .scores-table td {
+                            padding: 0.5rem;
+                            text-align: left;
+                            border-bottom: 1px solid #e5e7eb;
+                        }
+                        
+                        .scores-table th {
+                            background: #f9fafb;
+                            font-weight: 600;
+                        }
+                        
+                        .weight-warning {
+                            color: #ef4444;
+                            font-weight: 600;
+                        }
+                    </style>
                 </div>
             </section>
 
@@ -2758,25 +2750,6 @@
     <script>
         let currentSlide = 1;
         const totalSlides = 12; // Updated to include appendices
-
-        // Display logged in user
-        document.addEventListener('DOMContentLoaded', function() {
-            const username = localStorage.getItem('struts-user') || 'Guest';
-            const userInfo = document.getElementById('userInfo');
-            if (userInfo) {
-                userInfo.textContent = `👤 ${username}`;
-            }
-        });
-
-        // Logout function
-        function logout() {
-            if (confirm('Are you sure you want to logout?')) {
-                localStorage.removeItem('struts-auth');
-                localStorage.removeItem('struts-user');
-                localStorage.removeItem('struts-access-time');
-                window.location.href = 'index.html';
-            }
-        }
 
         function showSlide(n) {
             const slides = document.getElementsByClassName('slide');
@@ -3616,6 +3589,178 @@
         }
 
         // Timeline Logic Modal Functions
+        // Interactive Matrix Functions
+        function calculateWinner() {
+            const weights = Array.from(document.querySelectorAll('.weight-input')).map(input => parseFloat(input.value));
+            const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
+            
+            // Update weight total display
+            const weightTotalSpan = document.getElementById('weightTotal');
+            weightTotalSpan.textContent = `Total Weight: ${totalWeight}%`;
+            
+            if (Math.abs(totalWeight - 100) > 0.01) {
+                weightTotalSpan.classList.add('weight-warning');
+                alert('Warning: Weights must total 100%. Currently: ' + totalWeight + '%');
+                return;
+            }
+            weightTotalSpan.classList.remove('weight-warning');
+            
+            // Calculate weighted scores for each approach
+            const approaches = ['html', 'db', 'service', 'dual', 'model'];
+            const approachNames = {
+                'html': 'HTML Scraping',
+                'db': 'Direct Database',
+                'service': 'Service Layer Extraction',
+                'dual': 'Dual Runtime (Strangler Fig)',
+                'model': 'AI-Powered Model-Driven'
+            };
+            
+            const scores = {};
+            approaches.forEach(approach => {
+                scores[approach] = 0;
+            });
+            
+            // Get all rows
+            const rows = document.querySelectorAll('#interactiveMatrix tbody tr');
+            
+            rows.forEach((row, index) => {
+                const weight = weights[index] / 100;
+                approaches.forEach(approach => {
+                    const scoreInput = row.querySelector(`.score-input[data-approach="${approach}"]`);
+                    const score = parseFloat(scoreInput.value);
+                    scores[approach] += score * weight;
+                });
+            });
+            
+            // Find winner
+            let winner = null;
+            let maxScore = -1;
+            for (const [approach, score] of Object.entries(scores)) {
+                if (score > maxScore) {
+                    maxScore = score;
+                    winner = approach;
+                }
+            }
+            
+            // Display results
+            const resultsDiv = document.getElementById('matrixResults');
+            const resultsContent = document.getElementById('resultsContent');
+            
+            let resultsHTML = `
+                <div class="winner-card">
+                    <h3 style="margin: 0; font-size: 1.25rem;">🏆 Winner: ${approachNames[winner]}</h3>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 1rem;">Weighted Score: ${maxScore.toFixed(2)}/5.00</p>
+                </div>
+                
+                <table class="scores-table">
+                    <thead>
+                        <tr>
+                            <th>Approach</th>
+                            <th>Weighted Score</th>
+                            <th>Ranking</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            // Sort approaches by score
+            const sortedApproaches = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+            
+            sortedApproaches.forEach(([approach, score], index) => {
+                const isWinner = approach === winner;
+                resultsHTML += `
+                    <tr style="${isWinner ? 'background: #f0fdf4; font-weight: 600;' : ''}">
+                        <td>${approachNames[approach]}</td>
+                        <td>${score.toFixed(2)}</td>
+                        <td>#${index + 1}</td>
+                    </tr>
+                `;
+            });
+            
+            resultsHTML += `
+                    </tbody>
+                </table>
+                
+                <div style="margin-top: 1rem; padding: 1rem; background: #fef3c7; border: 1px solid #fbbf24; border-radius: 6px;">
+                    <h4 style="margin: 0 0 0.5rem 0; color: #92400e;">💡 Analysis</h4>
+                    <p style="margin: 0; color: #78350f; font-size: 0.875rem;">
+                        Based on your weighted criteria, <strong>${approachNames[winner]}</strong> is the optimal choice
+                        with a score of ${maxScore.toFixed(2)} out of 5.00. This approach best balances your priorities
+                        across the ${rows.length} evaluation factors.
+                    </p>
+                </div>
+            `;
+            
+            resultsContent.innerHTML = resultsHTML;
+            resultsDiv.style.display = 'block';
+        }
+        
+        function resetMatrix() {
+            // Reset weights
+            const weightInputs = document.querySelectorAll('.weight-input');
+            const defaultWeights = [20, 25, 25, 15, 15];
+            weightInputs.forEach((input, index) => {
+                input.value = defaultWeights[index];
+            });
+            
+            // Reset scores
+            const defaultScores = {
+                'implementation': { html: 5, db: 2, service: 3, dual: 2, model: 4 },
+                'risk': { html: 5, db: 1, service: 3, dual: 4, model: 3 },
+                'viability': { html: 1, db: 5, service: 4, dual: 5, model: 3 },
+                'maintenance': { html: 2, db: 5, service: 4, dual: 3, model: 3 },
+                'performance': { html: 2, db: 5, service: 4, dual: 4, model: 4 }
+            };
+            
+            const rows = document.querySelectorAll('#interactiveMatrix tbody tr');
+            rows.forEach(row => {
+                const factor = row.getAttribute('data-factor');
+                const scores = defaultScores[factor];
+                
+                Object.entries(scores).forEach(([approach, score]) => {
+                    const input = row.querySelector(`.score-input[data-approach="${approach}"]`);
+                    if (input) input.value = score;
+                });
+            });
+            
+            // Hide results
+            document.getElementById('matrixResults').style.display = 'none';
+            
+            // Reset weight total
+            document.getElementById('weightTotal').textContent = 'Total Weight: 100%';
+            document.getElementById('weightTotal').classList.remove('weight-warning');
+        }
+        
+        // Add input validation and live weight total update
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update weight total on input
+            const weightInputs = document.querySelectorAll('.weight-input');
+            weightInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    const weights = Array.from(weightInputs).map(input => parseFloat(input.value) || 0);
+                    const total = weights.reduce((sum, weight) => sum + weight, 0);
+                    const weightTotalSpan = document.getElementById('weightTotal');
+                    weightTotalSpan.textContent = `Total Weight: ${total}%`;
+                    
+                    if (Math.abs(total - 100) > 0.01) {
+                        weightTotalSpan.classList.add('weight-warning');
+                    } else {
+                        weightTotalSpan.classList.remove('weight-warning');
+                    }
+                });
+            });
+            
+            // Validate score inputs
+            const scoreInputs = document.querySelectorAll('.score-input');
+            scoreInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    const value = parseInt(this.value);
+                    if (value < 1) this.value = 1;
+                    if (value > 5) this.value = 5;
+                });
+            });
+        });
+        
         function showTimelineLogic(approach) {
             const timelineLogic = {
                 approach1: {
