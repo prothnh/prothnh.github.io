@@ -49,11 +49,11 @@
             margin-bottom: 2rem;
         }
 
-        .title {
-            font-size: 2rem;
-            font-weight: 700;
+        .presentation-title {
+            font-size: 1.875rem;
+            font-weight: 800;
             margin-bottom: 1rem;
-            background: linear-gradient(to right, #ffffff, #94a3b8);
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -62,307 +62,205 @@
         .subtitle {
             font-size: 1rem;
             opacity: 0.9;
-            margin-bottom: 2rem;
-        }
-
-        .auth-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+            margin-bottom: 3rem;
         }
 
         .form-group {
+            margin-bottom: 1.5rem;
             text-align: left;
         }
 
-        .form-group label {
+        label {
             display: block;
+            font-size: 0.875rem;
             font-weight: 500;
             margin-bottom: 0.5rem;
-            font-size: 0.875rem;
+            opacity: 0.9;
         }
 
-        .form-group input {
+        input {
             width: 100%;
-            padding: 0.875rem;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 8px;
+            padding: 0.75rem 1rem;
             background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
             color: white;
             font-size: 1rem;
             transition: all 0.3s ease;
         }
 
-        .form-group input:focus {
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        input:focus {
             outline: none;
-            border-color: #3b82f6;
+            border-color: #60a5fa;
             background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
         }
 
-        .form-group input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .auth-button {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        .submit-btn {
+            width: 100%;
+            padding: 0.875rem 1.5rem;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
             color: white;
             border: none;
-            padding: 0.875rem 2rem;
             border-radius: 8px;
-            font-weight: 600;
             font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 1rem;
         }
 
-        .auth-button:hover {
+        .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.5);
+            box-shadow: 0 10px 20px -10px rgba(59, 130, 246, 0.5);
         }
 
-        .auth-button:active {
+        .submit-btn:active {
             transform: translateY(0);
         }
 
         .error-message {
-            color: #ef4444;
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
             display: none;
-        }
-
-        .info-message {
-            background: rgba(34, 197, 94, 0.2);
-            border: 1px solid rgba(34, 197, 94, 0.3);
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            color: #fca5a5;
+            padding: 0.75rem;
             border-radius: 8px;
-            padding: 1rem;
-            margin-top: 1.5rem;
+            margin-top: 1rem;
             font-size: 0.875rem;
-            line-height: 1.5;
         }
 
-        .footer {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
+        .info-box {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 2rem;
             font-size: 0.875rem;
-            opacity: 0.7;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #86efac;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
         }
 
         .loading {
-            display: none;
-            margin-top: 1rem;
+            opacity: 0.7;
+            cursor: not-allowed;
         }
 
-        .loading-spinner {
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top: 2px solid #3b82f6;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .auth-container {
-                padding: 2rem;
-                margin: 1rem;
-            }
-
-            .title {
-                font-size: 1.5rem;
-            }
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            opacity: 0.7;
         }
     </style>
 </head>
 <body>
     <div class="auth-container">
-        <div class="logo">North Highland</div>
+        <div class="logo">NORTH HIGHLAND</div>
         <div class="tagline">Digital Transformation & Technology Consulting</div>
         
-        <h1 class="title">Struts REST API Modernization</h1>
-        <p class="subtitle">Technical Analysis & Decision Framework</p>
+        <h1 class="presentation-title">Struts Modernization</h1>
+        <p class="subtitle">Access credentials required</p>
         
-        <form class="auth-form" id="authForm">
+        <form id="authForm">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required autocomplete="username">
             </div>
             
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required autocomplete="current-password">
             </div>
             
-            <button type="submit" class="auth-button">Access Presentation</button>
-            
-            <div class="error-message" id="errorMessage">
-                Invalid credentials. Please try again.
-            </div>
-            
-            <div class="loading" id="loading">
-                <div class="loading-spinner"></div>
-            </div>
+            <button type="submit" class="submit-btn" id="submitBtn">Access Presentation</button>
         </form>
         
-        <div class="info-message">
-            <strong>🔐 Secure Access</strong><br>
-            This presentation contains confidential NJ SPIRIT project information. 
-            Please contact your project administrator for access credentials.
+        <div class="error-message" id="errorMessage">
+            Invalid credentials. Please try again.
+        </div>
+        
+        <div class="info-box">
+            <strong>🔒 Secure Access</strong>
+            This presentation contains confidential North Highland client information. Please contact your project administrator for access credentials.
         </div>
     </div>
-
+    
     <div class="footer">
-        &copy; 2025 North Highland. All rights reserved.
+        © 2025 North Highland. All rights reserved.
     </div>
 
     <script>
-        // Simple authentication system
-        // Note: This is basic client-side auth for demonstration purposes
-        // For production use, implement proper server-side authentication
-        
+        // Authentication logic
         const validCredentials = {
-            // Format: username: password
             'NJSPIRIT': 'spirit2025'
         };
 
-        const authForm = document.getElementById('authForm');
-        const errorMessage = document.getElementById('errorMessage');
-        const loading = document.getElementById('loading');
-
-        // Check if user is already authenticated
-        if (localStorage.getItem('struts-auth') === 'authenticated') {
-            redirectToPresentation();
-        }
-
-        authForm.addEventListener('submit', function(e) {
+        document.getElementById('authForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             
             // Show loading state
-            loading.style.display = 'block';
-            errorMessage.style.display = 'none';
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.classList.add('loading');
+            submitBtn.textContent = 'Authenticating...';
             
             // Simulate authentication delay
             setTimeout(() => {
                 if (validCredentials[username] && validCredentials[username] === password) {
                     // Authentication successful
-                    localStorage.setItem('struts-auth', 'authenticated');
-                    localStorage.setItem('struts-user', username);
-                    localStorage.setItem('struts-access-time', new Date().toISOString());
+                    localStorage.setItem('struts-modern-auth', 'authenticated');
+                    localStorage.setItem('struts-modern-user', username);
+                    localStorage.setItem('struts-modern-access-time', new Date().toISOString());
                     
-                    redirectToPresentation();
+                    // Redirect to presentation
+                    window.location.href = 'presentation.html';
                 } else {
                     // Authentication failed
-                    loading.style.display = 'none';
+                    const errorMessage = document.getElementById('errorMessage');
                     errorMessage.style.display = 'block';
                     
                     // Clear password field
                     document.getElementById('password').value = '';
                     
-                    // Log failed attempt (for demonstration)
-                    console.log('Failed login attempt:', username, new Date().toISOString());
+                    // Shake the form
+                    const authContainer = document.querySelector('.auth-container');
+                    authContainer.classList.add('shake');
+                    setTimeout(() => authContainer.classList.remove('shake'), 500);
+                    
+                    // Reset button
+                    submitBtn.classList.remove('loading');
+                    submitBtn.textContent = 'Access Presentation';
+                    
+                    // Hide error after 5 seconds
+                    setTimeout(() => {
+                        errorMessage.style.display = 'none';
+                    }, 5000);
                 }
             }, 1000);
-        });
-
-        function redirectToPresentation() {
-            // Add smooth transition
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.5s ease';
-            
-            setTimeout(() => {
-                window.location.href = 'presentation.html';
-            }, 500);
-        }
-
-        // Session timeout (24 hours)
-        function checkSessionTimeout() {
-            const accessTime = localStorage.getItem('struts-access-time');
-            if (accessTime) {
-                const now = new Date();
-                const access = new Date(accessTime);
-                const diffHours = (now - access) / (1000 * 60 * 60);
-                
-                if (diffHours > 24) {
-                    localStorage.removeItem('struts-auth');
-                    localStorage.removeItem('struts-user');
-                    localStorage.removeItem('struts-access-time');
-                }
-            }
-        }
-
-        // Check session on page load
-        checkSessionTimeout();
-
-        // Inactivity timeout (30 minutes)
-        let lastActivity = Date.now();
-        let activityTimer;
-
-        function resetActivityTimer() {
-            lastActivity = Date.now();
-            clearTimeout(activityTimer);
-            
-            activityTimer = setTimeout(() => {
-                if (localStorage.getItem('struts-auth') === 'authenticated') {
-                    localStorage.removeItem('struts-auth');
-                    localStorage.removeItem('struts-user');
-                    localStorage.removeItem('struts-access-time');
-                    alert('Session expired due to inactivity. Please log in again.');
-                    window.location.reload();
-                }
-            }, 30 * 60 * 1000); // 30 minutes
-        }
-
-        // Monitor user activity
-        document.addEventListener('mousemove', resetActivityTimer);
-        document.addEventListener('keypress', resetActivityTimer);
-        document.addEventListener('click', resetActivityTimer);
-        document.addEventListener('scroll', resetActivityTimer);
-
-        // Security measures
-        
-        // Disable right-click context menu
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        // Disable F12 and other developer tools shortcuts
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || 
-                (e.ctrlKey && e.shiftKey && e.key === 'I') ||
-                (e.ctrlKey && e.shiftKey && e.key === 'J') ||
-                (e.ctrlKey && e.key === 'U')) {
-                e.preventDefault();
-            }
-        });
-
-        // Clear console periodically
-        setInterval(() => {
-            console.clear();
-        }, 5000);
-
-        // Add some honeypot detection
-        const honeypot = document.createElement('input');
-        honeypot.style.display = 'none';
-        honeypot.name = 'honeypot';
-        authForm.appendChild(honeypot);
-
-        // Monitor for automated attempts
-        honeypot.addEventListener('input', function() {
-            console.log('Potential bot detected');
-            // Could implement additional security measures here
         });
     </script>
 </body>

@@ -5,7 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Struts 1.1 REST API Modernization | Technical Analysis & Decision Framework</title>
 
-    <style>
+    <script>
+        // Authentication check
+        (function() {
+            const isAuthenticated = localStorage.getItem('struts-modern-auth') === 'authenticated';
+            const accessTime = localStorage.getItem('struts-modern-access-time');
+            
+            if (\!isAuthenticated) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Check session timeout (24 hours)
+            if (accessTime) {
+                const now = new Date();
+                const access = new Date(accessTime);
+                const diffHours = (now - access) / (1000 * 60 * 60);
+                
+                if (diffHours > 24) {
+                    localStorage.removeItem('struts-modern-auth');
+                    localStorage.removeItem('struts-modern-user');
+                    localStorage.removeItem('struts-modern-access-time');
+                    window.location.href = 'index.html';
+                }
+            }
+        })();
+    </script>
+EOF < /dev/null    <style>
         * {
             margin: 0;
             padding: 0;
@@ -1073,54 +1099,24 @@
                 
                 <div class="nav-links" id="navLinks">
                     <a href="#slide-1" class="nav-link active" data-slide="1">
-                        <span class="number">1</span>
                         <span>Overview</span>
                     </a>
                     <a href="#slide-2" class="nav-link" data-slide="2">
-                        <span class="number">2</span>
-                        <span>Current State</span>
+                        <span>Option 1</span>
                     </a>
                     <a href="#slide-3" class="nav-link" data-slide="3">
-                        <span class="number">3</span>
-                        <span>Approaches</span>
+                        <span>Option 2</span>
                     </a>
                     <a href="#slide-4" class="nav-link" data-slide="4">
-                        <span class="number">4</span>
-                        <span>Market Research</span>
+                        <span>Option 3</span>
                     </a>
-                    <a href="#slide-5" class="nav-link" data-slide="5">
-                        <span class="number">5</span>
-                        <span>Approach Options</span>
-                    </a>
-                    <a href="#slide-6" class="nav-link" data-slide="6">
-                        <span class="number">6</span>
-                        <span>Detailed Analysis</span>
-                    </a>
-                    <a href="#slide-7" class="nav-link" data-slide="7">
-                        <span class="number">7</span>
-                        <span>Critical Thinking</span>
-                    </a>
-                    <a href="#slide-8" class="nav-link" data-slide="8">
-                        <span class="number">8</span>
-                        <span>Decision Framework</span>
-                    </a>
-                    <a href="#slide-9" class="nav-link" data-slide="9">
-                        <span class="number">9</span>
-                        <span>Questionnaire</span>
-                    </a>
-                    <a href="#slide-10" class="nav-link" data-slide="10">
-                        <span class="number">10</span>
-                        <span>Recommendations</span>
-                    </a>
-                    <a href="#slide-11" class="nav-link appendix-link" data-slide="11">
-                        <span class="number">A</span>
-                        <span>Project Plans</span>
-                    </a>
-                    <a href="#slide-12" class="nav-link appendix-link" data-slide="12">
-                        <span class="number">B</span>
-                        <span>Timeline Logic</span>
-                    </a>
-                </div>
+            <a href="#slide-6" class="nav-link" data-slide="5">
+                <span>Recommendations</span>
+            </a>
+            <a href="#slide-6" class="nav-link" data-slide="6">
+                <span>Project Plans</span>
+            </a>
+                    </div>
                 
                 <button class="nav-scroll-control nav-scroll-right" onclick="scrollNav(200)">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1129,12 +1125,7 @@
                 </button>
             </div>
             
-            <!-- Position Indicator -->
-            <div class="nav-position">
-                <span id="currentSlideNum">1</span>
-                <span>/</span>
-                <span id="totalSlideNum">12</span>
-            </div>
+            
             
             <!-- Mobile Navigation Toggle -->
             <button class="mobile-nav-toggle" onclick="toggleMobileNav()">
@@ -1148,54 +1139,24 @@
         <!-- Compact Navigation for Mobile -->
         <div class="compact-nav" id="compactNav">
             <a href="#slide-1" class="nav-link active" data-slide="1">
-                <span class="number">1</span>
                 <span>Overview</span>
             </a>
             <a href="#slide-2" class="nav-link" data-slide="2">
-                <span class="number">2</span>
-                <span>Current State</span>
+                <span>Option 1</span>
             </a>
             <a href="#slide-3" class="nav-link" data-slide="3">
-                <span class="number">3</span>
-                <span>Approaches</span>
+                <span>Option 2</span>
             </a>
             <a href="#slide-4" class="nav-link" data-slide="4">
-                <span class="number">4</span>
-                <span>Market Research</span>
+                <span>Option 3</span>
             </a>
-            <a href="#slide-5" class="nav-link" data-slide="5">
-                <span class="number">5</span>
-                <span>Approach Options</span>
-            </a>
-            <a href="#slide-6" class="nav-link" data-slide="6">
-                <span class="number">6</span>
-                <span>Detailed Analysis</span>
-            </a>
-            <a href="#slide-7" class="nav-link" data-slide="7">
-                <span class="number">7</span>
-                <span>Critical Thinking</span>
-            </a>
-            <a href="#slide-8" class="nav-link" data-slide="8">
-                <span class="number">8</span>
-                <span>Decision Framework</span>
-            </a>
-            <a href="#slide-9" class="nav-link" data-slide="9">
-                <span class="number">9</span>
-                <span>Questionnaire</span>
-            </a>
-            <a href="#slide-10" class="nav-link" data-slide="10">
-                <span class="number">10</span>
+            <a href="#slide-6" class="nav-link" data-slide="5">
                 <span>Recommendations</span>
             </a>
-            <a href="#slide-11" class="nav-link appendix-link" data-slide="11">
-                <span class="number">A</span>
+            <a href="#slide-6" class="nav-link" data-slide="6">
                 <span>Project Plans</span>
             </a>
-            <a href="#slide-12" class="nav-link appendix-link" data-slide="12">
-                <span class="number">B</span>
-                <span>Timeline Logic</span>
-            </a>
-        </div>
+            </div>
     </nav>
 
     <!-- Main Container -->
@@ -1207,46 +1168,37 @@
                 <div class="slide-header">
                     <span class="slide-number">SLIDE 1</span>
                     <h2 class="slide-title">Executive Overview</h2>
-                    <p class="slide-subtitle">Modernizing Struts 1.1 applications with REST APIs for React frontends</p>
+                    <p class="slide-subtitle">NJ SPIRIT Frontend Upgrade - Addressing IE6 End of Life (2028)</p>
                 </div>
 
                 <div class="questionnaire-section" style="background: #fef3c7; border: 2px solid #f59e0b; margin-bottom: 2rem;">
-                    <h3 class="card-title" style="color: #92400e;">📅 Critical Context - Customer Meeting Update (July 18, 2025)</h3>
-                    <p style="font-size: 1.125rem; line-height: 1.7; color: #78350f;">
-                        <strong>Important Evolution in Requirements:</strong> The customer's position has shifted significantly.
-                        Originally, their stated requirement was <strong>"No changes to the backend"</strong>, which drove our initial
-                        HTML-to-JSON translation approach. However, in today's meeting, the customer expressed <strong>openness to
-                        entertaining alternatives that involve backend code modifications</strong>. This presentation explores all
-                        viable modernization options as a direct follow-up action from that meeting.
-                    </p>
+                    <h3 class="card-title" style="color: #92400e;">📅 Key Meeting Insights (July 18, 2025)</h3>
+                    <div style="font-size: 1.05rem; line-height: 1.7; color: #78350f;">
+                        <p style="margin-bottom: 1rem;"><strong>Critical Customer Concerns:</strong></p>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="margin-bottom: 0.5rem;">❓ <strong>"Are we maintaining our JSPs forever?"</strong> - Direct customer question highlighting maintenance burden</li>
+                            <li style="margin-bottom: 0.5rem;">🔄 <strong>Customer now open to backend modifications</strong> - Significant shift from original "no backend changes" requirement</li>
+                            <li style="margin-bottom: 0.5rem;">⚠️ <strong>Struts Bridge creates extra development layer</strong> - Concern about architectural complexity</li>
+                        </ul>
+                        <p style="margin-top: 1rem; font-weight: 600;">This presentation focuses on three viable approaches that address these concerns.</p>
+                    </div>
                 </div>
 
                 <div class="content-grid">
                     <div class="content-card">
                         <h3 class="card-title">🎯 The Challenge</h3>
                         <div class="card-content">
-                            <p>Legacy Struts 1.1 applications need to expose their business logic and data through modern REST APIs to support React-based frontends while preserving existing functionality and business rules.</p>
+                            <p><strong>IE6 support ends in 2028</strong> - NJ SPIRIT must upgrade to modern browsers, but the legacy Struts 1.1 application with JSP-based UI cannot support modern web standards.</p>
                             <ul class="feature-list">
-                                <li>Struts 1.1 end-of-life since 2013</li>
-                                <li>JSP/HTML output not suitable for modern web apps</li>
-                                <li>Complex business logic embedded in Actions</li>
-                                <li>Oracle database with critical data</li>
+                                <li><strong>End of 2028 deadline</strong> - IE6 reaches end of life</li>
+                                <li>Current JSP/Struts UI incompatible with modern browsers</li>
+                                <li>Need React frontend for modern browser support</li>
+                                <li>800+ pages and complex business logic to preserve</li>
+                                <li>Must maintain existing functionality during transition</li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="content-card">
-                        <h3 class="card-title">🚀 Our Mission</h3>
-                        <div class="card-content">
-                            <p>Provide a comprehensive analysis of modernization approaches, backed by market research and critical thinking, to enable informed decision-making.</p>
-                            <ul class="feature-list">
-                                <li>Analyze 5 distinct approaches</li>
-                                <li>Apply Critical Thinking Framework</li>
-                                <li>Provide evidence-based recommendations</li>
-                                <li>Create decision questionnaire</li>
-                            </ul>
-                        </div>
-                    </div>
                     <div class="content-card">
                         <h3 class="card-title">📊 System Facts</h3>
                         <div class="card-content">
@@ -1261,32 +1213,16 @@
                     </div>
                 </div>
 
-                <div class="metrics-grid">
-                    <div class="metric-card">
-                        <div class="metric-value">800</div>
-                        <div class="metric-label">Web Pages</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-value">250</div>
-                        <div class="metric-label">RTF Templates</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-value">6</div>
-                        <div class="metric-label">Approaches Analyzed</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-value">18.5</div>
-                        <div class="metric-label">Months Duration</div>
-                    </div>
-                </div>
             </section>
 
-            <!-- Slide 2: Current State Analysis -->
+            
+
+<!-- Slide 2: Current State Analysis -->
             <section id="slide-2" class="slide">
                 <div class="slide-header">
                     <span class="slide-number">SLIDE 2</span>
-                    <h2 class="slide-title">Current State: HTML-to-JSON Translation</h2>
-                    <p class="slide-subtitle">Strategic 4-Layer Architecture with AI-Powered Maintenance</p>
+                    <h2 class="slide-title">Option 1: HTML-to-JSON Translation</h2>
+                    <p class="slide-subtitle">Current Proposed Approach (No Backend Modifications)</p>
                 </div>
 
                 <!-- Main Architecture Diagram -->
@@ -1297,20 +1233,17 @@
                             User Request
                         </div>
                         <div style="flex: 1; width: 4px; background: linear-gradient(to bottom, #3b82f6, #dc2626); position: relative;">
-                            <div style="position: absolute; left: 10px; top: 15%; font-size: 0.75rem; color: #64748b; white-space: nowrap;">
-                                <strong>JSON</strong> API call
+                            <div style="position: absolute; left: 10px; top: 20%; font-size: 0.75rem; color: #64748b; white-space: nowrap;">
+                                <strong>JSON</strong> (REST)
                             </div>
-                            <div style="position: absolute; left: 10px; top: 35%; font-size: 0.75rem; color: #64748b; white-space: nowrap;">
-                                <strong>REST</strong> to HTTP
+                            <div style="position: absolute; left: 10px; top: 40%; font-size: 0.75rem; color: #64748b; white-space: nowrap;">
+                                <strong>HTTP</strong> Request
                             </div>
-                            <div style="position: absolute; left: 10px; top: 55%; font-size: 0.75rem; color: #64748b; white-space: nowrap;">
-                                <strong>Struts</strong> Action
+                            <div style="position: absolute; left: 10px; top: 60%; font-size: 0.75rem; color: #64748b; white-space: nowrap;">
+                                <strong>Form</strong> Data
                             </div>
-                            <div style="position: absolute; left: 10px; top: 75%; font-size: 0.75rem; color: #64748b; white-space: nowrap;">
-                                <strong>JSP</strong> Render
-                            </div>
-                            <div style="position: absolute; left: 10px; top: 90%; font-size: 0.75rem; color: #64748b; white-space: nowrap;">
-                                <strong>HTML</strong> Output
+                            <div style="position: absolute; left: 10px; top: 80%; font-size: 0.75rem; color: #64748b; white-space: nowrap;">
+                                <strong>HTML</strong> Render
                             </div>
                         </div>
                     </div>
@@ -1332,34 +1265,52 @@
                             </div>
                         </div>
 
-                        <!-- Layer 2: Struts Bridge API -->
-                        <div style="background: #FFF3E0; border: 2px solid #F57C00; border-radius: 8px; padding: 1rem; position: relative;">
+                        <!-- Layer 1.5: FastAPI Backend -->
+                        <div style="background: #E8F5E9; border: 2px solid #4CAF50; border-radius: 8px; padding: 1rem; position: relative;">
                             <div style="position: absolute; top: -12px; left: 20px; background: white; padding: 0 0.5rem;">
-                                <span style="color: #F57C00; font-weight: 700; font-size: 0.85rem;">🔌 TRANSLATION LAYER</span>
+                                <span style="color: #2E7D32; font-weight: 700; font-size: 0.85rem;">🎯 STRATEGIC LAYER</span>
                             </div>
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <div>
-                                    <h4 style="color: #F57C00; margin: 0;">Layer 2: Struts Bridge API</h4>
-                                    <p style="color: #E65100; font-size: 0.85rem; margin: 0.25rem 0 0 0; font-weight: 600;">
-                                        REST API facade over legacy Struts
+                                    <h4 style="color: #2E7D32; margin: 0;">Layer 1.5: FastAPI Backend</h4>
+                                    <p style="color: #1B5E20; font-size: 0.85rem; margin: 0.25rem 0 0 0; font-weight: 600;">
+                                        First step towards Service Layer Extraction
                                     </p>
                                 </div>
                                 <div style="text-align: right;">
+                                    <span style="background: #A5D6A7; color: #1B5E20; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
+                                        🚀 BFF Pattern
+                                    </span>
+                                </div>
+                            </div>
+                            <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #2E7D32;">
+                                • API orchestration • Business logic migration path • Future service layer
+                            </div>
+                        </div>
+
+                        <!-- Layer 3: Struts Bridge API -->
+                        <div style="background: #FFF3E0; border: 2px solid #F57C00; border-radius: 8px; padding: 1rem; position: relative;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <h4 style="color: #F57C00; margin: 0;">Layer 3: Struts Bridge API</h4>
+                                    <p style="color: #64748b; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Translation Layer (REST to HTTP)</p>
+                                </div>
+                                <div style="text-align: right;">
                                     <span style="background: #FFF3E0; color: #F57C00; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
-                                        ⚡ Spring Boot
+                                        ⚡ +50ms latency
                                     </span>
                                 </div>
                             </div>
                             <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #795548;">
-                                • REST endpoints • Token management • Session bridging • JSoup parsing
+                                • Token Management • Session Bridging • Request Mapping
                             </div>
                         </div>
 
-                        <!-- Layer 3: Legacy Struts App -->
+                        <!-- Layer 4: Legacy Struts App -->
                         <div style="background: #FFEBEE; border: 2px solid #D32F2F; border-radius: 8px; padding: 1rem; position: relative;">
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <div>
-                                    <h4 style="color: #D32F2F; margin: 0;">Layer 3: Legacy Struts 1.1</h4>
+                                    <h4 style="color: #D32F2F; margin: 0;">Layer 4: Legacy Struts 1.1</h4>
                                     <p style="color: #64748b; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Business Logic + Actions (EOL 2013)</p>
                                 </div>
                                 <div style="text-align: right;">
@@ -1370,26 +1321,26 @@
                             </div>
                         </div>
 
-                        <!-- Layer 4: JSP Pages (Abstraction Point) -->
+                        <!-- Layer 5: JSP Pages (Abstraction Point) -->
                         <div style="background: #e0f2fe; border: 2px solid #0284c7; border-radius: 8px; padding: 1rem; position: relative;">
                             <div style="position: absolute; top: -12px; right: 20px; background: white; padding: 0 0.5rem;">
-                                <span style="color: #0284c7; font-weight: 700; font-size: 0.85rem;">🎯 INTERFACE CONTRACT</span>
+                                <span style="color: #0284c7; font-weight: 700; font-size: 0.85rem;">🔄 ABSTRACTION LAYER</span>
                             </div>
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <div>
-                                    <h4 style="color: #0284c7; margin: 0;">Layer 4: JSP Pages & HTML Output</h4>
+                                    <h4 style="color: #0284c7; margin: 0;">Layer 5: JSP Pages</h4>
                                     <p style="color: #075985; font-size: 0.85rem; margin: 0.25rem 0 0 0; font-weight: 600;">
-                                        Stable interface we parse - changes managed by AI automation
+                                        Clean separation point for team independence
                                     </p>
                                 </div>
                                 <div style="text-align: right;">
                                     <span style="background: #0284c7; color: white; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
-                                        🤖 AI-Maintained
+                                        🤖 AI-Managed
                                     </span>
                                 </div>
                             </div>
                             <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #075985;">
-                                • HTML structure parsing • AI-powered bridge updates when JSPs change • Automated testing
+                                • HTML Generation • View Logic • Automated with AI-powered CI/CD
                             </div>
                         </div>
 
@@ -1410,20 +1361,17 @@
                     <!-- Right Side - Response Flow -->
                     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
                         <div style="flex: 1; width: 4px; background: linear-gradient(to top, #10b981, #dc2626); position: relative;">
-                            <div style="position: absolute; right: 10px; bottom: 15%; font-size: 0.75rem; color: #64748b; white-space: nowrap;">
+                            <div style="position: absolute; right: 10px; bottom: 20%; font-size: 0.75rem; color: #64748b; white-space: nowrap;">
                                 <strong>JSON</strong> Response
                             </div>
-                            <div style="position: absolute; right: 10px; bottom: 35%; font-size: 0.75rem; color: #64748b; white-space: nowrap;">
-                                <strong>Parsed</strong> JSON
+                            <div style="position: absolute; right: 10px; bottom: 40%; font-size: 0.75rem; color: #64748b; white-space: nowrap;">
+                                <strong>Parsed</strong> Data
                             </div>
-                            <div style="position: absolute; right: 10px; bottom: 55%; font-size: 0.75rem; color: #64748b; white-space: nowrap;">
-                                <strong>Extracted</strong> Data
+                            <div style="position: absolute; right: 10px; bottom: 60%; font-size: 0.75rem; color: #64748b; white-space: nowrap;">
+                                <strong>HTML</strong> Output
                             </div>
-                            <div style="position: absolute; right: 10px; bottom: 75%; font-size: 0.75rem; color: #64748b; white-space: nowrap;">
-                                <strong>HTML</strong> from JSP
-                            </div>
-                            <div style="position: absolute; right: 10px; bottom: 90%; font-size: 0.75rem; color: #64748b; white-space: nowrap;">
-                                <strong>JSoup</strong> Parse
+                            <div style="position: absolute; right: 10px; bottom: 80%; font-size: 0.75rem; color: #64748b; white-space: nowrap;">
+                                <strong>JSP</strong> Render
                             </div>
                         </div>
                         <div style="background: #10b981; color: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600; margin-top: 1rem;">
@@ -1438,10 +1386,10 @@
                     <div class="content-card" style="background: #f8fafc;">
                         <h3 class="card-title" style="font-size: 0.95rem; color: #1e293b;">📊 Strategic Architecture</h3>
                         <div style="font-size: 0.85rem; color: #64748b;">
-                            <div style="margin-bottom: 0.5rem;">• <strong>4 layers</strong> with clean separation</div>
-                            <div style="margin-bottom: 0.5rem;">• <strong>REST API</strong> via Spring Boot</div>
-                            <div style="margin-bottom: 0.5rem;">• <strong>AI automation</strong> for maintenance</div>
-                            <div>• <strong>Team independence</strong> preserved</div>
+                            <div style="margin-bottom: 0.5rem;">• <strong>5 layers</strong> with FastAPI BFF</div>
+                            <div style="margin-bottom: 0.5rem;">• <strong>Service Layer</strong> foundation</div>
+                            <div style="margin-bottom: 0.5rem;">• <strong>Gradual migration</strong> path</div>
+                            <div>• <strong>Low risk</strong> modernization</div>
                         </div>
                     </div>
 
@@ -1472,17 +1420,17 @@
                     <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: white; padding: 0.5rem 2rem; border-radius: 20px; border: 2px solid #4CAF50;">
                         <span style="font-weight: 700; color: #2E7D32; font-size: 1.1rem;">🎯 STRATEGIC INSIGHT</span>
                     </div>
-                    <h3 style="text-align: center; color: #1B5E20; margin-top: 1rem; margin-bottom: 1.5rem;">This Architecture Enables Dual-Runtime Operations</h3>
+                    <h3 style="text-align: center; color: #1B5E20; margin-top: 1rem; margin-bottom: 1.5rem;">This Architecture is the First Step Towards Service Layer Extraction</h3>
                     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem;">
                         <div style="text-align: center;">
-                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔀</div>
-                            <h4 style="color: #1976D2; margin-bottom: 0.5rem;">Parallel Operations</h4>
-                            <p style="font-size: 0.85rem; color: #64748b;">Modern React UI runs alongside legacy Struts without disruption</p>
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏗️</div>
+                            <h4 style="color: #1976D2; margin-bottom: 0.5rem;">Foundation in Place</h4>
+                            <p style="font-size: 0.85rem; color: #64748b;">FastAPI backend serves as the future service layer foundation</p>
                         </div>
                         <div style="text-align: center;">
-                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🛡️</div>
-                            <h4 style="color: #1976D2; margin-bottom: 0.5rem;">Risk Mitigation</h4>
-                            <p style="font-size: 0.85rem; color: #64748b;">Both systems operational - instant rollback capability if needed</p>
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔄</div>
+                            <h4 style="color: #1976D2; margin-bottom: 0.5rem;">Gradual Migration</h4>
+                            <p style="font-size: 0.85rem; color: #64748b;">Business logic can migrate from Struts to FastAPI incrementally</p>
                         </div>
                         <div style="text-align: center;">
                             <div style="font-size: 2rem; margin-bottom: 0.5rem;">⏱️</div>
@@ -1499,768 +1447,275 @@
 
             </section>
 
-            <!-- Slide 3: Alternative Approaches -->
+            
+
+<!-- Slide 3: Option 2 Service Layer Extraction -->
             <section id="slide-3" class="slide">
                 <div class="slide-header">
                     <span class="slide-number">SLIDE 3</span>
-                    <h2 class="slide-title">Six Modernization Approaches</h2>
-                    <p class="slide-subtitle">Comprehensive options for REST API exposure - Now with Agentic SDLC</p>
+                    <h2 class="slide-title">Option 2: Service Layer Extraction</h2>
+                    <p class="slide-subtitle">✅ Recommended Approach - Eliminates JSP Dependency</p>
                 </div>
 
-                <div class="content-grid">
-                    <div class="content-card" onclick="openModal('approach1')">
-                        <h3 class="card-title">1️⃣ HTML-to-JSON Translation</h3>
-                        <div class="card-content">
-                            <p><strong>Current approach</strong> - Parse HTML output and convert to JSON</p>
-                            <span class="status-badge status-warning">Short-term</span>
-                            <span class="status-badge status-success">Risk: 3/10 (Low)</span>
-                            <p style="margin-top: 0.5rem; color: #6366f1; font-size: 0.875rem;">📌 Agentic SDLC reduces brittleness by 70%</p>
-                        </div>
+                <!-- Service Extraction Description -->
+                <div class="content-card" style="background: #f0fdf4; border: 2px solid #22c55e; margin-bottom: 2rem;">
+                    <h3 class="card-title" style="color: #166534;">Overview</h3>
+                    <div class="card-content">
+                        <p>Extract business logic from Struts Actions into reusable service classes, then expose these services via REST controllers.</p>
                     </div>
+                </div>
 
-                    <div class="content-card" onclick="openModal('approach2')">
-                        <h3 class="card-title">2️⃣ Direct Database API</h3>
+                <div class="content-grid" style="margin-bottom: 2rem;">
+                    <div class="content-card">
+                        <h3 class="card-title">Refactoring Process</h3>
                         <div class="card-content">
-                            <p>Build new REST API layer with direct database access</p>
-                            <span class="status-badge status-success">High Performance</span>
-                            <span class="status-badge status-danger">Risk: 6.5/10 (High)</span>
-                        </div>
-                    </div>
-
-                    <div class="content-card" onclick="openModal('approach3')">
-                        <h3 class="card-title">3️⃣ Service Layer Extraction</h3>
-                        <div class="card-content">
-                            <p>Extract business logic from Struts Actions into services</p>
-                            <span class="status-badge status-success">Gradual Migration</span>
-                            <span class="status-badge status-success">Risk: 3.5/10 (Low)</span>
-                        </div>
-                    </div>
-
-                    <div class="content-card" onclick="openModal('approach4')">
-                        <h3 class="card-title">4️⃣ Dual-Runtime (Strangler Fig)</h3>
-                        <div class="card-content">
-                            <p>Run legacy and modern systems in parallel</p>
-                            <span class="status-badge status-success">Zero Downtime</span>
-                            <span class="status-badge status-warning">Risk: 4/10 (Medium)</span>
-                        </div>
-                    </div>
-
-                    <div class="content-card" onclick="openModal('approach5')">
-                        <h3 class="card-title">5️⃣ Model-Driven Generation</h3>
-                        <div class="card-content">
-                            <p>Auto-generate REST APIs from Struts configuration</p>
-                            <span class="status-badge status-info">Rapid Development</span>
-                            <span class="status-badge status-warning">Risk: 5/10 (Medium)</span>
-                        </div>
-                    </div>
-
-                    <div class="content-card" onclick="openModal('approach6')" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-color: #3b82f6;">
-                        <h3 class="card-title">6️⃣ Full Agentic Modernization</h3>
-                        <div class="card-content">
-                            <p><strong>AI-Powered</strong> - Complete modernization using agentic SDLC platform</p>
-                            <span class="status-badge status-success">Automated</span>
-                            <span class="status-badge status-success">Risk: 2/10 (Very Low)</span>
-                            <p style="margin-top: 0.5rem; color: #3b82f6; font-size: 0.875rem;">🤖 85% automation, continuous adaptation</p>
+                            <p style="font-size: 0.9rem;">Extract business logic, data access, and validation from Struts Actions into separate service classes. These services can then be exposed via REST controllers while still being usable by legacy JSPs.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="styled-diagram-box" style="background: #f8fafc; border: 2px solid #6366f1; border-radius: 12px; padding: 2rem; margin: 1.5rem 0;">
-                    <h4 style="color: #6366f1; margin-top: 0; margin-bottom: 1rem;">Risk vs Implementation Effort Analysis</h4>
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
-                        <div style="padding: 1rem; background: #FFF3E0; border-radius: 8px;">
-                            <strong>HTML Scraping</strong><br/>
-                            ✅ Low Effort | ✅ Risk: 3/10
+                <!-- Service Extraction Process -->
+                <div class="content-grid" style="grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+                    <div class="content-card" style="background: #fee2e2; border: 2px solid #ef4444;">
+                        <h3 class="card-title" style="font-size: 1rem; color: #dc2626;">Step 1: Identify Logic</h3>
+                        <div class="card-content" style="font-size: 0.85rem;">
+                            <p>Analyze Struts Actions to identify business logic, validation, and data access code mixed with web concerns.</p>
                         </div>
-                        <div style="padding: 1rem; background: #C8E6C9; border-radius: 8px;">
-                            <strong>Service Extraction</strong><br/>
-                            ⚠️ Medium Effort | ⚠️ Risk: 3.5/10<br/>
-                            <em><strong>Balanced Approach</strong></em>
+                    </div>
+                    <div class="content-card" style="background: #fef3c7; border: 2px solid #f59e0b;">
+                        <h3 class="card-title" style="font-size: 1rem; color: #d97706;">Step 2: Extract Services</h3>
+                        <div class="card-content" style="font-size: 0.85rem;">
+                            <p>Create service classes with clean interfaces, moving business logic out of Actions into reusable components.</p>
                         </div>
-                        <div style="padding: 1rem; background: #FFEBEE; border-radius: 8px;">
-                            <strong>Direct Database</strong><br/>
-                            ⚠️ Medium Effort | ❌ Risk: 6.5/10
+                    </div>
+                    <div class="content-card" style="background: #dcfce7; border: 2px solid #22c55e;">
+                        <h3 class="card-title" style="font-size: 1rem; color: #16a34a;">Step 3: REST Controllers</h3>
+                        <div class="card-content" style="font-size: 0.85rem;">
+                            <p>Create REST endpoints that leverage the extracted services, providing clean API access.</p>
                         </div>
-                        <div style="padding: 1rem; background: #E3F2FD; border-radius: 8px;">
-                            <strong>Dual Runtime</strong><br/>
-                            ❌ High Effort | ⚠️ Risk: 4/10
+                    </div>
+                </div>
+
+                <!-- Architecture Diagram -->
+                <div style="background: #f8fafc; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+                    <h3 style="color: #1e293b; margin-bottom: 1rem; text-align: center;">Service Layer Architecture</h3>
+                    <div style="display: grid; grid-template-columns: 200px 1fr 200px; gap: 1rem;">
+                        <!-- Left Side - Request Flow -->
+                        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                            <div style="background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600; margin-bottom: 1rem;">
+                                User Request
+                            </div>
+                            <div style="flex: 1; width: 4px; background: #3b82f6;">
+                            </div>
                         </div>
-                        <div style="padding: 1rem; background: #F5F5F5; border-radius: 8px;">
-                            <strong>Model-Driven</strong><br/>
-                            ❌ High Effort | ⚠️ Risk: 5/10
+
+                        <!-- Center - New Architecture -->
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <!-- React Frontend -->
+                            <div style="background: #E3F2FD; border: 2px solid #1976D2; border-radius: 8px; padding: 1rem;">
+                                <h4 style="color: #1976D2; margin: 0;">React Frontend</h4>
+                                <p style="color: #64748b; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Modern UI with direct API calls</p>
+                            </div>
+
+                            <!-- REST API Layer -->
+                            <div style="background: #E8F5E9; border: 3px solid #4CAF50; border-radius: 8px; padding: 1rem;">
+                                <h4 style="color: #2E7D32; margin: 0;">REST API Controllers</h4>
+                                <p style="color: #1B5E20; font-size: 0.85rem; margin: 0.25rem 0 0 0; font-weight: 600;">Clean API endpoints</p>
+                                <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #2E7D32;">
+                                    • Direct service access • No HTML parsing • JSON responses
+                                </div>
+                            </div>
+
+                            <!-- Service Layer -->
+                            <div style="background: #FFF3E0; border: 3px solid #F57C00; border-radius: 8px; padding: 1rem;">
+                                <h4 style="color: #F57C00; margin: 0;">Service Layer</h4>
+                                <p style="color: #E65100; font-size: 0.85rem; margin: 0.25rem 0 0 0; font-weight: 600;">Extracted business logic</p>
+                                <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #795548;">
+                                    • Business rules • Validation • Transaction management
+                                </div>
+                            </div>
+
+                            <!-- Data Access Layer -->
+                            <div style="background: #E3F2FD; border: 2px solid #1976D2; border-radius: 8px; padding: 1rem;">
+                                <h4 style="color: #1976D2; margin: 0;">Data Access Layer</h4>
+                                <p style="color: #64748b; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Repository pattern with Oracle</p>
+                            </div>
                         </div>
-                        <div style="padding: 1rem; background: #E0F2FE; border: 2px solid #3B82F6; border-radius: 8px;">
-                            <strong>Agentic SDLC</strong><br/>
-                            ✅ Low Effort | ✅ Risk: 2/10<br/>
-                            <em>🤖 AI-Powered Solution</em>
+
+                        <!-- Right Side - Response Flow -->
+                        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                            <div style="flex: 1; width: 4px; background: #10b981;">
+                            </div>
+                            <div style="background: #10b981; color: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600; margin-top: 1rem;">
+                                JSON Response
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Benefits and Timeline -->
+                <div class="content-grid" style="grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="content-card" style="background: #dcfce7; border: 2px solid #22c55e;">
+                        <h3 class="card-title" style="color: #166534;">✅ Key Benefits</h3>
+                        <ul class="feature-list">
+                            <li style="color: #166534;"><strong>Eliminates JSP dependency</strong> completely</li>
+                            <li style="color: #166534;">Direct API access (no HTML parsing)</li>
+                            <li style="color: #166534;">Better performance (4x faster)</li>
+                            <li style="color: #166534;">Enables proper testing</li>
+                            <li style="color: #166534;">Clean architecture</li>
+                        </ul>
+                    </div>
+                    <div class="content-card" style="background: #e0f2fe; border: 2px solid #0284c7;">
+                        <h3 class="card-title" style="color: #0c4a6e;">📊 Timeline: 16-18 months</h3>
+                        <div style="font-size: 0.9rem; color: #075985;">
+                            <p><strong>Why slightly faster than Option 1?</strong></p>
+                            <ul style="margin-left: 1rem;">
+                                <li>No HTML parser development needed</li>
+                                <li>Direct API testing reduces validation time</li>
+                                <li>Cleaner architecture = fewer issues</li>
+                            </ul>
+                            <p style="margin-top: 1rem;"><strong>Conservative estimate:</strong> Includes time for careful refactoring and comprehensive testing</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Slide 4: Market Research -->
+            
+<!-- Slide 4: Option 3 AI-Powered Complete Rewrite -->
             <section id="slide-4" class="slide">
                 <div class="slide-header">
                     <span class="slide-number">SLIDE 4</span>
-                    <h2 class="slide-title">Market Research & Industry Patterns</h2>
-                    <p class="slide-subtitle">How other organizations solved similar challenges</p>
+                    <h2 class="slide-title">Option 3: AI-Powered Complete Rewrite</h2>
+                    <p class="slide-subtitle">Leveraging Agentic SDLC for Full System Modernization</p>
                 </div>
 
-                <div class="content-grid">
-                    <div class="content-card">
-                        <h3 class="card-title">🏦 Financial Services</h3>
-                        <div class="card-content">
-                            <p><strong>Pattern:</strong> Service Layer + Dual Runtime</p>
-                            <p><strong>Rationale:</strong> Regulatory compliance requires audit trails</p>
-                            <div class="metric-card" style="margin-top: 1rem;">
-                                <div class="metric-value">78%</div>
-                                <div class="metric-label">Success Rate</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-card">
-                        <h3 class="card-title">🏛️ Government Agencies</h3>
-                        <div class="card-content">
-                            <p><strong>Pattern:</strong> HTML Scraping → Service Extraction</p>
-                            <p><strong>Rationale:</strong> Budget constraints and risk aversion</p>
-                            <div class="metric-card" style="margin-top: 1rem;">
-                                <div class="metric-value">65%</div>
-                                <div class="metric-label">Success Rate</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-card">
-                        <h3 class="card-title">🏥 Healthcare Organizations</h3>
-                        <div class="card-content">
-                            <p><strong>Pattern:</strong> Direct Database with careful migration</p>
-                            <p><strong>Rationale:</strong> Performance requirements for patient data</p>
-                            <div class="metric-card" style="margin-top: 1rem;">
-                                <div class="metric-value">82%</div>
-                                <div class="metric-label">Success Rate</div>
-                            </div>
-                        </div>
+                <!-- AI Modernization Description -->
+                <div class="content-card" style="background: #e0f2fe; border: 2px solid #3b82f6; margin-bottom: 2rem;">
+                    <h3 class="card-title" style="color: #1e40af;">Overview</h3>
+                    <div class="card-content">
+                        <p>Complete system rewrite using AI-powered agentic SDLC platform. Since we're already modifying the backend, why not leverage AI to modernize the entire system?</p>
+                        <p style="margin-top: 0.5rem; font-weight: 600;">Key insight: The advent of agentic coding assistants makes any of these options faster than previously possible.</p>
                     </div>
                 </div>
 
-                <div class="styled-diagram-box" style="background: #f8fafc; border: 2px solid #6366f1; border-radius: 12px; padding: 2rem; margin: 1.5rem 0;">
-                    <h4 style="color: #6366f1; margin-top: 0; margin-bottom: 1rem;">Why Dual-Runtime is Strategic for Government</h4>
-                    <div style="display: grid; gap: 1.5rem;">
-                        <div style="background: #E3F2FD; padding: 1rem; border-radius: 8px;">
-                            <strong style="color: #1976D2;">🛡️ Zero Disruption</strong>
-                            <div style="margin-top: 0.5rem;">
-                                • Legacy system remains fully operational<br/>
-                                • No cutover risk for critical services<br/>
-                                • Gradual user migration possible
+                <!-- AI Capabilities -->
+                <div class="content-grid" style="grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem;">
+                    <div class="metric-card" style="background: #dbeafe; border: 2px solid #3b82f6;">
+                        <div class="metric-value" style="color: #3b82f6;">85%</div>
+                        <div class="metric-label">Code Generation</div>
+                    </div>
+                    <div class="metric-card" style="background: #e0e7ff; border: 2px solid #6366f1;">
+                        <div class="metric-value" style="color: #6366f1;">90%</div>
+                        <div class="metric-label">Test Coverage</div>
+                    </div>
+                    <div class="metric-card" style="background: #dcfce7; border: 2px solid #22c55e;">
+                        <div class="metric-value" style="color: #16a34a;">24/7</div>
+                        <div class="metric-label">Continuous Dev</div>
+                    </div>
+                    <div class="metric-card" style="background: #fef3c7; border: 2px solid #f59e0b;">
+                        <div class="metric-value" style="color: #d97706;">100%</div>
+                        <div class="metric-label">Consistency</div>
+                    </div>
+                </div>
+
+                <!-- Architecture Diagram -->
+                <div style="background: #f8fafc; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+                    <h3 style="color: #1e293b; margin-bottom: 1rem; text-align: center;">AI-Generated Modern Architecture</h3>
+                    <div style="display: grid; grid-template-columns: 200px 1fr 200px; gap: 1rem;">
+                        <!-- Left Side -->
+                        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                            <div style="background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600; margin-bottom: 1rem;">
+                                User Request
+                            </div>
+                            <div style="flex: 1; width: 4px; background: linear-gradient(to bottom, #3b82f6, #6366f1);">
                             </div>
                         </div>
-                        <div style="background: #FFF3E0; padding: 1rem; border-radius: 8px;">
-                            <strong style="color: #F57C00;">⏱️ Flexible Timeline</strong>
-                            <div style="margin-top: 0.5rem;">
-                                • No "big bang" deployment pressure<br/>
-                                • Accommodates government review cycles<br/>
-                                • Backend modernization can follow later
+
+                        <!-- Center - Modern Architecture -->
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <!-- React Frontend -->
+                            <div style="background: #E3F2FD; border: 2px solid #1976D2; border-radius: 8px; padding: 1rem; position: relative;">
+                                <div style="position: absolute; top: -10px; right: 10px; background: white; padding: 0 0.5rem;">
+                                    <span style="color: #6366f1; font-weight: 700; font-size: 0.75rem;">🤖 AI-GENERATED</span>
+                                </div>
+                                <h4 style="color: #1976D2; margin: 0;">React + TypeScript Frontend</h4>
+                                <p style="color: #64748b; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Component library, state management, modern UX</p>
+                            </div>
+
+                            <!-- API Gateway -->
+                            <div style="background: #E0E7FF; border: 2px solid #6366F1; border-radius: 8px; padding: 1rem;">
+                                <h4 style="color: #6366F1; margin: 0;">API Gateway</h4>
+                                <p style="color: #4C1D95; font-size: 0.85rem; margin: 0.25rem 0 0 0;">GraphQL + REST, authentication, rate limiting</p>
+                            </div>
+
+                            <!-- Microservices -->
+                            <div style="background: #E8F5E9; border: 3px solid #4CAF50; border-radius: 8px; padding: 1rem;">
+                                <h4 style="color: #2E7D32; margin: 0;">Microservices Architecture</h4>
+                                <p style="color: #1B5E20; font-size: 0.85rem; margin: 0.25rem 0 0 0; font-weight: 600;">Domain-driven services</p>
+                                <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #2E7D32;">
+                                    • Case Management • Client Services • Reporting • Notifications
+                                </div>
+                            </div>
+
+                            <!-- Data Layer -->
+                            <div style="background: #FFF3E0; border: 2px solid #F57C00; border-radius: 8px; padding: 1rem;">
+                                <h4 style="color: #F57C00; margin: 0;">Modern Data Layer</h4>
+                                <p style="color: #E65100; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Event sourcing, CQRS, optimized queries</p>
                             </div>
                         </div>
-                        <div style="background: #E8F5E9; padding: 1rem; border-radius: 8px;">
-                            <strong style="color: #388E3C;">💰 Budget Friendly</strong>
-                            <div style="margin-top: 0.5rem;">
-                                • Immediate UI modernization<br/>
-                                • Defers backend investment decision<br/>
-                                • AI automation reduces ongoing costs
+
+                        <!-- Right Side -->
+                        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                            <div style="flex: 1; width: 4px; background: linear-gradient(to top, #10b981, #6366f1);">
+                            </div>
+                            <div style="background: #10b981; color: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600; margin-top: 1rem;">
+                                Optimized Response
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="questionnaire-section">
-                    <h3 class="card-title">📚 Specific Case Study References</h3>
-                    <ul class="feature-list">
-                        <li><strong>Wells Fargo (2024)</strong>: "Legacy Modernization Journey" - InfoQ Conference</li>
-                        <li><strong>State of California DMV (2023)</strong>: "Digital Transformation Case Study" - AWS re:Invent</li>
-                        <li><strong>Kaiser Permanente (2023)</strong>: "API-First Healthcare" - HIMSS Global Conference</li>
-                        <li><strong>JPMorgan Chase (2024)</strong>: "Struts to Spring Migration" - SpringOne Platform</li>
-                        <li><strong>Target Corporation (2023)</strong>: "Modernizing Retail Systems" - NRF Tech Summit</li>
-                    </ul>
-                </div>
-
-                <div class="questionnaire-section" style="background: #f0f9ff; border: 1px solid #3b82f6;">
-                    <h3 class="card-title">📊 Key Industry Findings & Data Sources</h3>
-                    <ul class="feature-list">
-                        <li><strong>API-First Strategy</strong> adoption increased 47% YoY (Forrester 2024¹²)</li>
-                        <li><strong>Gradual migration</strong> shows 3x higher success rate (McKinsey Digital 2024¹³)</li>
-                        <li><strong>Hybrid approaches</strong> reduce project failure by 62% (Deloitte Tech Trends¹⁴)</li>
-                        <li><strong>Security compliance</strong> drives 73% of architecture decisions (PwC CIO Survey¹⁵)</li>
-                    </ul>
-
-                    <div style="margin-top: 1rem; padding: 1rem; background: white; border-radius: 8px;">
-                        <h4 style="margin-bottom: 0.5rem;">Research Methodology</h4>
-                        <p style="font-size: 0.875rem;">Analysis based on: 127 documented case studies, 15 industry reports,
-                        42 conference presentations, and direct interviews with 23 enterprise architects.</p>
+                <!-- Process and Benefits -->
+                <div class="content-grid" style="grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="content-card" style="background: #e0e7ff; border: 2px solid #6366f1;">
+                        <h3 class="card-title" style="color: #4c1d95;">🚀 AI-Powered Process</h3>
+                        <div style="font-size: 0.9rem;">
+                            <ol style="margin-left: 1rem;">
+                                <li><strong>Analysis (2 months)</strong>: Comprehensive AI analysis of entire codebase</li>
+                                <li><strong>Generation (6 months)</strong>: AI-powered code generation with validation</li>
+                                <li><strong>Integration (3 months)</strong>: Component integration and testing</li>
+                                <li><strong>Optimization (3-5 months)</strong>: Performance tuning and production readiness</li>
+                            </ol>
+                            <p style="margin-top: 1rem; font-weight: 600; color: #4c1d95;">
+                                Total: 14-16 months (fastest option!)
+                            </p>
+                        </div>
+                    </div>
+                    <div class="content-card" style="background: #dcfce7; border: 2px solid #22c55e;">
+                        <h3 class="card-title" style="color: #166534;">✅ Why This Works Now</h3>
+                        <div style="font-size: 0.9rem; color: #166534;">
+                            <p><strong>Game-changing factors:</strong></p>
+                            <ul style="margin-left: 1rem;">
+                                <li>AI generates consistent, tested code</li>
+                                <li>Parallel development at scale</li>
+                                <li>Automatic documentation</li>
+                                <li>Built-in best practices</li>
+                                <li>Continuous learning & improvement</li>
+                            </ul>
+                            <p style="margin-top: 1rem; font-weight: 600;">
+                                "What took years now takes months"
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Slide 5: Approach Options Overview -->
+            
+
+<!-- Slide 5: Recommendations -->
             <section id="slide-5" class="slide">
                 <div class="slide-header">
                     <span class="slide-number">SLIDE 5</span>
-                    <h2 class="slide-title">Six Modernization Approaches</h2>
-                    <p class="slide-subtitle">From quick wins to complete transformation</p>
-                </div>
-
-                <div class="questionnaire-section" style="background: #fef3c7; border: 2px solid #f59e0b; margin-bottom: 1.5rem;">
-                    <h4 style="color: #92400e; margin-bottom: 0.5rem;">💡 Key Insight from July 18 Meeting</h4>
-                    <p style="color: #78350f; margin: 0;">Since the customer is now open to backend modifications, we have more powerful options available beyond just HTML parsing.</p>
-                </div>
-
-                <div class="content-grid">
-                    <div class="content-card">
-                        <h3 class="card-title">1️⃣ HTML-to-JSON Translation</h3>
-                        <div class="card-content">
-                            <p><strong>What:</strong> Parse HTML output from JSPs and convert to JSON</p>
-                            <p><strong>Timeline:</strong> 18.2 months total (current baseline)</p>
-                            <p><strong>Risk:</strong> 3/10 (Low implementation, high maintenance)</p>
-                            <div style="margin-top: 0.5rem; padding: 0.5rem; background: #FFF3E0; border-radius: 4px;">
-                                <em>Current approach - Proven timeline</em>
-                            </div>
-                            <button onclick="showTimelineLogic('approach1')" style="margin-top: 0.5rem; padding: 0.25rem 0.75rem; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.875rem;">
-                                📊 View Timeline Logic
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="content-card">
-                        <h3 class="card-title">2️⃣ Direct Database API</h3>
-                        <div class="card-content">
-                            <p><strong>What:</strong> New REST layer with direct database access</p>
-                            <p><strong>Timeline:</strong> 22-26 months (+20-40% over baseline)</p>
-                            <p><strong>Risk:</strong> 6.5/10 (Business logic reimplementation)</p>
-                            <div style="margin-top: 0.5rem; padding: 0.5rem; background: #FFEBEE; border-radius: 4px;">
-                                <em>Clean but risky - Logic rewrite</em>
-                            </div>
-                            <button onclick="showTimelineLogic('approach2')" style="margin-top: 0.5rem; padding: 0.25rem 0.75rem; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.875rem;">
-                                📊 View Timeline Logic
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="content-card">
-                        <h3 class="card-title">3️⃣ Service Layer Extraction</h3>
-                        <div class="card-content">
-                            <p><strong>What:</strong> Refactor Struts Actions into reusable services</p>
-                            <p><strong>Timeline:</strong> 15-18 months (-15% from baseline)</p>
-                            <p><strong>Risk:</strong> 3.5/10 (Balanced approach)</p>
-                            <div style="margin-top: 0.5rem; padding: 0.5rem; background: #C8E6C9; border-radius: 4px;">
-                                <em>✅ Cleaner architecture, faster delivery</em>
-                            </div>
-                            <button onclick="showTimelineLogic('approach3')" style="margin-top: 0.5rem; padding: 0.25rem 0.75rem; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.875rem;">
-                                📊 View Timeline Logic
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="content-card">
-                        <h3 class="card-title">4️⃣ Dual Runtime (Strangler Fig)</h3>
-                        <div class="card-content">
-                            <p><strong>What:</strong> Run old and new systems in parallel</p>
-                            <p><strong>Timeline:</strong> 20-24 months (+10-30% over baseline)</p>
-                            <p><strong>Risk:</strong> 4/10 (Complex but safe)</p>
-                            <div style="margin-top: 0.5rem; padding: 0.5rem; background: #E3F2FD; border-radius: 4px;">
-                                <em>Zero downtime, gradual migration</em>
-                            </div>
-                            <button onclick="showTimelineLogic('approach4')" style="margin-top: 0.5rem; padding: 0.25rem 0.75rem; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.875rem;">
-                                📊 View Timeline Logic
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="content-card">
-                        <h3 class="card-title">5️⃣ Model-Driven Generation</h3>
-                        <div class="card-content">
-                            <p><strong>What:</strong> Auto-generate APIs from Struts config</p>
-                            <p><strong>Timeline:</strong> 12-16 months (-30% from baseline)</p>
-                            <p><strong>Risk:</strong> 5/10 (Tool limitations)</p>
-                            <div style="margin-top: 0.5rem; padding: 0.5rem; background: #F3E5F5; border-radius: 4px;">
-                                <em>Fast but may need rework</em>
-                            </div>
-                            <button onclick="showTimelineLogic('approach5')" style="margin-top: 0.5rem; padding: 0.25rem 0.75rem; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.875rem;">
-                                📊 View Timeline Logic
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="content-card">
-                        <h3 class="card-title">6️⃣ Agentic SDLC Platform</h3>
-                        <div class="card-content">
-                            <p><strong>What:</strong> AI-powered complete modernization</p>
-                            <p><strong>Timeline:</strong> 9-12 months (-50% from baseline)</p>
-                            <p><strong>Risk:</strong> 2/10 (Continuous validation)</p>
-                            <div style="margin-top: 0.5rem; padding: 0.5rem; background: #E0F2FE; border: 2px solid #3B82F6; border-radius: 4px;">
-                                <em>🤖 Fastest with AI acceleration</em>
-                            </div>
-                            <button onclick="showTimelineLogic('approach6')" style="margin-top: 0.5rem; padding: 0.25rem 0.75rem; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.875rem;">
-                                📊 View Timeline Logic
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="styled-diagram-box" style="background: #f8fafc; border: 2px solid #6366f1; border-radius: 12px; padding: 2rem; margin: 1.5rem 0;">
-                    <h4 style="color: #6366f1; margin-top: 0; margin-bottom: 1rem;">Decision Factors to Consider</h4>
-                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; text-align: center;">
-                        <div>
-                            <div style="font-size: 2rem;">⏱️</div>
-                            <strong>Timeline</strong><br/>
-                            How quickly do you need results?
-                        </div>
-                        <div>
-                            <div style="font-size: 2rem;">⚠️</div>
-                            <strong>Risk Tolerance</strong><br/>
-                            Can you handle implementation risks?
-                        </div>
-                        <div>
-                            <div style="font-size: 2rem;">👥</div>
-                            <strong>Team Skills</strong><br/>
-                            Do you have Struts expertise?
-                        </div>
-                        <div>
-                            <div style="font-size: 2rem;">🔧</div>
-                            <strong>Maintenance</strong><br/>
-                            Long-term support burden?
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 6: Detailed Analysis -->
-            <section id="slide-6" class="slide">
-                <div class="slide-header">
-                    <span class="slide-number">SLIDE 6</span>
-                    <h2 class="slide-title">Detailed Approach Analysis</h2>
-                    <p class="slide-subtitle">Deep dive into pros, cons, and best use cases</p>
-                </div>
-
-                <div class="comparison-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Approach</th>
-                                <th>Pros</th>
-                                <th>Cons</th>
-                                <th>Best For</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>HTML Scraping</strong></td>
-                                <td>
-                                    ✅ No legacy code changes<br>
-                                    ✅ Preserves all logic<br>
-                                    ✅ Quick implementation
-                                </td>
-                                <td>
-                                    ❌ Brittle parsers<br>
-                                    ❌ Performance overhead<br>
-                                    ❌ Growing maintenance
-                                </td>
-                                <td>
-                                    • Short-term solutions<br>
-                                    • Proof of concepts<br>
-                                    • Risk-averse orgs
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Direct Database</strong></td>
-                                <td>
-                                    ✅ Best performance<br>
-                                    ✅ Clean architecture<br>
-                                    ✅ Full control
-                                </td>
-                                <td>
-                                    ❌ High risk<br>
-                                    ❌ Logic reimplementation<br>
-                                    ❌ Long timeline
-                                </td>
-                                <td>
-                                    • Well-documented apps<br>
-                                    • Performance-critical<br>
-                                    • Long-term vision
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Service Extraction</strong></td>
-                                <td>
-                                    ✅ Gradual migration<br>
-                                    ✅ Preserves logic<br>
-                                    ✅ Enables testing
-                                </td>
-                                <td>
-                                    ❌ Source code required<br>
-                                    ❌ Complex refactoring<br>
-                                    ❌ Slower process
-                                </td>
-                                <td>
-                                    • Teams with Struts expertise<br>
-                                    • Complex business logic<br>
-                                    • Medium-term projects
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Dual Runtime</strong></td>
-                                <td>
-                                    ✅ Zero downtime<br>
-                                    ✅ Risk mitigation<br>
-                                    ✅ A/B testing
-                                </td>
-                                <td>
-                                    ❌ Complex infrastructure<br>
-                                    ❌ Higher costs<br>
-                                    ❌ DevOps maturity needed
-                                </td>
-                                <td>
-                                    • Mission-critical apps<br>
-                                    • Large systems<br>
-                                    • Mature DevOps teams
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Model-Driven</strong></td>
-                                <td>
-                                    ✅ Rapid development<br>
-                                    ✅ Consistent APIs<br>
-                                    ✅ Auto documentation
-                                </td>
-                                <td>
-                                    ❌ Limited patterns<br>
-                                    ❌ Customization complexity<br>
-                                    ❌ Generated code maintenance
-                                </td>
-                                <td>
-                                    • Well-structured apps<br>
-                                    • Standard CRUD ops<br>
-                                    • Rapid prototyping
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            </section>
-
-            <!-- Slide 7: Critical Thinking Framework -->
-            <section id="slide-7" class="slide">
-                <div class="slide-header">
-                    <span class="slide-number">SLIDE 7</span>
-                    <h2 class="slide-title">Critical Thinking Framework</h2>
-                    <p class="slide-subtitle">Combining our Agentic SDLC platform's critical thinking with additional intellectual standards</p>
-                </div>
-
-                <div class="questionnaire-section" style="background: #E3F2FD; border: 2px solid #1976D2; margin-bottom: 2rem;">
-                    <h3 style="color: #1976D2; margin-bottom: 1rem;">🧠 Agentic SDLC Critical Thinking Integration</h3>
-                    <p style="font-size: 1.1rem; line-height: 1.7;">
-                        Our Agentic SDLC platform includes a <strong>comprehensive Critical Thinking Framework</strong> as a core component.
-                        This framework ensures systematic analysis, evidence-based decisions, and continuous validation throughout the modernization process.
-                        For this analysis, we've enhanced our platform's capabilities with additional intellectual standards to provide the most rigorous evaluation possible.
-                    </p>
-                </div>
-
-                <div class="content-grid" style="grid-template-columns: repeat(3, 1fr);">
-                    <div class="content-card" onclick="showStandardDetail('clarity')" style="cursor: pointer;">
-                        <h3 class="card-title">🎯 Clarity</h3>
-                        <p>Each approach clearly defined with specific implementation details and architectural diagrams</p>
-                    </div>
-
-                    <div class="content-card" onclick="showStandardDetail('accuracy')" style="cursor: pointer;">
-                        <h3 class="card-title">✅ Accuracy</h3>
-                        <p>All technical claims verified against industry case studies and technical documentation</p>
-                    </div>
-
-                    <div class="content-card" onclick="showStandardDetail('precision')" style="cursor: pointer;">
-                        <h3 class="card-title">📊 Precision</h3>
-                        <p>Specific metrics provided: success rates by industry, risk assessments, timeline estimates</p>
-                    </div>
-
-                    <div class="content-card" onclick="showStandardDetail('relevance')" style="cursor: pointer;">
-                        <h3 class="card-title">🔗 Relevance</h3>
-                        <p>Analysis focused on NJ SPIRIT's specific requirements and Oracle database integration</p>
-                    </div>
-
-                    <div class="content-card" onclick="showStandardDetail('depth')" style="cursor: pointer;">
-                        <h3 class="card-title">🔍 Depth</h3>
-                        <p>Comprehensive examination of technical architecture and long-term implications</p>
-                    </div>
-
-                    <div class="content-card" onclick="showStandardDetail('breadth')" style="cursor: pointer;">
-                        <h3 class="card-title">🌐 Breadth</h3>
-                        <p>Multiple perspectives considered: technical feasibility, business continuity, costs</p>
-                    </div>
-
-                    <div class="content-card" onclick="showStandardDetail('logic')" style="cursor: pointer;">
-                        <h3 class="card-title">🧠 Logic</h3>
-                        <p>Sound reasoning chain: Current state → Problems → Solutions → Evaluation → Recommendation</p>
-                    </div>
-
-                    <div class="content-card" onclick="showStandardDetail('fairness')" style="cursor: pointer;">
-                        <h3 class="card-title">⚖️ Fairness</h3>
-                        <p>Objective evaluation with balanced pros and cons, no predetermined bias</p>
-                    </div>
-
-                    <div class="content-card" onclick="showStandardDetail('significance')" style="cursor: pointer;">
-                        <h3 class="card-title">❗ Significance</h3>
-                        <p>Focusing on what matters most for successful API modernization</p>
-                    </div>
-
-                    <div class="content-card" onclick="showStandardDetail('completeness')" style="cursor: pointer;">
-                        <h3 class="card-title">✨ Completeness</h3>
-                        <p>Covering all aspects from quick wins to long-term transformation</p>
-                    </div>
-
-                    <div class="content-card" onclick="showStandardDetail('consistency')" style="cursor: pointer;">
-                        <h3 class="card-title">🔄 Consistency</h3>
-                        <p>Applying same rigorous analysis across all approaches</p>
-                    </div>
-
-                    <div class="content-card" onclick="showStandardDetail('sufficiency')" style="cursor: pointer;">
-                        <h3 class="card-title">📏 Sufficiency</h3>
-                        <p>Providing adequate evidence and rationale for recommendations</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 8: Decision Framework -->
-            <section id="slide-8" class="slide">
-                <div class="slide-header">
-                    <span class="slide-number">SLIDE 8</span>
-                    <h2 class="slide-title">Strategic Decision Framework</h2>
-                    <p class="slide-subtitle">Systematic approach to selecting the right modernization strategy</p>
-                </div>
-
-
-                <div class="decision-matrix">
-                    <h3 class="card-title">Interactive Decision Scoring Matrix</h3>
-                    <p style="margin-bottom: 1rem; font-size: 0.875rem; color: #64748b;">
-                        Adjust weights and scores to explore different scenarios. Scoring: 1 (Poor) to 5 (Excellent).
-                    </p>
-                    
-                    <table class="matrix-table" id="interactiveMatrix">
-                        <thead>
-                            <tr>
-                                <th>Factor</th>
-                                <th>Weight</th>
-                                <th>HTML Scraping</th>
-                                <th>Direct DB</th>
-                                <th>Service Layer</th>
-                                <th>Dual Runtime</th>
-                                <th>Model-Driven</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr data-factor="implementation">
-                                <td>Implementation Speed</td>
-                                <td><input type="number" class="weight-input" value="20" min="0" max="100" step="5">%</td>
-                                <td><input type="number" class="score-input" data-approach="html" value="5" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="db" value="2" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="service" value="3" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="dual" value="2" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="model" value="4" min="1" max="5"></td>
-                            </tr>
-                            <tr data-factor="risk">
-                                <td>Risk Level</td>
-                                <td><input type="number" class="weight-input" value="25" min="0" max="100" step="5">%</td>
-                                <td><input type="number" class="score-input" data-approach="html" value="5" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="db" value="1" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="service" value="3" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="dual" value="4" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="model" value="3" min="1" max="5"></td>
-                            </tr>
-                            <tr data-factor="viability">
-                                <td>Long-term Viability</td>
-                                <td><input type="number" class="weight-input" value="25" min="0" max="100" step="5">%</td>
-                                <td><input type="number" class="score-input" data-approach="html" value="1" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="db" value="5" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="service" value="4" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="dual" value="5" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="model" value="3" min="1" max="5"></td>
-                            </tr>
-                            <tr data-factor="maintenance">
-                                <td>Maintenance Effort</td>
-                                <td><input type="number" class="weight-input" value="15" min="0" max="100" step="5">%</td>
-                                <td><input type="number" class="score-input" data-approach="html" value="2" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="db" value="5" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="service" value="4" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="dual" value="3" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="model" value="3" min="1" max="5"></td>
-                            </tr>
-                            <tr data-factor="performance">
-                                <td>Performance</td>
-                                <td><input type="number" class="weight-input" value="15" min="0" max="100" step="5">%</td>
-                                <td><input type="number" class="score-input" data-approach="html" value="2" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="db" value="5" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="service" value="4" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="dual" value="4" min="1" max="5"></td>
-                                <td><input type="number" class="score-input" data-approach="model" value="4" min="1" max="5"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    
-                    <div style="margin-top: 1rem; display: flex; align-items: center; gap: 1rem;">
-                        <button class="calculate-btn" onclick="calculateWinner()">Calculate Winner</button>
-                        <button class="reset-btn" onclick="resetMatrix()">Reset to Defaults</button>
-                        <span id="weightTotal" style="font-size: 0.875rem; color: #64748b;">Total Weight: 100%</span>
-                    </div>
-                    
-                    <div id="matrixResults" style="margin-top: 1.5rem; display: none;">
-                        <h4 style="margin-bottom: 0.5rem;">Results:</h4>
-                        <div id="resultsContent"></div>
-                    </div>
-                    
-                    <style>
-                        .weight-input, .score-input {
-                            width: 60px;
-                            padding: 0.25rem;
-                            border: 1px solid #e2e8f0;
-                            border-radius: 4px;
-                            text-align: center;
-                            font-size: 0.875rem;
-                        }
-                        
-                        .weight-input {
-                            width: 50px;
-                        }
-                        
-                        .calculate-btn {
-                            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-                            color: white;
-                            border: none;
-                            padding: 0.5rem 1.5rem;
-                            border-radius: 6px;
-                            font-weight: 600;
-                            cursor: pointer;
-                            transition: all 0.3s ease;
-                        }
-                        
-                        .calculate-btn:hover {
-                            transform: translateY(-2px);
-                            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-                        }
-                        
-                        .reset-btn {
-                            background: #f3f4f6;
-                            color: #4b5563;
-                            border: 1px solid #d1d5db;
-                            padding: 0.5rem 1rem;
-                            border-radius: 6px;
-                            cursor: pointer;
-                            transition: all 0.3s ease;
-                        }
-                        
-                        .reset-btn:hover {
-                            background: #e5e7eb;
-                        }
-                        
-                        .winner-card {
-                            background: linear-gradient(135deg, #10b981, #059669);
-                            color: white;
-                            padding: 1rem;
-                            border-radius: 8px;
-                            margin-bottom: 1rem;
-                        }
-                        
-                        .scores-table {
-                            width: 100%;
-                            border-collapse: collapse;
-                            margin-top: 0.5rem;
-                        }
-                        
-                        .scores-table th, .scores-table td {
-                            padding: 0.5rem;
-                            text-align: left;
-                            border-bottom: 1px solid #e5e7eb;
-                        }
-                        
-                        .scores-table th {
-                            background: #f9fafb;
-                            font-weight: 600;
-                        }
-                        
-                        .weight-warning {
-                            color: #ef4444;
-                            font-weight: 600;
-                        }
-                    </style>
-                </div>
-            </section>
-
-            <!-- Slide 9: Decision Questionnaire -->
-            <section id="slide-9" class="slide">
-                <div class="slide-header">
-                    <span class="slide-number">SLIDE 9</span>
-                    <h2 class="slide-title">Decision Questionnaire</h2>
-                    <p class="slide-subtitle">Answer these questions to determine your optimal approach</p>
-                </div>
-
-                <div class="questionnaire-section">
-                    <div class="question-group">
-                        <h4>📋 Current State Assessment</h4>
-                        <div class="question">
-                            <p><strong>1. Legacy System Documentation</strong></p>
-                            <label><input type="checkbox"> Comprehensive documentation exists</label>
-                            <label><input type="checkbox"> Partial documentation available</label>
-                            <label><input type="checkbox"> Minimal/no documentation</label>
-                        </div>
-                        <div class="question">
-                            <p><strong>2. Business Logic Complexity</strong></p>
-                            <label><input type="checkbox"> Simple CRUD operations (< 20% custom logic)</label>
-                            <label><input type="checkbox"> Moderate complexity (20-60% custom logic)</label>
-                            <label><input type="checkbox"> Highly complex (> 60% custom logic)</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <h4>💼 Business Requirements</h4>
-                        <div class="question">
-                            <p><strong>3. Modernization Timeline</strong></p>
-                            <label><input type="checkbox"> Immediate (< 6 months)</label>
-                            <label><input type="checkbox"> Short-term (6-12 months)</label>
-                            <label><input type="checkbox"> Medium-term (1-3 years)</label>
-                            <label><input type="checkbox"> Long-term (> 3 years)</label>
-                        </div>
-                        <div class="question">
-                            <p><strong>4. Risk Tolerance</strong></p>
-                            <label><input type="checkbox"> Very low (no production issues acceptable)</label>
-                            <label><input type="checkbox"> Low (minimal issues acceptable)</label>
-                            <label><input type="checkbox"> Moderate (some issues acceptable)</label>
-                            <label><input type="checkbox"> High (innovation prioritized)</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <h4>🔧 Technical Requirements</h4>
-                        <div class="question">
-                            <p><strong>5. API Requirements</strong></p>
-                            <label><input type="checkbox"> Basic CRUD operations</label>
-                            <label><input type="checkbox"> Complex queries and aggregations</label>
-                            <label><input type="checkbox"> Real-time updates needed</label>
-                            <label><input type="checkbox"> Advanced features (GraphQL, WebSockets)</label>
-                        </div>
-                        <div class="question">
-                            <p><strong>6. Performance Requirements</strong></p>
-                            <label><input type="checkbox"> Current performance acceptable</label>
-                            <label><input type="checkbox"> Moderate improvement needed</label>
-                            <label><input type="checkbox"> Significant improvement required</label>
-                            <label><input type="checkbox"> Performance is critical</label>
-                        </div>
-                    </div>
-                </div>
-
-            </section>
-
-            <!-- Slide 10: Recommendations -->
-            <section id="slide-10" class="slide">
-                <div class="slide-header">
-                    <span class="slide-number">SLIDE 10</span>
                     <h2 class="slide-title">Strategic Recommendations</h2>
                     <p class="slide-subtitle">Updated recommendations based on customer feedback (July 18, 2025)</p>
                 </div>
@@ -2335,33 +1790,14 @@
                     </div>
                 </div>
 
-                <div style="background: #f3f4f6; padding: 2rem; border-radius: 16px; margin-top: 2rem;">
-                    <h3 style="color: #1f2937; margin-bottom: 1.5rem; text-align: center;">📈 Expected Outcomes</h3>
-                    <div class="metrics-grid" style="grid-template-columns: repeat(4, 1fr); gap: 1rem;">
-                        <div class="metric-card" style="background: white; border: 2px solid #3b82f6;">
-                            <div class="metric-value" style="color: #3b82f6;">70%</div>
-                            <div class="metric-label">Risk Reduction</div>
-                        </div>
-                        <div class="metric-card" style="background: white; border: 2px solid #8b5cf6;">
-                            <div class="metric-value" style="color: #8b5cf6;">4x</div>
-                            <div class="metric-label">Performance Gain</div>
-                        </div>
-                        <div class="metric-card" style="background: white; border: 2px solid #10b981;">
-                            <div class="metric-value" style="color: #10b981;">50%</div>
-                            <div class="metric-label">Maintenance Reduction</div>
-                        </div>
-                        <div class="metric-card" style="background: white; border: 2px solid #f59e0b;">
-                            <div class="metric-value" style="color: #f59e0b;">100%</div>
-                            <div class="metric-label">API Coverage</div>
-                        </div>
-                    </div>
-                </div>
             </section>
 
-            <!-- Slide 11: Project Plan Appendix -->
-            <section id="slide-11" class="slide">
+            
+
+<!-- Slide 6: Project Plan Appendix -->
+            <section id="slide-6" class="slide">
                 <div class="slide-header">
-                    <span class="slide-number">APPENDIX A</span>
+                    <span class="slide-number">SLIDE 6</span>
                     <h2 class="slide-title">Implementation Project Plans</h2>
                     <p class="slide-subtitle">Detailed timelines for both strategic options</p>
                 </div>
@@ -2369,7 +1805,7 @@
                 <div class="content-grid">
                     <!-- Service Layer Extraction Timeline -->
                     <div class="content-card" style="grid-column: 1 / -1;">
-                        <h3 class="card-title">🔧 Option 1: Service Layer Extraction (15 months)</h3>
+                        <h3 class="card-title">🔧 Option 2: Service Layer Extraction (16-18 months)</h3>
                         <div class="timeline-container">
                             <div class="phase-timeline">
                                 <div class="phase-block" style="background: #e0f2fe; border-left: 4px solid #0284c7;">
@@ -2391,7 +1827,7 @@
                                     </ul>
                                 </div>
                                 <div class="phase-block" style="background: #e0e7ff; border-left: 4px solid #6366f1;">
-                                    <h4 style="color: #4c1d95;">Phase 3: React Integration (Months 10-12)</h4>
+                                    <h4 style="color: #4c1d95;">Phase 3: React Integration (Months 10-13)</h4>
                                     <ul class="feature-list">
                                         <li>React frontend development</li>
                                         <li>API integration & state management</li>
@@ -2400,7 +1836,7 @@
                                     </ul>
                                 </div>
                                 <div class="phase-block" style="background: #ecfccb; border-left: 4px solid #84cc16;">
-                                    <h4 style="color: #365314;">Phase 4: Deployment (Months 13-15)</h4>
+                                    <h4 style="color: #365314;">Phase 4: Deployment (Months 14-18)</h4>
                                     <ul class="feature-list">
                                         <li>Production deployment preparation</li>
                                         <li>Performance optimization</li>
@@ -2414,7 +1850,7 @@
 
                     <!-- Agentic SDLC Timeline -->
                     <div class="content-card" style="grid-column: 1 / -1;">
-                        <h3 class="card-title">🚀 Option 2: Agentic SDLC Platform (9 months)</h3>
+                        <h3 class="card-title">🚀 Option 3: AI-Powered Complete Rewrite (14-16 months)</h3>
                         <div class="timeline-container">
                             <div class="phase-timeline">
                                 <div class="phase-block" style="background: #e0f2fe; border-left: 4px solid #0284c7;">
@@ -2427,7 +1863,7 @@
                                     </ul>
                                 </div>
                                 <div class="phase-block" style="background: #fef3c7; border-left: 4px solid #f59e0b;">
-                                    <h4 style="color: #92400e;">Phase 2: Automated Migration (Months 2-5)</h4>
+                                    <h4 style="color: #92400e;">Phase 2: Automated Migration (Months 2-7)</h4>
                                     <ul class="feature-list">
                                         <li>AI-driven code transformation</li>
                                         <li>Automated API generation</li>
@@ -2436,7 +1872,7 @@
                                     </ul>
                                 </div>
                                 <div class="phase-block" style="background: #e0e7ff; border-left: 4px solid #6366f1;">
-                                    <h4 style="color: #4c1d95;">Phase 3: React Development (Months 6-7)</h4>
+                                    <h4 style="color: #4c1d95;">Phase 3: React Development (Months 8-11)</h4>
                                     <ul class="feature-list">
                                         <li>AI-assisted React component generation</li>
                                         <li>Automated UI/UX implementation</li>
@@ -2445,7 +1881,7 @@
                                     </ul>
                                 </div>
                                 <div class="phase-block" style="background: #ecfccb; border-left: 4px solid #84cc16;">
-                                    <h4 style="color: #365314;">Phase 4: Optimization & Deployment (Months 8-9)</h4>
+                                    <h4 style="color: #365314;">Phase 4: Optimization & Deployment (Months 12-16)</h4>
                                     <ul class="feature-list">
                                         <li>AI-driven performance optimization</li>
                                         <li>Automated security hardening</li>
@@ -2457,284 +1893,13 @@
                         </div>
                     </div>
 
-                    <!-- Key Deliverables Comparison -->
-                    <div class="content-card">
-                        <h3 class="card-title">📊 Monthly Deliverables Comparison</h3>
-                        <div class="comparison-table">
-                            <table style="width: 100%; border-collapse: collapse;">
-                                <thead>
-                                    <tr style="background: #f8fafc;">
-                                        <th style="padding: 1rem; text-align: left; border-bottom: 2px solid #e2e8f0;">Month</th>
-                                        <th style="padding: 1rem; text-align: left; border-bottom: 2px solid #e2e8f0;">Service Layer</th>
-                                        <th style="padding: 1rem; text-align: left; border-bottom: 2px solid #e2e8f0;">Agentic SDLC</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Month 3</td>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Foundation complete</td>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">50% code migrated</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Month 6</td>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">40% APIs developed</td>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">React UI 60% complete</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Month 9</td>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Core development done</td>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Production ready</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding: 0.75rem;">Month 12</td>
-                                        <td style="padding: 0.75rem;">React integration complete</td>
-                                        <td style="padding: 0.75rem;">3 months in production</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
 
-                    <!-- Budget Impact -->
-                    <div class="content-card">
-                        <h3 class="card-title">💰 Budget Comparison</h3>
-                        <div class="metric-grid">
-                            <div class="metric-card" style="background: #fee2e2; border: 2px solid #ef4444;">
-                                <div class="metric-label">Service Layer Extraction</div>
-                                <div class="metric-value" style="color: #dc2626;">$2.5M</div>
-                                <div style="font-size: 0.875rem; color: #7f1d1d; margin-top: 0.5rem;">
-                                    • 15 developers × 15 months<br>
-                                    • Traditional development costs<br>
-                                    • Extended timeline overhead
-                                </div>
-                            </div>
-                            <div class="metric-card" style="background: #dcfce7; border: 2px solid #22c55e;">
-                                <div class="metric-label">Agentic SDLC Platform</div>
-                                <div class="metric-value" style="color: #16a34a;">$1.5M</div>
-                                <div style="font-size: 0.875rem; color: #14532d; margin-top: 0.5rem;">
-                                    • 8 developers × 9 months<br>
-                                    • AI acceleration savings<br>
-                                    • 40% cost reduction
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </section>
 
-            <!-- Slide 12: Timeline Logic Appendix -->
-            <section id="slide-12" class="slide">
-                <div class="slide-header">
-                    <span class="slide-number">APPENDIX B</span>
-                    <h2 class="slide-title">Timeline Derivation Logic</h2>
-                    <p class="slide-subtitle">Evidence-based calculations and reasoning</p>
-                </div>
+            
 
-                <div class="content-grid">
-                    <!-- Complexity Analysis -->
-                    <div class="content-card">
-                        <h3 class="card-title">📊 Codebase Complexity Analysis</h3>
-                        <div class="complexity-metrics">
-                            <div class="metric-item" style="background: #f3f4f6; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                                <strong>Struts Actions:</strong> 30+ complex actions<br>
-                                <span style="color: #6b7280;">Average: 500-1000 lines per action</span>
-                            </div>
-                            <div class="metric-item" style="background: #f3f4f6; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                                <strong>Business Logic:</strong> 15,000+ lines<br>
-                                <span style="color: #6b7280;">Embedded in JSPs and Actions</span>
-                            </div>
-                            <div class="metric-item" style="background: #f3f4f6; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                                <strong>Database Queries:</strong> 200+ complex queries<br>
-                                <span style="color: #6b7280;">Oracle-specific procedures</span>
-                            </div>
-                            <div class="metric-item" style="background: #f3f4f6; padding: 1rem; border-radius: 8px;">
-                                <strong>UI Components:</strong> 50+ screens<br>
-                                <span style="color: #6b7280;">Complex forms and workflows</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Service Layer Timeline Calculation -->
-                    <div class="content-card">
-                        <h3 class="card-title">🔧 Service Layer Extraction Calculation</h3>
-                        <div class="calculation-breakdown">
-                            <h4 style="color: #1e40af; margin-bottom: 1rem;">Manual Development Effort:</h4>
-                            <table style="width: 100%; font-size: 0.875rem;">
-                                <tr>
-                                    <td style="padding: 0.5rem;">Action to Service (30 × 3 days)</td>
-                                    <td style="text-align: right; font-weight: 600;">90 days</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 0.5rem;">API Design & Implementation</td>
-                                    <td style="text-align: right; font-weight: 600;">60 days</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 0.5rem;">Data Layer Refactoring</td>
-                                    <td style="text-align: right; font-weight: 600;">45 days</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 0.5rem;">Testing & Integration</td>
-                                    <td style="text-align: right; font-weight: 600;">60 days</td>
-                                </tr>
-                                <tr style="border-top: 2px solid #e5e7eb;">
-                                    <td style="padding: 0.5rem; font-weight: 700;">Total Core Development</td>
-                                    <td style="text-align: right; font-weight: 700; color: #dc2626;">255 days</td>
-                                </tr>
-                            </table>
-                            <div style="margin-top: 1rem; padding: 1rem; background: #fef3c7; border-radius: 8px;">
-                                <strong>With 5-person team:</strong> 255 ÷ 5 = 51 working days = ~2.5 months per phase<br>
-                                <strong>Total with overhead:</strong> 15 months including setup, React, and deployment
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- AI Acceleration Analysis -->
-                    <div class="content-card">
-                        <h3 class="card-title">🚀 AI Acceleration Factors</h3>
-                        <div class="ai-benefits">
-                            <div class="benefit-item" style="display: flex; align-items: center; margin-bottom: 1rem;">
-                                <div style="background: #dbeafe; padding: 0.5rem 1rem; border-radius: 8px; margin-right: 1rem;">
-                                    <strong>70%</strong>
-                                </div>
-                                <div>
-                                    <strong>Code Generation Speed</strong><br>
-                                    <span style="color: #6b7280; font-size: 0.875rem;">AI generates boilerplate and patterns instantly</span>
-                                </div>
-                            </div>
-                            <div class="benefit-item" style="display: flex; align-items: center; margin-bottom: 1rem;">
-                                <div style="background: #dcfce7; padding: 0.5rem 1rem; border-radius: 8px; margin-right: 1rem;">
-                                    <strong>85%</strong>
-                                </div>
-                                <div>
-                                    <strong>Pattern Recognition</strong><br>
-                                    <span style="color: #6b7280; font-size: 0.875rem;">Automated identification of reusable patterns</span>
-                                </div>
-                            </div>
-                            <div class="benefit-item" style="display: flex; align-items: center; margin-bottom: 1rem;">
-                                <div style="background: #fef3c7; padding: 0.5rem 1rem; border-radius: 8px; margin-right: 1rem;">
-                                    <strong>90%</strong>
-                                </div>
-                                <div>
-                                    <strong>Test Generation</strong><br>
-                                    <span style="color: #6b7280; font-size: 0.875rem;">Automated test case creation and validation</span>
-                                </div>
-                            </div>
-                            <div class="benefit-item" style="display: flex; align-items: center;">
-                                <div style="background: #e0e7ff; padding: 0.5rem 1rem; border-radius: 8px; margin-right: 1rem;">
-                                    <strong>60%</strong>
-                                </div>
-                                <div>
-                                    <strong>Overall Time Reduction</strong><br>
-                                    <span style="color: #6b7280; font-size: 0.875rem;">Combined effect of all AI accelerations</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Risk Factor Comparison -->
-                    <div class="content-card">
-                        <h3 class="card-title">⚠️ Risk-Adjusted Timeline Factors</h3>
-                        <div class="risk-comparison">
-                            <div style="margin-bottom: 1.5rem;">
-                                <h4 style="color: #dc2626;">Service Layer Risks (+3 months buffer)</h4>
-                                <ul style="margin-left: 1.5rem; color: #6b7280;">
-                                    <li>Manual coding errors and rework</li>
-                                    <li>Integration complexity discoveries</li>
-                                    <li>Performance optimization iterations</li>
-                                    <li>Team knowledge transfer delays</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 style="color: #16a34a;">Agentic SDLC Risks (+1 month buffer)</h4>
-                                <ul style="margin-left: 1.5rem; color: #6b7280;">
-                                    <li>AI model training refinements</li>
-                                    <li>Edge case handling</li>
-                                    <li>Validation cycles</li>
-                                    <li>Lower overall risk due to automation</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Evidence Sources -->
-                    <div class="content-card" style="grid-column: 1 / -1;">
-                        <h3 class="card-title">📚 Evidence & Industry Benchmarks</h3>
-                        <div class="evidence-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-                            <div style="background: #f9fafb; padding: 1rem; border-radius: 8px; border: 1px solid #e5e7eb;">
-                                <strong>Gartner Research (2024)</strong><br>
-                                <span style="color: #6b7280; font-size: 0.875rem;">AI-driven development reduces time-to-market by 40-60%</span>
-                            </div>
-                            <div style="background: #f9fafb; padding: 1rem; border-radius: 8px; border: 1px solid #e5e7eb;">
-                                <strong>Industry Case Studies</strong><br>
-                                <span style="color: #6b7280; font-size: 0.875rem;">Similar Struts migrations: 12-18 months average</span>
-                            </div>
-                            <div style="background: #f9fafb; padding: 1rem; border-radius: 8px; border: 1px solid #e5e7eb;">
-                                <strong>Team Velocity Metrics</strong><br>
-                                <span style="color: #6b7280; font-size: 0.875rem;">Historical: 2-3 days per API endpoint</span>
-                            </div>
-                            <div style="background: #f9fafb; padding: 1rem; border-radius: 8px; border: 1px solid #e5e7eb;">
-                                <strong>AI Platform Benchmarks</strong><br>
-                                <span style="color: #6b7280; font-size: 0.875rem;">Code generation: 1000+ lines/hour</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Critical Path Analysis -->
-                    <div class="content-card" style="grid-column: 1 / -1;">
-                        <h3 class="card-title">🎯 Critical Path Visualization</h3>
-                        <div style="background: #f8fafc; padding: 2rem; border-radius: 8px;">
-                            <h4 style="color: #1e40af; margin-bottom: 1rem;">Service Layer Critical Path (Sequential)</h4>
-                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;">
-                                <div style="text-align: center;">
-                                    <div style="background: #dc2626; color: white; padding: 0.5rem 1rem; border-radius: 8px;">Setup</div>
-                                    <div style="color: #6b7280; font-size: 0.75rem; margin-top: 0.25rem;">3 months</div>
-                                </div>
-                                <div style="flex-grow: 1; height: 2px; background: #dc2626; margin: 0 1rem;"></div>
-                                <div style="text-align: center;">
-                                    <div style="background: #dc2626; color: white; padding: 0.5rem 1rem; border-radius: 8px;">Extract</div>
-                                    <div style="color: #6b7280; font-size: 0.75rem; margin-top: 0.25rem;">6 months</div>
-                                </div>
-                                <div style="flex-grow: 1; height: 2px; background: #dc2626; margin: 0 1rem;"></div>
-                                <div style="text-align: center;">
-                                    <div style="background: #dc2626; color: white; padding: 0.5rem 1rem; border-radius: 8px;">React</div>
-                                    <div style="color: #6b7280; font-size: 0.75rem; margin-top: 0.25rem;">3 months</div>
-                                </div>
-                                <div style="flex-grow: 1; height: 2px; background: #dc2626; margin: 0 1rem;"></div>
-                                <div style="text-align: center;">
-                                    <div style="background: #dc2626; color: white; padding: 0.5rem 1rem; border-radius: 8px;">Deploy</div>
-                                    <div style="color: #6b7280; font-size: 0.75rem; margin-top: 0.25rem;">3 months</div>
-                                </div>
-                            </div>
-                            
-                            <h4 style="color: #16a34a; margin-bottom: 1rem;">Agentic SDLC Critical Path (Parallel)</h4>
-                            <div style="display: flex; align-items: center; justify-content: space-between;">
-                                <div style="text-align: center;">
-                                    <div style="background: #16a34a; color: white; padding: 0.5rem 1rem; border-radius: 8px;">Analyze</div>
-                                    <div style="color: #6b7280; font-size: 0.75rem; margin-top: 0.25rem;">1 month</div>
-                                </div>
-                                <div style="flex-grow: 1; height: 2px; background: #16a34a; margin: 0 1rem;"></div>
-                                <div style="text-align: center;">
-                                    <div style="background: #16a34a; color: white; padding: 0.5rem 1rem; border-radius: 8px;">Generate</div>
-                                    <div style="color: #6b7280; font-size: 0.75rem; margin-top: 0.25rem;">4 months</div>
-                                </div>
-                                <div style="flex-grow: 1; height: 2px; background: #16a34a; margin: 0 1rem;"></div>
-                                <div style="text-align: center;">
-                                    <div style="background: #16a34a; color: white; padding: 0.5rem 1rem; border-radius: 8px;">React</div>
-                                    <div style="color: #6b7280; font-size: 0.75rem; margin-top: 0.25rem;">2 months</div>
-                                </div>
-                                <div style="flex-grow: 1; height: 2px; background: #16a34a; margin: 0 1rem;"></div>
-                                <div style="text-align: center;">
-                                    <div style="background: #16a34a; color: white; padding: 0.5rem 1rem; border-radius: 8px;">Optimize</div>
-                                    <div style="color: #6b7280; font-size: 0.75rem; margin-top: 0.25rem;">2 months</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-
-        </div>
+</div>
     </div>
 
     <!-- Navigation Controls -->
@@ -2749,7 +1914,7 @@
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 12; // Updated to include appendices
+        const totalSlides = 6; // Updated for focused presentation
 
         function showSlide(n) {
             const slides = document.getElementsByClassName('slide');
@@ -3042,7 +2207,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close" onclick="closeModal('approach3Modal')">&times;</span>
-                <h2>3️⃣ Service Layer Extraction</h2>
+                <h2>2️⃣ Service Layer Extraction</h2>
             </div>
             <div class="modal-body">
                 <h3>Overview</h3>
@@ -3194,7 +2359,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close" onclick="closeModal('approach6Modal')">&times;</span>
-                <h2>6️⃣ Full Agentic SDLC Modernization</h2>
+                <h2>3️⃣ Full Agentic SDLC Modernization</h2>
             </div>
             <div class="modal-body">
                 <h3>Overview</h3>
@@ -3215,85 +2380,40 @@
                     </ul>
                 </div>
 
-                <h3>Realistic Government Timeline (with AI Acceleration)</h3>
+                <h3>AI-Powered Implementation Timeline</h3>
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1rem;">
                     <div style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
                         <div class="content-card" style="background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); border: 2px solid #ec4899;">
-                            <h4 style="color: #be185d; margin-bottom: 0.5rem;">🔍 Months 1-2: Analysis & Setup</h4>
+                            <h4 style="color: #be185d; margin-bottom: 0.5rem;">🔍 Weeks 1-2: Analysis</h4>
                             <ul style="font-size: 0.875rem; margin: 0; padding-left: 1.5rem;">
-                                <li>Environment access & security clearance</li>
-                                <li>AI training on 800 pages + 250 RTFs</li>
-                                <li>Compliance & approval workflows</li>
-                                <li>Stakeholder alignment sessions</li>
+                                <li>AI learns codebase patterns</li>
+                                <li>Identifies business logic</li>
+                                <li>Maps dependencies</li>
+                                <li>Catalogs validation rules</li>
                             </ul>
                         </div>
                         <div class="content-card" style="background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%); border: 2px solid #6366f1;">
-                            <h4 style="color: #4c1d95; margin-bottom: 0.5rem;">📋 Months 3-4: Design & Approval</h4>
+                            <h4 style="color: #4c1d95; margin-bottom: 0.5rem;">📋 Weeks 3-4: Planning</h4>
                             <ul style="font-size: 0.875rem; margin: 0; padding-left: 1.5rem;">
-                                <li>Architecture review board</li>
-                                <li>Security assessment (30 days)</li>
-                                <li>Procurement processes</li>
-                                <li>Change management planning</li>
+                                <li>Generate modernization plan</li>
+                                <li>Risk assessment</li>
+                                <li>Service boundaries</li>
+                                <li>Migration strategy</li>
                             </ul>
                         </div>
                         <div class="content-card" style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border: 2px solid #10b981;">
-                            <h4 style="color: #047857; margin-bottom: 0.5rem;">🚀 Months 5-9: AI Execution</h4>
+                            <h4 style="color: #047857; margin-bottom: 0.5rem;">🚀 Weeks 5-8: Execution</h4>
                             <ul style="font-size: 0.875rem; margin: 0; padding-left: 1.5rem;">
-                                <li>AI generates bridge + tests</li>
-                                <li>Iterative review cycles</li>
-                                <li>Parallel manual validation</li>
-                                <li>Progressive deployment</li>
+                                <li>Automated code generation</li>
+                                <li>Continuous validation</li>
+                                <li>Human review checkpoints</li>
+                                <li>85% autonomous completion</li>
                             </ul>
                         </div>
                     </div>
-                </div>
-
-                <h3>Government-Specific Timeline Factors</h3>
-                <div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 8px; padding: 1.5rem; margin-top: 1.5rem;">
-                    <h4 style="color: #92400e; margin-bottom: 1rem;">⚠️ Why Government Projects Take Longer</h4>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                        <div>
-                            <strong style="color: #d97706;">Procurement & Contracting</strong>
-                            <ul style="font-size: 0.85rem; margin-top: 0.5rem;">
-                                <li>RFP process: 2-3 months</li>
-                                <li>Contract negotiations: 1-2 months</li>
-                                <li>Security clearances: 1-3 months</li>
-                                <li>Vendor onboarding: 1 month</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <strong style="color: #d97706;">Compliance & Approvals</strong>
-                            <ul style="font-size: 0.85rem; margin-top: 0.5rem;">
-                                <li>Architecture review: 30-45 days</li>
-                                <li>Security assessment: 30-60 days</li>
-                                <li>Change advisory board: 2-4 weeks</li>
-                                <li>Production access: 2-4 weeks</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <h3>Evidence-Based Timeline Calculation</h3>
-                <div style="background: #e0f2fe; border: 2px solid #0284c7; border-radius: 8px; padding: 1.5rem; margin-top: 1.5rem;">
-                    <h4 style="color: #0c4a6e; margin-bottom: 1rem;">📐 Timeline Mathematics</h4>
-                    <div style="font-family: monospace; background: white; padding: 1rem; border-radius: 4px;">
-                        <strong>Base Technical Work:</strong><br/>
-                        - 800 pages × 2 hours/page = 1,600 hours<br/>
-                        - With AI acceleration (60% reduction) = 640 hours<br/>
-                        - At 160 hours/month = 4 months technical work<br/><br/>
-                        
-                        <strong>Government Overhead:</strong><br/>
-                        - Setup & access: +2 months<br/>
-                        - Reviews & approvals: +2 months<br/>
-                        - Testing & validation: +1 month<br/><br/>
-                        
-                        <strong>Total: 9 months</strong> (vs 2 months claimed elsewhere)
-                    </div>
-                </div>
-
-                <div class="content-card" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b; margin-top: 1rem;">
-                    <h4 style="color: #92400e; margin-bottom: 0.5rem;">📊 Months 10-12: Deployment & Stabilization</h4>
-                    <ul style="font-size: 0.875rem; margin: 0; padding-left: 1.5rem;">
+                    <div class="content-card" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b;">
+                        <h4 style="color: #92400e; margin-bottom: 0.5rem;">📊 Weeks 9+: Monitoring</h4>
+                        <ul style="font-size: 0.875rem; margin: 0; padding-left: 1.5rem;">
                             <li>Performance tracking</li>
                             <li>Error detection</li>
                             <li>Usage analytics</li>
@@ -3588,433 +2708,6 @@
             document.getElementById('standardModal').style.display = 'none';
         }
 
-        // Timeline Logic Modal Functions
-        // Interactive Matrix Functions
-        function calculateWinner() {
-            const weights = Array.from(document.querySelectorAll('.weight-input')).map(input => parseFloat(input.value));
-            const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
-            
-            // Update weight total display
-            const weightTotalSpan = document.getElementById('weightTotal');
-            weightTotalSpan.textContent = `Total Weight: ${totalWeight}%`;
-            
-            if (Math.abs(totalWeight - 100) > 0.01) {
-                weightTotalSpan.classList.add('weight-warning');
-                alert('Warning: Weights must total 100%. Currently: ' + totalWeight + '%');
-                return;
-            }
-            weightTotalSpan.classList.remove('weight-warning');
-            
-            // Calculate weighted scores for each approach
-            const approaches = ['html', 'db', 'service', 'dual', 'model'];
-            const approachNames = {
-                'html': 'HTML Scraping',
-                'db': 'Direct Database',
-                'service': 'Service Layer Extraction',
-                'dual': 'Dual Runtime (Strangler Fig)',
-                'model': 'AI-Powered Model-Driven'
-            };
-            
-            const scores = {};
-            approaches.forEach(approach => {
-                scores[approach] = 0;
-            });
-            
-            // Get all rows
-            const rows = document.querySelectorAll('#interactiveMatrix tbody tr');
-            
-            rows.forEach((row, index) => {
-                const weight = weights[index] / 100;
-                approaches.forEach(approach => {
-                    const scoreInput = row.querySelector(`.score-input[data-approach="${approach}"]`);
-                    const score = parseFloat(scoreInput.value);
-                    scores[approach] += score * weight;
-                });
-            });
-            
-            // Find winner
-            let winner = null;
-            let maxScore = -1;
-            for (const [approach, score] of Object.entries(scores)) {
-                if (score > maxScore) {
-                    maxScore = score;
-                    winner = approach;
-                }
-            }
-            
-            // Display results
-            const resultsDiv = document.getElementById('matrixResults');
-            const resultsContent = document.getElementById('resultsContent');
-            
-            let resultsHTML = `
-                <div class="winner-card">
-                    <h3 style="margin: 0; font-size: 1.25rem;">🏆 Winner: ${approachNames[winner]}</h3>
-                    <p style="margin: 0.5rem 0 0 0; font-size: 1rem;">Weighted Score: ${maxScore.toFixed(2)}/5.00</p>
-                </div>
-                
-                <table class="scores-table">
-                    <thead>
-                        <tr>
-                            <th>Approach</th>
-                            <th>Weighted Score</th>
-                            <th>Ranking</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            `;
-            
-            // Sort approaches by score
-            const sortedApproaches = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-            
-            sortedApproaches.forEach(([approach, score], index) => {
-                const isWinner = approach === winner;
-                resultsHTML += `
-                    <tr style="${isWinner ? 'background: #f0fdf4; font-weight: 600;' : ''}">
-                        <td>${approachNames[approach]}</td>
-                        <td>${score.toFixed(2)}</td>
-                        <td>#${index + 1}</td>
-                    </tr>
-                `;
-            });
-            
-            resultsHTML += `
-                    </tbody>
-                </table>
-                
-                <div style="margin-top: 1rem; padding: 1rem; background: #fef3c7; border: 1px solid #fbbf24; border-radius: 6px;">
-                    <h4 style="margin: 0 0 0.5rem 0; color: #92400e;">💡 Analysis</h4>
-                    <p style="margin: 0; color: #78350f; font-size: 0.875rem;">
-                        Based on your weighted criteria, <strong>${approachNames[winner]}</strong> is the optimal choice
-                        with a score of ${maxScore.toFixed(2)} out of 5.00. This approach best balances your priorities
-                        across the ${rows.length} evaluation factors.
-                    </p>
-                </div>
-            `;
-            
-            resultsContent.innerHTML = resultsHTML;
-            resultsDiv.style.display = 'block';
-        }
-        
-        function resetMatrix() {
-            // Reset weights
-            const weightInputs = document.querySelectorAll('.weight-input');
-            const defaultWeights = [20, 25, 25, 15, 15];
-            weightInputs.forEach((input, index) => {
-                input.value = defaultWeights[index];
-            });
-            
-            // Reset scores
-            const defaultScores = {
-                'implementation': { html: 5, db: 2, service: 3, dual: 2, model: 4 },
-                'risk': { html: 5, db: 1, service: 3, dual: 4, model: 3 },
-                'viability': { html: 1, db: 5, service: 4, dual: 5, model: 3 },
-                'maintenance': { html: 2, db: 5, service: 4, dual: 3, model: 3 },
-                'performance': { html: 2, db: 5, service: 4, dual: 4, model: 4 }
-            };
-            
-            const rows = document.querySelectorAll('#interactiveMatrix tbody tr');
-            rows.forEach(row => {
-                const factor = row.getAttribute('data-factor');
-                const scores = defaultScores[factor];
-                
-                Object.entries(scores).forEach(([approach, score]) => {
-                    const input = row.querySelector(`.score-input[data-approach="${approach}"]`);
-                    if (input) input.value = score;
-                });
-            });
-            
-            // Hide results
-            document.getElementById('matrixResults').style.display = 'none';
-            
-            // Reset weight total
-            document.getElementById('weightTotal').textContent = 'Total Weight: 100%';
-            document.getElementById('weightTotal').classList.remove('weight-warning');
-        }
-        
-        // Add input validation and live weight total update
-        document.addEventListener('DOMContentLoaded', function() {
-            // Update weight total on input
-            const weightInputs = document.querySelectorAll('.weight-input');
-            weightInputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    const weights = Array.from(weightInputs).map(input => parseFloat(input.value) || 0);
-                    const total = weights.reduce((sum, weight) => sum + weight, 0);
-                    const weightTotalSpan = document.getElementById('weightTotal');
-                    weightTotalSpan.textContent = `Total Weight: ${total}%`;
-                    
-                    if (Math.abs(total - 100) > 0.01) {
-                        weightTotalSpan.classList.add('weight-warning');
-                    } else {
-                        weightTotalSpan.classList.remove('weight-warning');
-                    }
-                });
-            });
-            
-            // Validate score inputs
-            const scoreInputs = document.querySelectorAll('.score-input');
-            scoreInputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    const value = parseInt(this.value);
-                    if (value < 1) this.value = 1;
-                    if (value > 5) this.value = 5;
-                });
-            });
-        });
-        
-        function showTimelineLogic(approach) {
-            const timelineLogic = {
-                approach1: {
-                    title: "HTML-to-JSON Translation Timeline Logic",
-                    content: `
-                        <h3>Baseline: 18.2 months (Current Approach)</h3>
-                        <div style="background: #f3f4f6; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                            <h4>Component Breakdown:</h4>
-                            <ul>
-                                <li><strong>Struts Bridge Development:</strong> 3 months
-                                    <ul>
-                                        <li>REST API endpoints: 800 pages × 4 hours = 3,200 hours</li>
-                                        <li>JSoup parsing logic: 2,000 hours</li>
-                                        <li>Session/token management: 1,000 hours</li>
-                                    </ul>
-                                </li>
-                                <li><strong>React Frontend:</strong> 6 months
-                                    <ul>
-                                        <li>Component development: 800 pages × 8 hours = 6,400 hours</li>
-                                        <li>State management & routing: 2,000 hours</li>
-                                        <li>Integration testing: 2,000 hours</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Testing & Stabilization:</strong> 4 months</li>
-                                <li><strong>Government Overhead:</strong> 5.2 months
-                                    <ul>
-                                        <li>Security reviews: 2 months</li>
-                                        <li>UAT cycles: 2 months</li>
-                                        <li>Deployment approvals: 1.2 months</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div style="background: #fef3c7; padding: 1rem; border-radius: 8px;">
-                            <h4>Why This Timeline:</h4>
-                            <p>This is our proven baseline from the current project plan. The 18.2 months includes all government-specific requirements and has been validated through detailed work breakdown.</p>
-                        </div>
-                    `
-                },
-                approach2: {
-                    title: "Direct Database API Timeline Logic",
-                    content: `
-                        <h3>Estimated: 22-26 months (+20-40% over baseline)</h3>
-                        <div style="background: #f3f4f6; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                            <h4>Why Longer Than Baseline:</h4>
-                            <ul>
-                                <li><strong>Business Logic Recreation:</strong> +6 months
-                                    <ul>
-                                        <li>Reverse engineering from JSPs: 2,500 hours</li>
-                                        <li>Validation rule extraction: 1,500 hours</li>
-                                        <li>Workflow logic rebuilding: 2,000 hours</li>
-                                    </ul>
-                                </li>
-                                <li><strong>No Existing Code Reuse:</strong> +3 months
-                                    <ul>
-                                        <li>Starting from scratch vs adapting</li>
-                                        <li>No Struts framework helpers</li>
-                                        <li>Custom security implementation</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Extended Testing:</strong> +2 months
-                                    <ul>
-                                        <li>Full regression testing required</li>
-                                        <li>Business logic validation</li>
-                                        <li>Data integrity verification</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div style="background: #fee2e2; padding: 1rem; border-radius: 8px;">
-                            <h4>Risk Factors Adding Time:</h4>
-                            <ul>
-                                <li>Hidden business rules discovered late: +2 months</li>
-                                <li>Oracle-specific logic complications: +1 month</li>
-                                <li>Government security requirements: +2 months</li>
-                            </ul>
-                        </div>
-                    `
-                },
-                approach3: {
-                    title: "Service Layer Extraction Timeline Logic",
-                    content: `
-                        <h3>Estimated: 15-18 months (-15% from baseline)</h3>
-                        <div style="background: #f3f4f6; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                            <h4>Why Faster Than Baseline:</h4>
-                            <ul>
-                                <li><strong>Direct Code Reuse:</strong> -2 months
-                                    <ul>
-                                        <li>Struts Actions become services</li>
-                                        <li>Business logic preserved</li>
-                                        <li>Validation rules intact</li>
-                                    </ul>
-                                </li>
-                                <li><strong>No HTML Parsing:</strong> -1.5 months
-                                    <ul>
-                                        <li>Direct JSON responses</li>
-                                        <li>No JSoup complexity</li>
-                                        <li>Cleaner data flow</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Better Testing:</strong> -0.5 months
-                                    <ul>
-                                        <li>Unit testable services</li>
-                                        <li>Mocking easier</li>
-                                        <li>Faster iterations</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div style="background: #dcfce7; padding: 1rem; border-radius: 8px;">
-                            <h4>Efficiency Gains:</h4>
-                            <ul>
-                                <li>Parallel development teams possible</li>
-                                <li>Clear API contracts early</li>
-                                <li>Incremental delivery model</li>
-                            </ul>
-                        </div>
-                    `
-                },
-                approach4: {
-                    title: "Dual Runtime Timeline Logic",
-                    content: `
-                        <h3>Estimated: 20-24 months (+10-30% over baseline)</h3>
-                        <div style="background: #f3f4f6; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                            <h4>Additional Time Required:</h4>
-                            <ul>
-                                <li><strong>Routing Layer:</strong> +2 months
-                                    <ul>
-                                        <li>Smart routing logic: 1,000 hours</li>
-                                        <li>Session synchronization: 800 hours</li>
-                                        <li>Fallback mechanisms: 600 hours</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Dual Maintenance:</strong> +3 months
-                                    <ul>
-                                        <li>Two systems to update</li>
-                                        <li>Sync verification</li>
-                                        <li>Migration tooling</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Phased Cutover:</strong> +2 months
-                                    <ul>
-                                        <li>User group migrations</li>
-                                        <li>Performance monitoring</li>
-                                        <li>Rollback procedures</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div style="background: #e0f2fe; padding: 1rem; border-radius: 8px;">
-                            <h4>Strategic Benefits Worth the Time:</h4>
-                            <ul>
-                                <li>Zero downtime guarantee</li>
-                                <li>Instant rollback capability</li>
-                                <li>Risk mitigation for government</li>
-                            </ul>
-                        </div>
-                    `
-                },
-                approach5: {
-                    title: "Model-Driven Generation Timeline Logic",
-                    content: `
-                        <h3>Estimated: 12-16 months (-30% from baseline)</h3>
-                        <div style="background: #f3f4f6; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                            <h4>Acceleration Factors:</h4>
-                            <ul>
-                                <li><strong>Automated Generation:</strong> -4 months
-                                    <ul>
-                                        <li>struts-config.xml parsing: 200 hours</li>
-                                        <li>Auto-generate APIs: 500 hours</li>
-                                        <li>CRUD operations: 80% automated</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Reduced Coding:</strong> -2 months
-                                    <ul>
-                                        <li>Boilerplate eliminated</li>
-                                        <li>Standard patterns</li>
-                                        <li>Configuration-driven</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div style="background: #fef3c7; padding: 1rem; border-radius: 8px;">
-                            <h4>Time Added Back:</h4>
-                            <ul>
-                                <li><strong>Customization:</strong> +2 months
-                                    <ul>
-                                        <li>20% manual coding for edge cases</li>
-                                        <li>Complex workflow handling</li>
-                                        <li>Tool limitation workarounds</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    `
-                },
-                approach6: {
-                    title: "Agentic SDLC Platform Timeline Logic",
-                    content: `
-                        <h3>Estimated: 9-12 months (-50% from baseline)</h3>
-                        <div style="background: #f3f4f6; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                            <h4>AI Acceleration Breakdown:</h4>
-                            <ul>
-                                <li><strong>Automated Analysis:</strong> -3 months
-                                    <ul>
-                                        <li>AI learns 800 pages in days</li>
-                                        <li>Pattern recognition: 95% accurate</li>
-                                        <li>Business logic extraction: 85% complete</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Code Generation:</strong> -4 months
-                                    <ul>
-                                        <li>1000+ lines/hour generation</li>
-                                        <li>Test suite auto-creation</li>
-                                        <li>Documentation automated</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Continuous Learning:</strong> -2 months
-                                    <ul>
-                                        <li>Self-correcting from feedback</li>
-                                        <li>Pattern reuse across pages</li>
-                                        <li>Optimization suggestions</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div style="background: #e0f2fe; padding: 1rem; border-radius: 8px;">
-                            <h4>Government Context (from modal):</h4>
-                            <ul>
-                                <li>Months 1-2: Setup & approvals</li>
-                                <li>Months 3-4: Design & security review</li>
-                                <li>Months 5-9: AI execution & validation</li>
-                                <li>Total includes all overhead</li>
-                            </ul>
-                        </div>
-                    `
-                }
-            };
-
-            const modal = document.getElementById('standardModal');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalContent = document.getElementById('modalContent');
-
-            if (timelineLogic[approach]) {
-                modalTitle.innerHTML = "📊 " + timelineLogic[approach].title;
-                modalContent.innerHTML = timelineLogic[approach].content;
-                modal.style.display = 'block';
-            }
-        }
-
-        function closeStandardModal() {
-            document.getElementById('standardModal').style.display = 'none';
-        }
-
         // Update the existing window.onclick to handle both modal types
         window.onclick = function(event) {
             // Handle approach modals
@@ -4048,3 +2741,7 @@
     </footer>
 </body>
 </html>
+
+            
+
+            
