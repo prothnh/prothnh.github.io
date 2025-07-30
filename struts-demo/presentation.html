@@ -1227,9 +1227,12 @@
                         <!-- Layer 1: React Frontend -->
                         <div style="background: #E3F2FD; border: 2px solid #1976D2; border-radius: 8px; padding: 1rem; position: relative;">
                             <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <div>
+                                <div style="flex: 1;">
                                     <h4 style="color: #1976D2; margin: 0;">Layer 1: React Frontend</h4>
                                     <p style="color: #64748b; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Modern User Interface</p>
+                                    <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #1976D2;">
+                                        • Component-based architecture • Modern browser support • Responsive design
+                                    </div>
                                 </div>
                                 <div style="text-align: right;">
                                     <span style="background: #C8E6C9; color: #2E7D32; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
@@ -1239,14 +1242,14 @@
                             </div>
                         </div>
 
-                        <!-- Layer 1.5: FastAPI Backend -->
+                        <!-- Layer 2: FastAPI Backend -->
                         <div style="background: #E8F5E9; border: 2px solid #4CAF50; border-radius: 8px; padding: 1rem; position: relative;">
                             <div style="position: absolute; top: -12px; left: 20px; background: white; padding: 0 0.5rem;">
                                 <span style="color: #2E7D32; font-weight: 700; font-size: 0.85rem;">🎯 STRATEGIC LAYER</span>
                             </div>
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <div>
-                                    <h4 style="color: #2E7D32; margin: 0;">Layer 1.5: FastAPI Backend</h4>
+                                    <h4 style="color: #2E7D32; margin: 0;">Layer 2: FastAPI Backend</h4>
                                     <p style="color: #1B5E20; font-size: 0.85rem; margin: 0.25rem 0 0 0; font-weight: 600;">
                                         First step towards Service Layer Extraction
                                     </p>
@@ -1283,9 +1286,12 @@
                         <!-- Layer 4: Legacy Struts App -->
                         <div style="background: #FFEBEE; border: 2px solid #D32F2F; border-radius: 8px; padding: 1rem; position: relative;">
                             <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <div>
+                                <div style="flex: 1;">
                                     <h4 style="color: #D32F2F; margin: 0;">Layer 4: Legacy Struts 1.1</h4>
                                     <p style="color: #64748b; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Business Logic + Actions (EOL 2013)</p>
+                                    <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #D32F2F;">
+                                        • Business rules • Validation • Transaction management • Action classes
+                                    </div>
                                 </div>
                                 <div style="text-align: right;">
                                     <span style="background: #FFCDD2; color: #D32F2F; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
@@ -1485,34 +1491,40 @@
 
                         <!-- Center - New Architecture -->
                         <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                            <!-- React Frontend -->
+                            <!-- Layer 1: React Frontend -->
                             <div style="background: #E3F2FD; border: 2px solid #1976D2; border-radius: 8px; padding: 1rem;">
-                                <h4 style="color: #1976D2; margin: 0;">React Frontend</h4>
+                                <h4 style="color: #1976D2; margin: 0;">Layer 1: React Frontend</h4>
                                 <p style="color: #64748b; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Modern UI with direct API calls</p>
-                            </div>
-
-                            <!-- REST API Layer -->
-                            <div style="background: #E8F5E9; border: 3px solid #4CAF50; border-radius: 8px; padding: 1rem;">
-                                <h4 style="color: #2E7D32; margin: 0;">REST API Controllers</h4>
-                                <p style="color: #1B5E20; font-size: 0.85rem; margin: 0.25rem 0 0 0; font-weight: 600;">Clean API endpoints</p>
-                                <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #2E7D32;">
-                                    • Direct service access • No HTML parsing • JSON responses
+                                <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #1976D2;">
+                                    • Component-based architecture • Modern browser support • Responsive design
                                 </div>
                             </div>
 
-                            <!-- Service Layer -->
+                            <!-- Layer 2: REST API Controllers -->
+                            <div style="background: #E8F5E9; border: 3px solid #4CAF50; border-radius: 8px; padding: 1rem;">
+                                <h4 style="color: #2E7D32; margin: 0;">Layer 2: REST API Controllers</h4>
+                                <p style="color: #1B5E20; font-size: 0.85rem; margin: 0.25rem 0 0 0; font-weight: 600;">Clean API endpoints</p>
+                                <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #2E7D32;">
+                                    • Endpoint routing • Request validation • Response formatting • JSON responses
+                                </div>
+                            </div>
+
+                            <!-- Layer 3: Service Layer -->
                             <div style="background: #FFF3E0; border: 3px solid #F57C00; border-radius: 8px; padding: 1rem;">
-                                <h4 style="color: #F57C00; margin: 0;">Service Layer</h4>
+                                <h4 style="color: #F57C00; margin: 0;">Layer 3: Service Layer</h4>
                                 <p style="color: #E65100; font-size: 0.85rem; margin: 0.25rem 0 0 0; font-weight: 600;">Extracted business logic</p>
                                 <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #795548;">
                                     • Business rules • Validation • Transaction management
                                 </div>
                             </div>
 
-                            <!-- Data Access Layer -->
+                            <!-- Layer 4: Data Access Layer -->
                             <div style="background: #E3F2FD; border: 2px solid #1976D2; border-radius: 8px; padding: 1rem;">
-                                <h4 style="color: #1976D2; margin: 0;">Data Access Layer</h4>
+                                <h4 style="color: #1976D2; margin: 0;">Layer 4: Data Access Layer</h4>
                                 <p style="color: #64748b; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Repository pattern with Oracle</p>
+                                <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #1976D2;">
+                                    • Repository pattern • Oracle connectivity • Data transformation
+                                </div>
                             </div>
                         </div>
 
@@ -1665,15 +1677,65 @@
                     </div>
                 </div>
 
+                <!-- Immediate Compatibility Assessment -->
+                <div class="content-card" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #0284c7; margin-bottom: 2rem;">
+                    <div class="card-content" style="padding: 1.5rem;">
+                        <h3 style="color: #0c4a6e; margin-bottom: 1rem;">📊 Immediate Compatibility Assessment</h3>
+                        <div class="content-grid" style="grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                            <div>
+                                <h4 style="color: #0284c7; margin-bottom: 0.5rem;">Browser Compatibility Timeline</h4>
+                                <ul style="list-style: none; padding: 0; margin: 0;">
+                                    <li style="padding: 0.25rem 0; color: #0c4a6e;">• <strong>Option 1:</strong> Immediate modern browser support</li>
+                                    <li style="padding: 0.25rem 0; color: #0c4a6e;">• <strong>Option 2:</strong> Native modern browser architecture</li>
+                                    <li style="padding: 0.25rem 0; color: #0c4a6e;">• <strong>Risk Mitigation:</strong> Both eliminate IE6 dependency</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="color: #0284c7; margin-bottom: 0.5rem;">Implementation Readiness Factors</h4>
+                                <ul style="list-style: none; padding: 0; margin: 0;">
+                                    <li style="padding: 0.25rem 0; color: #0c4a6e;">• <strong>Option 1:</strong> No backend changes required</li>
+                                    <li style="padding: 0.25rem 0; color: #0c4a6e;">• <strong>Option 2:</strong> Requires Struts expertise</li>
+                                    <li style="padding: 0.25rem 0; color: #0c4a6e;">• <strong>Team Skills:</strong> React ready, legacy available</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Path to Option 2 Assessment -->
+                <div class="content-card" style="background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border: 2px solid #10b981; margin-bottom: 2rem;">
+                    <div class="card-content" style="padding: 1.5rem;">
+                        <h3 style="color: #047857; margin-bottom: 1rem;">🛤️ Path to Option 2 Assessment</h3>
+                        <div class="content-grid" style="grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                            <div>
+                                <h4 style="color: #10b981; margin-bottom: 0.5rem;">Assessment Criteria for Transition</h4>
+                                <ul style="list-style: none; padding: 0; margin: 0;">
+                                    <li style="padding: 0.25rem 0; color: #047857;">• <strong>Technical Debt Tolerance:</strong> High → Transition recommended</li>
+                                    <li style="padding: 0.25rem 0; color: #047857;">• <strong>Performance Requirements:</strong> Critical → Transition priority</li>
+                                    <li style="padding: 0.25rem 0; color: #047857;">• <strong>Team Capability:</strong> Legacy skills available → Lower risk</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="color: #10b981; margin-bottom: 0.5rem;">Risk Reduction Strategies</h4>
+                                <ul style="list-style: none; padding: 0; margin: 0;">
+                                    <li style="padding: 0.25rem 0; color: #047857;">• <strong>Phased Migration:</strong> Start with low-risk components</li>
+                                    <li style="padding: 0.25rem 0; color: #047857;">• <strong>Parallel Development:</strong> Maintain Option 1 as fallback</li>
+                                    <li style="padding: 0.25rem 0; color: #047857;">• <strong>Timeline Flexibility:</strong> 6-month evaluation checkpoints</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Recommendation -->
                 <div class="content-card" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b;">
                     <div class="card-content" style="text-align: center; padding: 1.5rem;">
-                        <h3 style="color: #92400e; margin-bottom: 1rem;">💡 Our Recommendation</h3>
+                        <h3 style="color: #92400e; margin-bottom: 1rem;">💡 Our Strategic Recommendation</h3>
                         <p style="font-size: 1.125rem; font-weight: 600; color: #92400e; margin: 0;">
                             Start with Option 1 for immediate browser compatibility, with a planned transition to Option 2 in Phase 2
                         </p>
                         <p style="color: #92400e; margin-top: 0.5rem;">
-                            This approach balances risk, delivers quick wins, and provides a clear modernization path
+                            This approach balances risk, delivers quick wins, and provides a clear modernization path with built-in assessment milestones
                         </p>
                     </div>
                 </div>
