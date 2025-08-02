@@ -552,6 +552,65 @@
         .method-put::before { background: #f59e0b; }
         .method-delete::before { background: #ef4444; }
 
+        /* Decision Calculator Styles */
+        .weight-control {
+            margin-bottom: 1rem;
+        }
+
+        .weight-control label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .weight-control input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+            margin: 0.5rem 0;
+        }
+
+        .weight-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #3b82f6;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .weight-control input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #3b82f6;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .weight-control small {
+            display: block;
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .score-highlight {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .score-best {
+            background: #dcfce7 !important;
+            border: 2px solid #16a34a !important;
+        }
 
         /* Mermaid Container */
         .mermaid-container {
@@ -1128,6 +1187,11 @@
                         <span class="number">B</span>
                         <span>Timeline Logic</span>
                     </a>
+                    
+                    <a href="#slide-15" class="nav-link" data-slide="15">
+                        <span class="number">15</span>
+                        <span>Decision Calculator</span>
+                    </a>
                 </div>
                 
                 <button class="nav-scroll-control nav-scroll-right" onclick="scrollNav(200)">
@@ -1210,6 +1274,10 @@
             <a href="#slide-14" class="nav-link appendix-link" data-slide="14">
                 <span class="number">B</span>
                 <span>Timeline Logic</span>
+            </a>
+            <a href="#slide-15" class="nav-link" data-slide="15">
+                <span class="number">15</span>
+                <span>Decision Calculator</span>
             </a>
         </div>
     </nav>
@@ -2998,6 +3066,161 @@ public class ClaimService {
                 </div>
             </section>
 
+            <!-- Slide 15: Decision Calculator -->
+            <section id="slide-15" class="slide">
+                <div class="slide-header">
+                    <span class="slide-number">15</span>
+                    <h2 class="slide-title">Interactive Decision Calculator</h2>
+                    <p class="slide-subtitle">Customize weightings to determine the optimal approach for your situation</p>
+                </div>
+
+                <div class="content-grid">
+                    <!-- Weight Configuration Panel -->
+                    <div class="content-card" style="grid-column: 1 / -1;">
+                        <h3 class="card-title">🎯 Decision Criteria Weights</h3>
+                        <p style="margin-bottom: 1rem; color: #6b7280;">Adjust the importance of each factor based on your organization's priorities:</p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                            <div class="weight-control">
+                                <label for="weight-team-availability">Team Availability (Current: <span id="weight-team-availability-display">20</span>%)</label>
+                                <input type="range" id="weight-team-availability" min="0" max="40" value="20" oninput="updateCalculator()">
+                                <small>How much can your team participate in development?</small>
+                            </div>
+                            
+                            <div class="weight-control">
+                                <label for="weight-timeline">Timeline Urgency (Current: <span id="weight-timeline-display">25</span>%)</label>
+                                <input type="range" id="weight-timeline" min="0" max="40" value="25" oninput="updateCalculator()">
+                                <small>How critical is time-to-market?</small>
+                            </div>
+                            
+                            <div class="weight-control">
+                                <label for="weight-budget">Budget Constraints (Current: <span id="weight-budget-display">20</span>%)</label>
+                                <input type="range" id="weight-budget" min="0" max="40" value="20" oninput="updateCalculator()">
+                                <small>How sensitive are you to total project cost?</small>
+                            </div>
+                            
+                            <div class="weight-control">
+                                <label for="weight-risk">Risk Tolerance (Current: <span id="weight-risk-display">15</span>%)</label>
+                                <input type="range" id="weight-risk" min="0" max="40" value="15" oninput="updateCalculator()">
+                                <small>How much risk can your organization accept?</small>
+                            </div>
+                            
+                            <div class="weight-control">
+                                <label for="weight-future">Future Flexibility (Current: <span id="weight-future-display">20</span>%)</label>
+                                <input type="range" id="weight-future" min="0" max="40" value="20" oninput="updateCalculator()">
+                                <small>How important is long-term architectural flexibility?</small>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 1rem; padding: 0.75rem; background: #f3f4f6; border-radius: 8px;">
+                            <strong>Total Weight: <span id="total-weight">100</span>%</strong>
+                            <small style="display: block; margin-top: 0.25rem; color: #6b7280;">Weights are automatically normalized to 100%</small>
+                        </div>
+                    </div>
+
+                    <!-- Scoring Matrix -->
+                    <div class="content-card" style="grid-column: 1 / -1;">
+                        <h3 class="card-title">📊 Option Scoring Matrix</h3>
+                        
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                                <thead>
+                                    <tr style="background: #f8fafc;">
+                                        <th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid #e2e8f0;">Criteria</th>
+                                        <th style="padding: 0.75rem; text-align: center; border-bottom: 2px solid #e2e8f0;">Weight</th>
+                                        <th style="padding: 0.75rem; text-align: center; border-bottom: 2px solid #e2e8f0;">Option 1: HTML-to-JSON</th>
+                                        <th style="padding: 0.75rem; text-align: center; border-bottom: 2px solid #e2e8f0;">Option 2: Service Extraction</th>
+                                        <th style="padding: 0.75rem; text-align: center; border-bottom: 2px solid #e2e8f0;">With AI Platform</th>
+                                        <th style="padding: 0.75rem; text-align: center; border-bottom: 2px solid #e2e8f0;">Traditional Approach</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;"><strong>Team Availability</strong></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0;"><span id="normalized-weight-team">20%</span></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #dcfce7;">9 <small>(Low team needed)</small></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #fef3c7;">6 <small>(High team needed)</small></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #dbeafe;">8 <small>(AI assistance)</small></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #fee2e2;">4 <small>(Manual intensive)</small></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;"><strong>Timeline Urgency</strong></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0;"><span id="normalized-weight-timeline">25%</span></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #dcfce7;">8 <small>(6-8 months)</small></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #fef3c7;">6 <small>(8-12 months)</small></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #dbeafe;">9 <small>(25% faster)</small></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #fee2e2;">4 <small>(12-18 months)</small></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;"><strong>Budget Constraints</strong></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0;"><span id="normalized-weight-budget">20%</span></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #dcfce7;">7 <small>(Lower total cost)</small></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #fef3c7;">6 <small>(Higher upfront)</small></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #dbeafe;">9 <small>(25% 3yr savings)</small></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #fee2e2;">5 <small>(Higher FTE cost)</small></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;"><strong>Risk Tolerance</strong></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0;"><span id="normalized-weight-risk">15%</span></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #dcfce7;">9 <small>(Zero codebase risk)</small></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #fee2e2;">4 <small>(Core logic changes)</small></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #dbeafe;">7 <small>(AI quality controls)</small></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #fee2e2;">5 <small>(Manual error prone)</small></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;"><strong>Future Flexibility</strong></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0;"><span id="normalized-weight-future">20%</span></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #fef3c7;">5 <small>(Limited API evolution)</small></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #dcfce7;">9 <small>(Modern API foundation)</small></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #dbeafe;">8 <small>(AI pattern optimization)</small></td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e2e8f0; background: #fef3c7;">6 <small>(Manual architecture)</small></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="background: #f1f5f9; font-weight: bold;">
+                                        <td style="padding: 1rem; border-top: 2px solid #cbd5e1;">WEIGHTED TOTAL SCORE</td>
+                                        <td style="padding: 1rem; text-align: center; border-top: 2px solid #cbd5e1;">100%</td>
+                                        <td style="padding: 1rem; text-align: center; border-top: 2px solid #cbd5e1; font-size: 1.1rem;" id="score-option1">7.6</td>
+                                        <td style="padding: 1rem; text-align: center; border-top: 2px solid #cbd5e1; font-size: 1.1rem;" id="score-option2">6.2</td>
+                                        <td style="padding: 1rem; text-align: center; border-top: 2px solid #cbd5e1; font-size: 1.1rem;" id="score-ai">8.2</td>
+                                        <td style="padding: 1rem; text-align: center; border-top: 2px solid #cbd5e1; font-size: 1.1rem;" id="score-traditional">4.8</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Recommendation Panel -->
+                    <div class="content-card" style="grid-column: 1 / -1;">
+                        <div id="recommendation-panel" style="padding: 1.5rem; border-radius: 12px; border-left: 5px solid #10b981;">
+                            <h3 style="margin: 0 0 1rem 0; color: #10b981;" id="recommendation-title">🎯 Recommended Approach</h3>
+                            <div id="recommendation-content" style="font-size: 1.1rem;">
+                                <p><strong>Option 1: HTML-to-JSON Translation with AI Platform</strong></p>
+                                <p>Based on your current weightings, this approach offers the best balance of low team involvement, reasonable timeline, and minimal risk while providing modern user experience.</p>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 1rem; padding: 1rem; background: #f8fafc; border-radius: 8px;">
+                            <h4 style="margin: 0 0 0.5rem 0;">💡 Quick Scenarios:</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem;">
+                                <button onclick="setScenario('risk-averse')" style="padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 6px; background: white; cursor: pointer;">
+                                    🛡️ Risk Averse Team
+                                </button>
+                                <button onclick="setScenario('time-critical')" style="padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 6px; background: white; cursor: pointer;">
+                                    ⚡ Time Critical
+                                </button>
+                                <button onclick="setScenario('budget-conscious')" style="padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 6px; background: white; cursor: pointer;">
+                                    💰 Budget Conscious
+                                </button>
+                                <button onclick="setScenario('future-focused')" style="padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 6px; background: white; cursor: pointer;">
+                                    🚀 Future Focused
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
 
         </div>
     </div>
@@ -4107,6 +4330,177 @@ public class ClaimService {
         function closeStandardModal() {
             document.getElementById('standardModal').style.display = 'none';
         }
+
+        // Decision Calculator Functions
+        function updateCalculator() {
+            // Get weight values
+            const weights = {
+                team: parseFloat(document.getElementById('weight-team-availability').value),
+                timeline: parseFloat(document.getElementById('weight-timeline').value),
+                budget: parseFloat(document.getElementById('weight-budget').value),
+                risk: parseFloat(document.getElementById('weight-risk').value),
+                future: parseFloat(document.getElementById('weight-future').value)
+            };
+
+            // Calculate total weight for normalization
+            const totalWeight = Object.values(weights).reduce((sum, weight) => sum + weight, 0);
+
+            // Normalize weights to 100%
+            const normalizedWeights = {};
+            Object.keys(weights).forEach(key => {
+                normalizedWeights[key] = totalWeight > 0 ? (weights[key] / totalWeight) * 100 : 0;
+            });
+
+            // Update weight displays
+            document.getElementById('weight-team-availability-display').textContent = weights.team;
+            document.getElementById('weight-timeline-display').textContent = weights.timeline;
+            document.getElementById('weight-budget-display').textContent = weights.budget;
+            document.getElementById('weight-risk-display').textContent = weights.risk;
+            document.getElementById('weight-future-display').textContent = weights.future;
+            document.getElementById('total-weight').textContent = totalWeight;
+
+            // Update normalized weight displays in table
+            document.getElementById('normalized-weight-team').textContent = normalizedWeights.team.toFixed(0) + '%';
+            document.getElementById('normalized-weight-timeline').textContent = normalizedWeights.timeline.toFixed(0) + '%';
+            document.getElementById('normalized-weight-budget').textContent = normalizedWeights.budget.toFixed(0) + '%';
+            document.getElementById('normalized-weight-risk').textContent = normalizedWeights.risk.toFixed(0) + '%';
+            document.getElementById('normalized-weight-future').textContent = normalizedWeights.future.toFixed(0) + '%';
+
+            // Scoring matrix (1-10 scale)
+            const scores = {
+                option1: {
+                    team: 9,      // Low team involvement needed
+                    timeline: 8,  // 6-8 months
+                    budget: 7,    // Lower total cost
+                    risk: 9,      // Zero codebase changes
+                    future: 5     // Limited API evolution
+                },
+                option2: {
+                    team: 6,      // High team involvement needed
+                    timeline: 6,  // 8-12 months
+                    budget: 6,    // Higher upfront cost
+                    risk: 4,      // Core logic changes
+                    future: 9     // Modern API foundation
+                },
+                ai: {
+                    team: 8,      // AI assistance reduces team load
+                    timeline: 9,  // 25% faster
+                    budget: 9,    // 25% 3-year savings
+                    risk: 7,      // AI quality controls
+                    future: 8     // AI pattern optimization
+                },
+                traditional: {
+                    team: 4,      // Manual intensive
+                    timeline: 4,  // 12-18 months
+                    budget: 5,    // Higher FTE costs
+                    risk: 5,      // Manual error prone
+                    future: 6     // Manual architecture
+                }
+            };
+
+            // Calculate weighted scores
+            const weightedScores = {};
+            Object.keys(scores).forEach(option => {
+                weightedScores[option] = (
+                    (scores[option].team * normalizedWeights.team / 100) +
+                    (scores[option].timeline * normalizedWeights.timeline / 100) +
+                    (scores[option].budget * normalizedWeights.budget / 100) +
+                    (scores[option].risk * normalizedWeights.risk / 100) +
+                    (scores[option].future * normalizedWeights.future / 100)
+                );
+            });
+
+            // Update score displays
+            document.getElementById('score-option1').textContent = weightedScores.option1.toFixed(1);
+            document.getElementById('score-option2').textContent = weightedScores.option2.toFixed(1);
+            document.getElementById('score-ai').textContent = weightedScores.ai.toFixed(1);
+            document.getElementById('score-traditional').textContent = weightedScores.traditional.toFixed(1);
+
+            // Determine best approach
+            const bestScore = Math.max(...Object.values(weightedScores));
+            const bestApproach = Object.keys(weightedScores).find(key => weightedScores[key] === bestScore);
+
+            // Clear previous highlights
+            ['score-option1', 'score-option2', 'score-ai', 'score-traditional'].forEach(id => {
+                document.getElementById(id).parentElement.classList.remove('score-best');
+            });
+
+            // Highlight best score
+            document.getElementById('score-' + bestApproach).parentElement.classList.add('score-best');
+
+            // Update recommendation
+            updateRecommendation(bestApproach, weightedScores);
+        }
+
+        function updateRecommendation(bestApproach, scores) {
+            const recommendations = {
+                option1: {
+                    title: 'Option 1: HTML-to-JSON Translation',
+                    description: 'This approach offers minimal risk and team involvement while providing modern user experience. Best for teams with limited availability for collaboration.'
+                },
+                option2: {
+                    title: 'Option 2: Service Layer Extraction',
+                    description: 'This approach provides the best long-term architectural foundation with modern API patterns. Recommended when future flexibility is the top priority.'
+                },
+                ai: {
+                    title: 'Development with AI Platform',
+                    description: 'AI-assisted development provides the best overall value with faster delivery, reduced costs, and enhanced quality. Recommended for forward-thinking organizations.'
+                },
+                traditional: {
+                    title: 'Traditional Manual Development',
+                    description: 'Manual development approach may be suitable when AI adoption constraints exist, though it requires more time and resources.'
+                }
+            };
+
+            document.getElementById('recommendation-title').textContent = '🎯 Recommended: ' + recommendations[bestApproach].title;
+            document.getElementById('recommendation-content').innerHTML = 
+                '<p><strong>' + recommendations[bestApproach].title + '</strong></p>' +
+                '<p>' + recommendations[bestApproach].description + '</p>' +
+                '<p><em>Score: ' + scores[bestApproach].toFixed(1) + '/10 based on your weightings</em></p>';
+
+            // Update panel styling based on recommendation
+            const panel = document.getElementById('recommendation-panel');
+            const colors = {
+                option1: '#10b981',
+                option2: '#3b82f6', 
+                ai: '#8b5cf6',
+                traditional: '#6b7280'
+            };
+            panel.style.borderLeftColor = colors[bestApproach];
+            document.getElementById('recommendation-title').style.color = colors[bestApproach];
+        }
+
+        function setScenario(scenario) {
+            const scenarios = {
+                'risk-averse': {
+                    team: 10, timeline: 25, budget: 20, risk: 35, future: 10
+                },
+                'time-critical': {
+                    team: 15, timeline: 40, budget: 20, risk: 15, future: 10
+                },
+                'budget-conscious': {
+                    team: 20, timeline: 20, budget: 40, risk: 10, future: 10
+                },
+                'future-focused': {
+                    team: 15, timeline: 15, budget: 15, risk: 15, future: 40
+                }
+            };
+
+            if (scenarios[scenario]) {
+                const weights = scenarios[scenario];
+                document.getElementById('weight-team-availability').value = weights.team;
+                document.getElementById('weight-timeline').value = weights.timeline;
+                document.getElementById('weight-budget').value = weights.budget;
+                document.getElementById('weight-risk').value = weights.risk;
+                document.getElementById('weight-future').value = weights.future;
+                updateCalculator();
+            }
+        }
+
+        // Initialize calculator when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCalculator();
+        });
 
         // Update the existing window.onclick to handle both modal types
         window.onclick = function(event) {
