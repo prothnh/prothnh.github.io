@@ -3236,8 +3236,13 @@ public class ClaimService {
     </div>
 
     <script>
+        // Check authentication on page load
+        if (localStorage.getItem('struts-auth') !== 'authenticated') {
+            window.location.href = 'index.html';
+        }
+
         let currentSlide = 1;
-        const totalSlides = 12; // Updated to include appendices
+        const totalSlides = 15; // Updated to include decision calculator
 
         function showSlide(n) {
             const slides = document.getElementsByClassName('slide');
