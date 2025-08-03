@@ -1345,6 +1345,40 @@
                     </div>
                 </div>
 
+                <!-- Performance Improvement Section -->
+                <div class="content-card" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b; margin: 2rem 0;">
+                    <h3 class="card-title" style="color: #92400e;">🚀 Performance & User Experience Crisis</h3>
+                    <div class="card-content">
+                        <div style="display: grid; grid-template-columns: 2fr 1fr 2fr; gap: 2rem; align-items: center;">
+                            <div>
+                                <h4 style="color: #dc2626; margin-bottom: 1rem;">Current State (IE6 + JSP)</h4>
+                                <ul class="feature-list" style="color: #7f1d1d;">
+                                    <li><strong>300–1000ms+</strong> response times</li>
+                                    <li>Frequent <strong>freezing and memory leaks</strong></li>
+                                    <li>Tasks taking <strong>nearly a minute</strong> to complete</li>
+                                    <li>IE6 is <strong>two orders of magnitude slower</strong> than modern browsers</li>
+                                </ul>
+                            </div>
+                            <div style="text-align: center; font-size: 3rem;">
+                                ➡️
+                            </div>
+                            <div>
+                                <h4 style="color: #059669; margin-bottom: 1rem;">Target State (Modern Bridge)</h4>
+                                <ul class="feature-list" style="color: #065f46;">
+                                    <li><strong>&lt;100ms</strong> response times consistently</li>
+                                    <li><strong>All modern browsers</strong> supported</li>
+                                    <li><strong>Fast, responsive, WCAG-ready</strong> experience</li>
+                                    <li><strong>Fully decoupled & modular</strong> frontend</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="text-align: center; margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.7); border-radius: 8px;">
+                            <strong style="color: #92400e;">Key Insight:</strong> Latency above 100ms is perceived as sluggish by users. 
+                            The RESTful Bridge approach delivers <strong>both technically measurable and immediately perceptible</strong> improvements.
+                        </div>
+                    </div>
+                </div>
+
                 <div class="metrics-grid">
                     <div class="metric-card">
                         <div class="metric-value">800</div>
@@ -1369,7 +1403,7 @@
             <section id="slide-2" class="slide">
                 <div class="slide-header">
                     <span class="slide-number">SLIDE 2</span>
-                    <h2 class="slide-title">Current State: HTML-to-JSON Translation</h2>
+                    <h2 class="slide-title">Current State: RESTful Bridge Approach</h2>
                     <p class="slide-subtitle">Strategic 4-Layer Architecture with AI-Powered Maintenance</p>
                 </div>
 
@@ -1593,7 +1627,7 @@
 
                 <div class="content-grid">
                     <div class="content-card" onclick="openModal('approach1')">
-                        <h3 class="card-title">1️⃣ HTML-to-JSON Translation</h3>
+                        <h3 class="card-title">1️⃣ RESTful Bridge Approach</h3>
                         <div class="card-content">
                             <p><strong>Current approach</strong> - Parse HTML output and convert to JSON</p>
                             <span class="status-badge status-warning">Short-term</span>
@@ -1801,7 +1835,7 @@
 
                 <div class="content-grid">
                     <div class="content-card">
-                        <h3 class="card-title">1️⃣ HTML-to-JSON Translation</h3>
+                        <h3 class="card-title">1️⃣ RESTful Bridge Approach</h3>
                         <div class="card-content">
                             <p><strong>What:</strong> Parse HTML output from JSPs and convert to JSON</p>
                             <p><strong>Timeline:</strong> 18.2 months total (current baseline)</p>
@@ -3195,7 +3229,7 @@ public class ClaimService {
                         <div id="recommendation-panel" style="padding: 1.5rem; border-radius: 12px; border-left: 5px solid #10b981;">
                             <h3 style="margin: 0 0 1rem 0; color: #10b981;" id="recommendation-title">🎯 Recommended Approach</h3>
                             <div id="recommendation-content" style="font-size: 1.1rem;">
-                                <p><strong>Option 1: HTML-to-JSON Translation with AI Platform</strong></p>
+                                <p><strong>Option 1: RESTful Bridge Approach with AI Platform</strong></p>
                                 <p>Based on your current weightings, this approach offers the best balance of low team involvement, reasonable timeline, and minimal risk while providing modern user experience.</p>
                             </div>
                         </div>
@@ -3430,11 +3464,11 @@ public class ClaimService {
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close" onclick="closeModal('approach1Modal')">&times;</span>
-                <h2>1️⃣ HTML-to-JSON Translation</h2>
+                <h2>1️⃣ RESTful Bridge Approach</h2>
             </div>
             <div class="modal-body">
                 <h3>Overview</h3>
-                <p>This approach parses HTML output from legacy JSP pages and converts it to structured JSON data for REST API responses.</p>
+                <p>This approach builds a <strong>Spring Boot–based RESTful bridge</strong> that intercepts HTML responses from the existing JSP-based Struts application, using JSoup to parse and transform them into structured JSON APIs for modern frontend consumption.</p>
 
                 <h3>How Agentic SDLC Reduces Brittleness</h3>
                 <div class="implementation-details">
@@ -4085,7 +4119,7 @@ public class ClaimService {
         function showTimelineLogic(approach) {
             const timelineLogic = {
                 approach1: {
-                    title: "HTML-to-JSON Translation Timeline Logic",
+                    title: "RESTful Bridge Approach Timeline Logic",
                     content: `
                         <h3>Baseline: 18.2 months (Current Approach)</h3>
                         <div style="background: #f3f4f6; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
@@ -4440,7 +4474,7 @@ public class ClaimService {
         function updateRecommendation(bestApproach, scores) {
             const recommendations = {
                 option1: {
-                    title: 'Option 1: HTML-to-JSON Translation',
+                    title: 'Option 1: RESTful Bridge Approach',
                     description: 'This approach offers minimal risk and team involvement while providing modern user experience. Best for teams with limited availability for collaboration.'
                 },
                 option2: {

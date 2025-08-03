@@ -474,6 +474,7 @@
         <a href="#industry-research" class="quick-nav-item">Industry Research</a>
         <a href="#effort-comparison" class="quick-nav-item">Effort Comparison</a>
         <a href="#code-examples" class="quick-nav-item">Code Examples</a>
+        <a href="#future-proofing" class="quick-nav-item">Future-Proofing</a>
         <a href="#implementation-strategy" class="quick-nav-item">Implementation Strategy</a>
     </nav>
 
@@ -571,15 +572,15 @@ flowchart TD
                 <!-- Option 1 -->
                 <div class="option-card option1">
                     <div class="option-title">
-                        🔄 Option 1: HTML-to-JSON Translation
+                        🔄 Option 1: RESTful Bridge Approach
                         <span class="option-badge">Minimal Risk</span>
                     </div>
                     
                     <p><strong>Approach Narrative:</strong></p>
                     <p>
                         This option maintains the existing Struts 1.1 backend completely unchanged, making it the 
-                        safest approach for risk-averse organizations. The strategy involves creating a modern React 
-                        frontend that communicates with the legacy system through an HTML parsing layer.
+                        safest approach for risk-averse organizations. The strategy involves building a <strong>Spring Boot–based RESTful bridge</strong> 
+                        that intercepts HTML responses from the existing JSP-based Struts application, transforming them into structured JSON APIs for modern frontend consumption.
                     </p>
 
                     <h4 style="margin: 1.5rem 0 1rem; color: #1e40af; font-weight: 600;">Key Components:</h4>
@@ -590,11 +591,11 @@ flowchart TD
                         </li>
                         <li class="benefit-item">
                             <span class="benefit-icon">🔍</span>
-                            <div><strong>HTML Parser:</strong> Intelligent parsing engine that extracts data from JSP-generated HTML responses</div>
+                            <div><strong>Spring Boot RESTful Bridge:</strong> Intelligent service that intercepts HTML responses and uses JSoup to parse JSP-generated content</div>
                         </li>
                         <li class="benefit-item">
                             <span class="benefit-icon">🔄</span>
-                            <div><strong>JSON Converter:</strong> Transforms parsed HTML data into structured JSON for React consumption</div>
+                            <div><strong>JSON API Layer:</strong> Transforms parsed HTML data into clean RESTful APIs with structured JSON responses for React consumption</div>
                         </li>
                         <li class="benefit-item">
                             <span class="benefit-icon">🛡️</span>
@@ -606,19 +607,19 @@ flowchart TD
                     <ul class="benefit-list">
                         <li class="benefit-item">
                             <span class="benefit-icon">✅</span>
-                            <div>Minimal risk to existing functionality</div>
+                            <div><strong>Preserve Legacy Logic:</strong> No changes needed to core Struts/ActionForm/DAO layers</div>
                         </li>
                         <li class="benefit-item">
                             <span class="benefit-icon">✅</span>
-                            <div>Gradual modernization approach</div>
+                            <div><strong>Isolate Complexity:</strong> Legacy quirks (nested table HTML) handled at bridge, not exposed to frontend teams</div>
                         </li>
                         <li class="benefit-item">
                             <span class="benefit-icon">✅</span>
-                            <div>Existing team expertise remains fully relevant</div>
+                            <div><strong>Enable Modern Dev Practices:</strong> React frontend built with CI/CD, tests, component libraries, and WCAG accessibility</div>
                         </li>
                         <li class="benefit-item">
                             <span class="benefit-icon">✅</span>
-                            <div>No database or business logic changes required</div>
+                            <div><strong>Performance Improvement:</strong> Target <100ms response times vs current 300ms+ with IE6 emulation</div>
                         </li>
                     </ul>
 
@@ -701,8 +702,49 @@ flowchart TD
                 </div>
             </div>
 
+            <!-- Performance Metrics Section -->
+            <div class="content-card" style="margin: 2rem 0; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b;">
+                <h3 style="color: #92400e; margin-bottom: 1rem;">🚀 Performance & UX Improvements</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Factor</th>
+                            <th>Legacy (IE6 + JSP)</th>
+                            <th>Modern Bridge + React</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Average Response Time</strong></td>
+                            <td>300–1000ms+ (frequent freezing)</td>
+                            <td>&lt;100ms (with tuning)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Browser Compatibility</strong></td>
+                            <td>IE6 only (Edge Emulation)</td>
+                            <td>All modern browsers</td>
+                        </tr>
+                        <tr>
+                            <td><strong>User Experience</strong></td>
+                            <td>Sluggish, memory leaks, tasks taking nearly a minute</td>
+                            <td>Fast, responsive, WCAG-ready</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Frontend Modifiability</strong></td>
+                            <td>Minimal (tightly coupled)</td>
+                            <td>Fully decoupled & modular</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 1rem; font-style: italic; color: #92400e;">
+                    <strong>Key Insight:</strong> Studies show that latency above 100ms is perceived as sluggish by users. 
+                    With the RESTful bridge approach, it's realistic to consistently deliver sub-100ms response times 
+                    for well-optimized API endpoints - both technically measurable and immediately perceptible to users.
+                </p>
+            </div>
+
             <!-- Architecture Diagrams -->
-            <h3 class="section-subtitle">Option 1: HTML-to-JSON Architecture</h3>
+            <h3 class="section-subtitle">Option 1: RESTful Bridge Architecture</h3>
             <div class="mermaid">
 flowchart TD
     A[Browser]
@@ -710,18 +752,20 @@ flowchart TD
     
     subgraph NEW[New Components]
         B[React Frontend]
-        C[HTML Parser]
-        D[JSON Converter]
+        C[Spring Boot RESTful Bridge]
+        D[JSoup HTML Parser]
+        E[JSON API Layer]
         B --> C
         C --> D
+        D --> E
     end
     
-    D --> E
+    E --> F
     
     subgraph LEGACY[Legacy Components - No Changes]
-        E[Legacy Struts App]
-        F[Oracle Database]
-        E --> F
+        F[Legacy Struts App]
+        G[Oracle Database]
+        F --> G
     end
     
     style NEW fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
@@ -1133,6 +1177,63 @@ public class NjSpiritApplication {
     }
 }</code></pre>
                 </div>
+            </div>
+        </section>
+
+        <!-- Future-Proofing Strategy -->
+        <section id="future-proofing" class="section">
+            <h2 class="section-title">🔮 Future-Proofing Strategy</h2>
+            <p>
+                The RESTful Bridge Approach provides a strategic foundation that enables multiple modernization paths 
+                while minimizing risk and maximizing return on investment.
+            </p>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3 style="color: #1e293b; margin-bottom: 1rem;">🕐 Buys Time for Strategic Planning</h3>
+                    <ul class="benefit-list">
+                        <li class="benefit-item">
+                            <span class="benefit-icon">⏱️</span>
+                            <div><strong>Incremental Backend Rewrite:</strong> Rewrite backend logic in Java/Spring without affecting end users</div>
+                        </li>
+                        <li class="benefit-item">
+                            <span class="benefit-icon">🔄</span>
+                            <div><strong>Parallel Modernization:</strong> UI can progress rapidly while legacy logic is incrementally retired</div>
+                        </li>
+                        <li class="benefit-item">
+                            <span class="benefit-icon">📊</span>
+                            <div><strong>Data-Driven Decisions:</strong> Real usage analytics inform which components to modernize first</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="content-card">
+                    <h3 style="color: #1e293b; margin-bottom: 1rem;">🚀 Enables Advanced Architecture Patterns</h3>
+                    <ul class="benefit-list">
+                        <li class="benefit-item">
+                            <span class="benefit-icon">🏗️</span>
+                            <div><strong>Microservices Decomposition:</strong> Clean API boundaries enable service extraction</div>
+                        </li>
+                        <li class="benefit-item">
+                            <span class="benefit-icon">☁️</span>
+                            <div><strong>Cloud Migration:</strong> RESTful APIs are cloud-native and container-ready</div>
+                        </li>
+                        <li class="benefit-item">
+                            <span class="benefit-icon">🔌</span>
+                            <div><strong>Third-Party Integration:</strong> Standard REST APIs enable easy integration with modern tools</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <div class="highlight-title">🎯 Strategic Value</div>
+                <p>
+                    This approach doesn't just solve the immediate IE6 compatibility problem - it creates a modernization 
+                    platform that can evolve with your organization's needs. The RESTful bridge becomes the foundation 
+                    for whatever architectural direction you choose in the future, whether that's microservices, 
+                    cloud-native deployment, or complete system rewrite.
+                </p>
             </div>
         </section>
 
