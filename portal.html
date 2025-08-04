@@ -31,10 +31,9 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            height: 40px;
         }
 
         .user-info {
@@ -254,7 +253,9 @@
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="logo">North Highland</div>
+        <div class="logo">
+            <img src="https://northhighland.com/hubfs/Logos/NHL_Logo_Primary_White.svg" alt="North Highland" style="height: 32px; width: auto;">
+        </div>
         <div class="user-info">
             <span id="userDisplay"></span>
             <span>•</span>
