@@ -2042,6 +2042,125 @@
                 </div>
             </section>
 
+            <!-- Decision Calculator Section -->
+            <section id="decision-calculator" class="slide" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); color: #1e293b;">
+                <div class="slide-header">
+                    <span class="slide-number">DECISION CALCULATOR</span>
+                    <h2 class="slide-title" style="color: #1e293b;">Interactive Decision Calculator</h2>
+                    <p class="slide-subtitle" style="color: #475569;">Compare Options 1 & 2 with Custom Parameters</p>
+                </div>
+
+                <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+                    <!-- Calculator Input Section -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 2rem;">
+                        
+                        <!-- Input Parameters -->
+                        <div style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                            <h3 style="color: #1e293b; margin-bottom: 1.5rem; font-size: 1.25rem;">📊 Project Parameters</h3>
+                            
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151;">Team Size</label>
+                                <input type="range" id="teamSize" min="2" max="20" value="6" style="width: 100%;" onchange="updateCalculator()">
+                                <span id="teamSizeValue" style="color: #6366f1; font-weight: 600;">6 developers</span>
+                            </div>
+
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151;">Project Duration (months)</label>
+                                <input type="range" id="duration" min="6" max="24" value="12" style="width: 100%;" onchange="updateCalculator()">
+                                <span id="durationValue" style="color: #6366f1; font-weight: 600;">12 months</span>
+                            </div>
+
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151;">Legacy System Complexity</label>
+                                <select id="complexity" style="width: 100%; padding: 0.5rem; border: 2px solid #e5e7eb; border-radius: 8px;" onchange="updateCalculator()">
+                                    <option value="low">Low - Simple forms and workflows</option>
+                                    <option value="medium" selected>Medium - Multiple modules and integrations</option>
+                                    <option value="high">High - Complex business logic</option>
+                                </select>
+                            </div>
+
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151;">Risk Tolerance</label>
+                                <select id="riskTolerance" style="width: 100%; padding: 0.5rem; border: 2px solid #e5e7eb; border-radius: 8px;" onchange="updateCalculator()">
+                                    <option value="low">Low - Minimal disruption priority</option>
+                                    <option value="medium" selected>Medium - Balanced approach</option>
+                                    <option value="high">High - Aggressive modernization</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Results Display -->
+                        <div style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                            <h3 style="color: #1e293b; margin-bottom: 1.5rem; font-size: 1.25rem;">🎯 Recommendation</h3>
+                            
+                            <div id="recommendationResult" style="padding: 1.5rem; border-radius: 12px; background: linear-gradient(135deg, #10b981, #059669); color: white; margin-bottom: 1.5rem;">
+                                <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">✅ Option 1: RESTful Bridge</div>
+                                <div style="opacity: 0.9;">Recommended for your project parameters</div>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                                <div style="text-align: center; padding: 1rem; background: #f1f5f9; border-radius: 8px;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #3b82f6;" id="estimatedCost">$890K</div>
+                                    <div style="color: #64748b; font-size: 0.875rem;">Estimated Cost</div>
+                                </div>
+                                <div style="text-align: center; padding: 1rem; background: #f1f5f9; border-radius: 8px;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #10b981;" id="riskScore">Medium</div>
+                                    <div style="color: #64748b; font-size: 0.875rem;">Risk Level</div>
+                                </div>
+                            </div>
+
+                            <div id="keyFactors" style="background: #fef7cd; border: 1px solid #fbbf24; border-radius: 8px; padding: 1rem;">
+                                <div style="font-weight: 600; color: #92400e; margin-bottom: 0.5rem;">Key Decision Factors:</div>
+                                <ul style="margin: 0; padding-left: 1.5rem; color: #92400e;">
+                                    <li>Team size suitable for parallel development</li>
+                                    <li>Medium complexity favors bridge approach</li>
+                                    <li>Balanced risk tolerance aligns with Option 1</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comparison Chart -->
+                    <div style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                        <h3 style="color: #1e293b; margin-bottom: 1.5rem; font-size: 1.25rem;">📈 Option Comparison</h3>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                            <!-- Option 1 Card -->
+                            <div id="option1Card" style="border: 3px solid #10b981; border-radius: 12px; padding: 1.5rem; background: linear-gradient(135deg, #ecfdf5, #d1fae5);">
+                                <div style="font-size: 1.25rem; font-weight: 700; color: #065f46; margin-bottom: 1rem;">🔄 Option 1: RESTful Bridge</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                    <div>
+                                        <div style="font-weight: 600; color: #047857;">Timeline</div>
+                                        <div id="option1Timeline" style="color: #065f46;">12 months</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 600; color: #047857;">Cost</div>
+                                        <div id="option1Cost" style="color: #065f46;">$890K</div>
+                                    </div>
+                                </div>
+                                <div style="color: #065f46; font-size: 0.875rem;">✅ No backend changes required<br/>✅ Parallel development possible<br/>✅ Lower initial risk</div>
+                            </div>
+
+                            <!-- Option 2 Card -->
+                            <div id="option2Card" style="border: 2px solid #e5e7eb; border-radius: 12px; padding: 1.5rem; background: #f9fafb;">
+                                <div style="font-size: 1.25rem; font-weight: 700; color: #374151; margin-bottom: 1rem;">🎯 Option 2: Service Layer</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                    <div>
+                                        <div style="font-weight: 600; color: #6b7280;">Timeline</div>
+                                        <div id="option2Timeline" style="color: #374151;">18 months</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 600; color: #6b7280;">Cost</div>
+                                        <div id="option2Cost" style="color: #374151;">$1.2M</div>
+                                    </div>
+                                </div>
+                                <div style="color: #6b7280; font-size: 0.875rem;">⚠️ Backend refactoring needed<br/>📈 Better long-term architecture<br/>🎯 Higher strategic value</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             
 
 </div>
@@ -2238,6 +2357,153 @@
                     modal.style.display = 'none';
                 });
                 document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Decision Calculator Function
+        function updateCalculator() {
+            const teamSize = parseInt(document.getElementById('teamSize').value);
+            const duration = parseInt(document.getElementById('duration').value);
+            const complexity = document.getElementById('complexity').value;
+            const riskTolerance = document.getElementById('riskTolerance').value;
+
+            // Update display values
+            document.getElementById('teamSizeValue').textContent = `${teamSize} developers`;
+            document.getElementById('durationValue').textContent = `${duration} months`;
+
+            // Calculate metrics
+            const complexityMultiplier = {low: 0.8, medium: 1.0, high: 1.4}[complexity];
+            const teamMultiplier = Math.max(0.7, Math.min(1.5, teamSize / 6));
+            const durationMultiplier = duration / 12;
+
+            // Base costs and timelines
+            const option1BaseCost = 650000;
+            const option2BaseCost = 900000;
+            const option1BaseTime = 9;
+            const option2BaseTime = 15;
+
+            // Calculate Option 1 metrics
+            const option1Cost = Math.round((option1BaseCost * complexityMultiplier * teamMultiplier * durationMultiplier) / 1000) * 1000;
+            const option1Time = Math.round(option1BaseTime * complexityMultiplier * (teamMultiplier * 0.8));
+
+            // Calculate Option 2 metrics
+            const option2Cost = Math.round((option2BaseCost * complexityMultiplier * teamMultiplier * durationMultiplier) / 1000) * 1000;
+            const option2Time = Math.round(option2BaseTime * complexityMultiplier * (teamMultiplier * 0.9));
+
+            // Decision logic
+            let recommendedOption = 1;
+            let riskLevel = 'Medium';
+            let keyFactors = [];
+
+            // Scoring system
+            let option1Score = 0;
+            let option2Score = 0;
+
+            // Team size factor
+            if (teamSize <= 4) {
+                option1Score += 2; // Smaller teams favor bridge approach
+                keyFactors.push(`Small team (${teamSize}) suits bridge development`);
+            } else if (teamSize >= 8) {
+                option2Score += 1; // Larger teams can handle complexity
+                keyFactors.push(`Large team (${teamSize}) can handle service extraction`);
+            } else {
+                option1Score += 1;
+                keyFactors.push(`Team size (${teamSize}) suitable for parallel development`);
+            }
+
+            // Complexity factor
+            if (complexity === 'low') {
+                option1Score += 2;
+                keyFactors.push('Low complexity favors bridge approach');
+            } else if (complexity === 'high') {
+                option2Score += 2;
+                keyFactors.push('High complexity benefits from service extraction');
+            } else {
+                option1Score += 1;
+                keyFactors.push('Medium complexity favors bridge approach');
+            }
+
+            // Risk tolerance factor
+            if (riskTolerance === 'low') {
+                option1Score += 2;
+                riskLevel = 'Low';
+                keyFactors.push('Low risk tolerance aligns with Option 1');
+            } else if (riskTolerance === 'high') {
+                option2Score += 2;
+                riskLevel = 'High';
+                keyFactors.push('High risk tolerance enables Option 2');
+            } else {
+                option1Score += 1;
+                riskLevel = 'Medium';
+                keyFactors.push('Balanced risk tolerance aligns with Option 1');
+            }
+
+            // Duration factor
+            if (duration <= 8) {
+                option1Score += 1;
+                keyFactors.push('Short timeline favors bridge approach');
+            } else if (duration >= 18) {
+                option2Score += 1;
+                keyFactors.push('Long timeline allows for service extraction');
+            }
+
+            // Determine recommendation
+            if (option2Score > option1Score) {
+                recommendedOption = 2;
+            }
+
+            // Update UI
+            const recommendationEl = document.getElementById('recommendationResult');
+            const option1Card = document.getElementById('option1Card');
+            const option2Card = document.getElementById('option2Card');
+
+            if (recommendedOption === 1) {
+                recommendationEl.innerHTML = `
+                    <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">✅ Option 1: RESTful Bridge</div>
+                    <div style="opacity: 0.9;">Recommended for your project parameters</div>
+                `;
+                recommendationEl.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                
+                option1Card.style.border = '3px solid #10b981';
+                option1Card.style.background = 'linear-gradient(135deg, #ecfdf5, #d1fae5)';
+                option2Card.style.border = '2px solid #e5e7eb';
+                option2Card.style.background = '#f9fafb';
+            } else {
+                recommendationEl.innerHTML = `
+                    <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">✅ Option 2: Service Layer</div>
+                    <div style="opacity: 0.9;">Recommended for your project parameters</div>
+                `;
+                recommendationEl.style.background = 'linear-gradient(135deg, #3b82f6, #1d4ed8)';
+                
+                option2Card.style.border = '3px solid #3b82f6';
+                option2Card.style.background = 'linear-gradient(135deg, #eff6ff, #dbeafe)';
+                option1Card.style.border = '2px solid #e5e7eb';
+                option1Card.style.background = '#f9fafb';
+            }
+
+            // Update cost and timeline displays
+            document.getElementById('estimatedCost').textContent = `$${Math.round((recommendedOption === 1 ? option1Cost : option2Cost) / 1000)}K`;
+            document.getElementById('riskScore').textContent = riskLevel;
+            
+            document.getElementById('option1Timeline').textContent = `${option1Time} months`;
+            document.getElementById('option1Cost').textContent = `$${Math.round(option1Cost / 1000)}K`;
+            document.getElementById('option2Timeline').textContent = `${option2Time} months`;
+            document.getElementById('option2Cost').textContent = `$${Math.round(option2Cost / 1000)}K`;
+
+            // Update key factors
+            const keyFactorsEl = document.getElementById('keyFactors');
+            keyFactorsEl.innerHTML = `
+                <div style="font-weight: 600; color: #92400e; margin-bottom: 0.5rem;">Key Decision Factors:</div>
+                <ul style="margin: 0; padding-left: 1.5rem; color: #92400e;">
+                    ${keyFactors.map(factor => `<li>${factor}</li>`).join('')}
+                </ul>
+            `;
+        }
+
+        // Initialize calculator on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.getElementById('teamSize')) {
+                updateCalculator();
             }
         });
     </script>
