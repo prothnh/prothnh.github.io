@@ -1344,7 +1344,7 @@
                         <h3 class="card-title">🎯 The Challenge</h3>
                         <div class="card-content">
                             <ul class="feature-list">
-                                <li><strong>DCF established end-of-2028 deadline to eliminate IE6 dependency</strong> - Legacy Struts 1.1 JSP application cannot support modern browsers without significant modernization</li>
+                                <li><strong>DCF established end-of-2028 deadline to eliminate IE6 dependency</strong></li>
                                 <li>Current JSP/Struts UI incompatible with modern browsers</li>
                                 <li>800+ JSP/Web pages and complex business logic to preserve</li>
                                 <li>Must maintain existing functionality during transition</li>
@@ -1357,7 +1357,7 @@
                         <div class="card-content">
                             <ul class="feature-list">
                                 <li><strong>24x7 Mission Critical System</strong></li>
-                                <li><strong>800 JSP/Web Pages</strong> in the current Struts application</li>
+                                <li><strong>800+ Business Processes</strong> with complex validation logic</li>
                                 <li><strong>6500+ Users</strong></li>
                                 <li><strong>250 RTF Form Templates</strong> for document generation</li>
                                 <li>Oracle database with 600+ tables</li>
@@ -1452,8 +1452,8 @@
                             <div style="position: absolute; top: -8px; left: 15px; background: #4CAF50; color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.7rem; font-weight: 700;">🆕 NEW</div>
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <div>
-                                    <h4 style="color: #F57C00; margin: 0;">Layer 3: Performance Optimizations</h4>
-                                    <p style="color: #64748b; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Caching, pooling, and optimization strategies</p>
+                                    <h4 style="color: #F57C00; margin: 0;">Layer 3: Struts Bridge</h4>
+                                    <p style="color: #64748b; font-size: 0.85rem; margin: 0.25rem 0 0 0;">HTML parsing and API transformation</p>
                                 </div>
                                 <div style="text-align: right;">
                                     <span style="background: #FFF3E0; color: #F57C00; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
@@ -1554,7 +1554,7 @@
                             <h4 style="color: #dc2626; margin-bottom: 0.5rem;">Current State (IE6 + Legacy JSPs)</h4>
                             <ul style="list-style: none; padding: 0;">
                                 <li style="padding: 0.25rem 0;">• <strong>Response Time:</strong> 300-1000ms+ (frequent freezing)</li>
-                                <li style="padding: 0.25rem 0;">• <strong>User Experience:</strong> Sluggish, unresponsive, frequent timeouts</li>
+                                <li style="padding: 0.25rem 0;">• <strong>User Experience:</strong> Constrained by legacy browser limitations</li>
                                 <li style="padding: 0.25rem 0;">• <strong>Browser Overhead:</strong> IE6 rendering adds 200-500ms</li>
                             </ul>
                         </div>
@@ -1654,7 +1654,7 @@
                 <div class="slide-header">
                     <span class="slide-number">SLIDE 3</span>
                     <h2 class="slide-title">Option 2: Service Layer Extraction</h2>
-                    <p class="slide-subtitle">✅ Recommended Approach</p>
+                    <p class="slide-subtitle">Direct API Modernization with Business Logic Extraction (Backend Modifications Required)</p>
                 </div>
 
                 <!-- Service Extraction Description -->
@@ -1670,28 +1670,6 @@
                         <h3 class="card-title">Refactoring Process</h3>
                         <div class="card-content">
                             <p style="font-size: 0.9rem;">Extract business logic, data access, and validation from Struts Actions into separate service classes. These services can then be exposed via REST controllers while still being usable by legacy JSPs.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Service Extraction Process -->
-                <div class="content-grid" style="grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
-                    <div class="content-card" style="background: #fee2e2; border: 2px solid #ef4444;">
-                        <h3 class="card-title" style="font-size: 1rem; color: #dc2626;">Step 1: Identify Logic</h3>
-                        <div class="card-content" style="font-size: 0.85rem;">
-                            <p>Analyze Struts Actions to identify business logic, validation, and data access code mixed with web concerns.</p>
-                        </div>
-                    </div>
-                    <div class="content-card" style="background: #fef3c7; border: 2px solid #f59e0b;">
-                        <h3 class="card-title" style="font-size: 1rem; color: #d97706;">Step 2: Extract Services</h3>
-                        <div class="card-content" style="font-size: 0.85rem;">
-                            <p>Create service classes with clean interfaces, moving business logic out of Actions into reusable components.</p>
-                        </div>
-                    </div>
-                    <div class="content-card" style="background: #dcfce7; border: 2px solid #22c55e;">
-                        <h3 class="card-title" style="font-size: 1rem; color: #16a34a;">Step 3: REST Controllers</h3>
-                        <div class="card-content" style="font-size: 0.85rem;">
-                            <p>Create REST endpoints that leverage the extracted services, providing clean API access.</p>
                         </div>
                     </div>
                 </div>
@@ -1765,6 +1743,28 @@
                     </div>
                 </div>
 
+                <!-- Service Extraction Process -->
+                <div class="content-grid" style="grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+                    <div class="content-card" style="background: #fee2e2; border: 2px solid #ef4444;">
+                        <h3 class="card-title" style="font-size: 1rem; color: #dc2626;">Step 1: Identify Logic</h3>
+                        <div class="card-content" style="font-size: 0.85rem;">
+                            <p>Analyze Struts Actions to identify business logic, validation, and data access code mixed with web concerns.</p>
+                        </div>
+                    </div>
+                    <div class="content-card" style="background: #fef3c7; border: 2px solid #f59e0b;">
+                        <h3 class="card-title" style="font-size: 1rem; color: #d97706;">Step 2: Extract Services</h3>
+                        <div class="card-content" style="font-size: 0.85rem;">
+                            <p>Create service classes with clean interfaces, moving business logic out of Actions into reusable components.</p>
+                        </div>
+                    </div>
+                    <div class="content-card" style="background: #dcfce7; border: 2px solid #22c55e;">
+                        <h3 class="card-title" style="font-size: 1rem; color: #16a34a;">Step 3: REST Controllers</h3>
+                        <div class="card-content" style="font-size: 0.85rem;">
+                            <p>Create REST endpoints that leverage the extracted services, providing clean API access.</p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Benefits and Timeline -->
                 <div class="content-grid" style="grid-template-columns: 1fr 1fr; gap: 1.5rem;">
                     <div class="content-card" style="background: #dcfce7; border: 2px solid #22c55e;">
@@ -1782,12 +1782,12 @@
                         <h3 class="card-title" style="color: #0c4a6e;">📊 Timeline: 18-20 months</h3>
                         <ul class="feature-list">
                             <li style="color: #0c4a6e;"><strong>Technical advantages:</strong></li>
-                            <li style="color: #0c4a6e;">• No HTML parser development needed</li>
-                            <li style="color: #0c4a6e;">• Direct API testing reduces validation time</li>
-                            <li style="color: #0c4a6e;">• Cleaner architecture = fewer technical issues</li>
+                            <li style="color: #0c4a6e;">No HTML parser development needed</li>
+                            <li style="color: #0c4a6e;">Direct API testing reduces validation time</li>
+                            <li style="color: #0c4a6e;">Cleaner architecture = fewer technical issues</li>
                             <li style="color: #0c4a6e;"><strong>Coordination challenges:</strong></li>
-                            <li style="color: #0c4a6e;">• Heavy coordination with NJ SPIRIT dev team required</li>
-                            <li style="color: #0c4a6e;">• Dependencies on their development processes & timelines</li>
+                            <li style="color: #0c4a6e;">Heavy coordination with NJ SPIRIT dev team required</li>
+                            <li style="color: #0c4a6e;">Dependencies on their development processes & timelines</li>
                             <li style="color: #0c4a6e;"><strong>Net result:</strong> Technical gains offset by team dependencies</li>
                         </ul>
                     </div>
