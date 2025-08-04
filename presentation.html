@@ -145,6 +145,169 @@
             gap: 1.5rem;
         }
 
+        .nav-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Team Collaboration Slides Styles */
+        .resource-breakdown {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .timeline-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-section h4 {
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .timeline-section ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .timeline-section li {
+            margin-bottom: 0.25rem;
+        }
+
+        .key-insights {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            border-radius: 12px;
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .insight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .insight-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .learning-timeline {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .phase-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .phase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .phase-header h3 {
+            color: #1e293b;
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .phase-duration {
+            background: #3b82f6;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .phase-details {
+            line-height: 1.6;
+        }
+
+        .team-composition {
+            margin-bottom: 0.75rem;
+            color: #475569;
+        }
+
+        .phase-goals {
+            color: #475569;
+        }
+
+        .skill-development {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .skill-track {
+            background: white;
+            padding: 1.25rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-track h4 {
+            color: #1e293b;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .skill-track ul {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+
+        .skill-track li {
+            margin-bottom: 0.5rem;
+            color: #475569;
+            font-size: 0.9rem;
+        }
+
         .trust-indicators {
             display: flex;
             align-items: center;
@@ -1056,6 +1219,11 @@
                         <span>📊 Data-Driven</span>
                     </div>
                 </div>
+                <div class="nav-controls">
+                    <a href="portal.html" class="nav-btn">← Back to Portal</a>
+                    <a href="presentation.html" class="nav-btn">📊 Presentation</a>
+                    <a href="#" onclick="logout()" class="nav-btn">Logout</a>
+                </div>
             </div>
         </div>
     </header>
@@ -1089,6 +1257,12 @@
             </a>
             <a href="#slide-6" class="nav-link" data-slide="6">
                 <span>Team Collaboration</span>
+            </a>
+            <a href="#slide-7" class="nav-link" data-slide="7">
+                <span>Resource Requirements</span>
+            </a>
+            <a href="#slide-8" class="nav-link" data-slide="8">
+                <span>Learning Path</span>
             </a>
                     </div>
                 
@@ -1129,6 +1303,12 @@
             </a>
             <a href="#slide-6" class="nav-link" data-slide="6">
                 <span>Team Collaboration</span>
+            </a>
+            <a href="#slide-7" class="nav-link" data-slide="7">
+                <span>Resource Requirements</span>
+            </a>
+            <a href="#slide-8" class="nav-link" data-slide="8">
+                <span>Learning Path</span>
             </a>
             </div>
     </nav>
@@ -1989,7 +2169,7 @@
                             </ul>
                             <div style="background: #ffe0b2; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
                                 <p style="margin: 0; font-weight: 600; color: #e65100;">
-                                    Shared Slack: #njspirit-integration
+                                    Shared Teams: NJ SPIRIT Integration
                                 </p>
                             </div>
                         </div>
@@ -2037,6 +2217,204 @@
                             <div style="font-size: 2rem;">🤝</div>
                             <p style="font-weight: 600; color: #166534;">Mutual Respect</p>
                             <p style="font-size: 0.85rem;">Both approaches valid</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Development Team Resource Requirements Slide -->
+            <section id="slide-7" class="slide">
+                <div class="slide-header">
+                    <span class="slide-number">SLIDE 7</span>
+                    <h2 class="slide-title">Development Team Resource Requirements</h2>
+                    <p class="slide-subtitle">Resource allocation comparison between AI-assisted and traditional approaches</p>
+                </div>
+
+                <div class="slide-content">
+                    <div class="section-grid">
+                        <!-- AI-Assisted Approach -->
+                        <div class="approach-section">
+                            <div class="approach-header" style="background: linear-gradient(135deg, #C8E6C9, #A5D6A7); color: #1b5e20;">
+                                <h3>🤖 AI-Assisted Development</h3>
+                            </div>
+                            <div class="resource-breakdown">
+                                <div class="timeline-section">
+                                    <h4>During Development (8-10 months)</h4>
+                                    <ul>
+                                        <li>Java Developers: 2.0 FTE</li>
+                                        <li>React Mentor: 0.5 FTE</li>
+                                        <li>DevOps Support: 0.5 FTE</li>
+                                        <li>Business Analyst: 0.5 FTE</li>
+                                        <li><strong>Total: 3.5 FTE during transition</strong></li>
+                                    </ul>
+                                </div>
+                                <div class="timeline-section">
+                                    <h4>Post-Handoff (Ongoing)</h4>
+                                    <ul>
+                                        <li>Full-Stack Developers: 2.5 FTE</li>
+                                        <li>DevOps: 0.25 FTE</li>
+                                        <li>Domain Expert: 0.1 FTE</li>
+                                        <li><strong>Total: 2.85 FTE ongoing</strong></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Traditional Approach -->
+                        <div class="approach-section">
+                            <div class="approach-header" style="background: linear-gradient(135deg, #FFE0B2, #FFCC02); color: #e65100;">
+                                <h3>🔧 Traditional Development</h3>
+                            </div>
+                            <div class="resource-breakdown">
+                                <div class="timeline-section">
+                                    <h4>During Development (12-15 months)</h4>
+                                    <ul>
+                                        <li>Java Developers: 2.5 FTE</li>
+                                        <li>React Mentor: 1.0 FTE</li>
+                                        <li>DevOps Support: 0.75 FTE</li>
+                                        <li>Business Analyst: 0.5 FTE</li>
+                                        <li><strong>Total: 4.75 FTE during transition</strong></li>
+                                    </ul>
+                                </div>
+                                <div class="timeline-section">
+                                    <h4>Post-Handoff (Ongoing)</h4>
+                                    <ul>
+                                        <li>Full-Stack Developers: 3.0 FTE</li>
+                                        <li>DevOps: 0.5 FTE</li>
+                                        <li>Domain Expert: 0.25 FTE</li>
+                                        <li><strong>Total: 3.75 FTE ongoing</strong></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="key-insights">
+                        <h3>🎯 Key Resource Insights</h3>
+                        <div class="insights-grid">
+                            <div class="insight-item">
+                                <span class="insight-icon">⏱️</span>
+                                <strong>Timeline Advantage:</strong> AI approach reduces development time by 25-40%
+                            </div>
+                            <div class="insight-item">
+                                <span class="insight-icon">👥</span>
+                                <strong>Resource Efficiency:</strong> AI reduces FTE requirements during transition and ongoing
+                            </div>
+                            <div class="insight-item">
+                                <span class="insight-icon">🎓</span>
+                                <strong>Learning Acceleration:</strong> AI tutoring reduces external mentorship needs
+                            </div>
+                            <div class="insight-item">
+                                <span class="insight-icon">🔄</span>
+                                <strong>Productivity Multiplier:</strong> AI assistance maintains higher ongoing productivity
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Development Team Learning Path Slide -->
+            <section id="slide-8" class="slide">
+                <div class="slide-header">
+                    <span class="slide-number">SLIDE 8</span>
+                    <h2 class="slide-title">Development Team Learning Path & Timeline</h2>
+                    <p class="slide-subtitle">Phased approach to team skill development and knowledge transfer</p>
+                </div>
+
+                <div class="slide-content">
+                    <div class="learning-timeline">
+                        <div class="phase-section">
+                            <div class="phase-header">
+                                <h3>Phase 1: Proof of Concept</h3>
+                                <span class="phase-duration">Months 1-3</span>
+                            </div>
+                            <div class="phase-details">
+                                <div class="team-composition">
+                                    <strong>Team:</strong> 1-2 developers + external React consultant
+                                </div>
+                                <div class="phase-goals">
+                                    <strong>Goal:</strong> Validate approach, build initial patterns
+                                    <br><strong>Outcome:</strong> Working end-to-end feature demonstration
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="phase-section">
+                            <div class="phase-header">
+                                <h3>Phase 2: Controlled Expansion</h3>
+                                <span class="phase-duration">Months 4-6</span>
+                            </div>
+                            <div class="phase-details">
+                                <div class="team-composition">
+                                    <strong>Team:</strong> 3-4 developers with lessons learned integration
+                                </div>
+                                <div class="phase-goals">
+                                    <strong>Goal:</strong> Scale knowledge, refine processes
+                                    <br><strong>Outcome:</strong> Multiple features with improving velocity
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="phase-section">
+                            <div class="phase-header">
+                                <h3>Phase 3: Full Team Integration</h3>
+                                <span class="phase-duration">Months 7-9</span>
+                            </div>
+                            <div class="phase-details">
+                                <div class="team-composition">
+                                    <strong>Team:</strong> All developers with reduced external support
+                                </div>
+                                <div class="phase-goals">
+                                    <strong>Goal:</strong> Team independence with consultation available
+                                    <br><strong>Outcome:</strong> 70% of baseline productivity achieved
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="phase-section">
+                            <div class="phase-header">
+                                <h3>Phase 4: Independent Operation</h3>
+                                <span class="phase-duration">Months 10-12</span>
+                            </div>
+                            <div class="phase-details">
+                                <div class="team-composition">
+                                    <strong>Team:</strong> Fully independent with periodic consultation
+                                </div>
+                                <div class="phase-goals">
+                                    <strong>Goal:</strong> Full productivity with modern stack
+                                    <br><strong>Outcome:</strong> 90%+ of baseline productivity achieved
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-development">
+                        <h3>🎯 Core Skills Development</h3>
+                        <div class="skills-grid">
+                            <div class="skill-track">
+                                <h4>Java Developers → Spring Boot</h4>
+                                <ul>
+                                    <li>Familiar patterns, accelerated learning</li>
+                                    <li>REST API design principles</li>
+                                    <li>Modern Java features integration</li>
+                                </ul>
+                            </div>
+                            <div class="skill-track">
+                                <h4>New Frontend Skills → React</h4>
+                                <ul>
+                                    <li>Component-based architecture</li>
+                                    <li>State management patterns</li>
+                                    <li>Modern testing frameworks</li>
+                                </ul>
+                            </div>
+                            <div class="skill-track">
+                                <h4>Full-Stack Integration</h4>
+                                <ul>
+                                    <li>End-to-end feature development</li>
+                                    <li>Performance optimization</li>
+                                    <li>Production deployment practices</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2506,6 +2884,16 @@
                 updateCalculator();
             }
         });
+
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('struts-auth');
+                localStorage.removeItem('struts-user');
+                localStorage.removeItem('struts-access-time');
+                window.location.href = 'index.html';
+            }
+        }
     </script>
 
     <!-- Modals for each approach -->
