@@ -1101,6 +1101,247 @@
             border-color: #7c3aed;
         }
 
+        /* Interactive Calculator Styles */
+        
+        .calculator-step {
+            display: none;
+        }
+        
+        .calculator-step.active {
+            display: block;
+        }
+        
+        .calculator-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .calculator-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .question-item h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 1rem;
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .radio-option:hover {
+            border-color: #6366f1;
+            background: #f0f9ff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+        }
+        
+        .radio-option input[type="radio"] {
+            margin-right: 1rem;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .radio-option input[type="radio"]:checked {
+            accent-color: #6366f1;
+        }
+        
+        .radio-option input[type="radio"]:checked + .radio-text {
+            font-weight: 600;
+            color: #6366f1;
+        }
+        
+        .radio-option input[type="radio"]:checked ~ .impact-tag {
+            display: inline-block;
+            opacity: 1;
+        }
+        
+        .radio-text {
+            flex: 1;
+            font-size: 1rem;
+            color: #334155;
+        }
+        
+        .impact-tag {
+            display: none;
+            opacity: 0;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            background: #6366f1;
+            color: white;
+            transition: all 0.2s;
+        }
+        
+        .impact-tag.neutral {
+            background: #64748b;
+        }
+        
+        .calculator-actions {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .calc-btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin: 0 0.5rem;
+        }
+        
+        .calc-btn-primary {
+            background: #6366f1;
+            color: white;
+        }
+        
+        .calc-btn-primary:hover:not(:disabled) {
+            background: #4f46e5;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        .calc-btn-primary:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .calc-btn-secondary {
+            background: #e2e8f0;
+            color: #334155;
+        }
+        
+        .calc-btn-secondary:hover {
+            background: #cbd5e1;
+            transform: translateY(-1px);
+        }
+        
+        .winner-announcement {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #059669;
+            margin: 2rem 0;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.1);
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .result-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .result-card h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 1rem;
+        }
+        
+        .scoring-matrix {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .matrix-table th,
+        .matrix-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .matrix-table th {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 1px;
+        }
+        
+        .matrix-table tr:hover:not(.winner-row) {
+            background: #f1f5f9;
+        }
+        
+        .winner-row {
+            background: linear-gradient(to right, #d1fae5, #a7f3d0) !important;
+            font-weight: 700;
+        }
+        
+        .winner-row td:last-child::after {
+            content: '🏆';
+            margin-left: 0.5rem;
+        }
+        
+        .weight-display {
+            font-size: 0.75rem;
+            font-weight: normal;
+            opacity: 0.8;
+        }
+
         /* Expandable Code */
         .code-details {
             margin-top: 1rem;
@@ -1262,7 +1503,7 @@
                 <span>Learning Path</span>
             </a>
             <a href="#slide-8" class="nav-link" data-slide="8">
-                <span>ROI Calculator</span>
+                <span>Decision Calculator</span>
             </a>
                     </div>
                 
@@ -1308,7 +1549,7 @@
                 <span>Learning Path</span>
             </a>
             <a href="#slide-8" class="nav-link" data-slide="8">
-                <span>ROI Calculator</span>
+                <span>Decision Calculator</span>
             </a>
             </div>
     </nav>
@@ -2417,196 +2658,190 @@
                 </div>
             </section>
 
-            <!-- Slide 8: ROI Calculator -->
+            <!-- Slide 8: Interactive Decision Calculator -->
             <section id="slide-8" class="slide">
                 <div class="slide-header">
                     <span class="slide-number">SLIDE 8</span>
-                    <h2 class="slide-title">ROI Calculator</h2>
-                    <p class="slide-subtitle">Financial Analysis Framework for NJ SPIRIT Frontend Upgrade</p>
+                    <h2 class="slide-title">Interactive Decision Calculator</h2>
+                    <p class="slide-subtitle">Find the Best Approach Based on Your Specific Context</p>
                 </div>
 
-                <div class="executive-context" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border-left: 4px solid #0284c7;">
+                <div class="executive-context" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; color: white;">
                     <div style="display: flex; align-items: flex-start; gap: 1rem;">
-                        <div style="font-size: 1.5rem; color: #0284c7; flex-shrink: 0;">💰</div>
+                        <div style="font-size: 1.5rem; flex-shrink: 0;">🎯</div>
                         <div>
-                            <h3 style="color: #1e293b; margin: 0 0 0.75rem 0; font-size: 1.1rem;">Executive Financial Summary</h3>
-                            <p style="color: #475569; margin: 0 0 0.75rem 0; line-height: 1.6;">
-                                <strong>91% ROI with 13.4-month payback period</strong> - This analysis demonstrates compelling financial returns across conservative, realistic, and optimistic scenarios.
+                            <h3 style="margin: 0 0 0.75rem 0; font-size: 1.1rem;">Personalized Decision Tool</h3>
+                            <p style="margin: 0 0 0.75rem 0; line-height: 1.6; opacity: 0.9;">
+                                Answer a few questions about your context and requirements to get a weighted recommendation for the best modernization approach.
                             </p>
-                            <p style="color: #475569; margin: 0; line-height: 1.6;">
-                                <strong>Executive value:</strong> Risk mitigation, compliance achievement, and productivity improvements provide both immediate and long-term value creation.
+                            <p style="margin: 0; line-height: 1.6; opacity: 0.9;">
+                                <strong>How it works:</strong> Your answers automatically adjust the weight of different decision criteria to match your priorities.
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="slide-content">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
-                        <div class="content-card">
-                            <h3 class="card-title">📊 Investment Summary (3 Years)</h3>
-                            <div class="card-content">
-                                <table style="width: 100%; border-collapse: collapse;">
-                                    <tr style="background: #f8fafc;">
-                                        <th style="text-align: left; padding: 0.75rem; border-bottom: 2px solid #e2e8f0; font-weight: 600;">Component</th>
-                                        <th style="text-align: right; padding: 0.75rem; border-bottom: 2px solid #e2e8f0; font-weight: 600;">Total</th>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Initial Development</td>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0; text-align: right; font-weight: 600;">$3,400,000</td>
-                                    </tr>
-                                    <tr style="background: #fafafa;">
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Infrastructure</td>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0; text-align: right; font-weight: 600;">$390,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Training & Change Mgmt</td>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0; text-align: right; font-weight: 600;">$275,000</td>
-                                    </tr>
-                                    <tr style="background: #fafafa;">
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Ongoing Support</td>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0; text-align: right; font-weight: 600;">$400,000</td>
-                                    </tr>
-                                    <tr style="background: #fee2e2; font-weight: 600;">
-                                        <td style="padding: 0.75rem; border-top: 2px solid #dc2626;">Total Investment</td>
-                                        <td style="padding: 0.75rem; border-top: 2px solid #dc2626; text-align: right;">$4,465,000</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
+                <!-- Interactive Decision Calculator -->
+                <div id="calculatorContainer">
+                    <!-- Step 1: Quick Assessment -->
+                    <div id="quickAssessment" class="calculator-step active">
+                        <div class="calculator-card">
+                            <h3 class="calculator-title">📋 Quick Assessment</h3>
+                            <p style="margin-bottom: 2rem; color: #64748b;">Answer these key questions to get personalized recommendations:</p>
+                            
+                            <div class="question-grid">
+                                <div class="question-item">
+                                    <h4>Timeline Priority</h4>
+                                    <div class="radio-group">
+                                        <label class="radio-option">
+                                            <input type="radio" name="timeline" value="immediate" data-impact="speed:+3">
+                                            <span class="radio-text">Immediate (< 6 months)</span>
+                                            <span class="impact-tag">+Speed</span>
+                                        </label>
+                                        <label class="radio-option">
+                                            <input type="radio" name="timeline" value="moderate" data-impact="speed:0">
+                                            <span class="radio-text">Moderate (6-18 months)</span>
+                                            <span class="impact-tag neutral">Balanced</span>
+                                        </label>
+                                        <label class="radio-option">
+                                            <input type="radio" name="timeline" value="flexible" data-impact="viability:+2">
+                                            <span class="radio-text">Flexible (18+ months)</span>
+                                            <span class="impact-tag">+Future-Proof</span>
+                                        </label>
+                                    </div>
+                                </div>
 
-                        <div class="content-card">
-                            <h3 class="card-title">📈 Benefits Summary (3 Years)</h3>
-                            <div class="card-content">
-                                <table style="width: 100%; border-collapse: collapse;">
-                                    <tr style="background: #f8fafc;">
-                                        <th style="text-align: left; padding: 0.75rem; border-bottom: 2px solid #e2e8f0; font-weight: 600;">Benefit Category</th>
-                                        <th style="text-align: right; padding: 0.75rem; border-bottom: 2px solid #e2e8f0; font-weight: 600;">Total</th>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Productivity Improvements</td>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0; text-align: right; font-weight: 600;">$3,200,000</td>
-                                    </tr>
-                                    <tr style="background: #fafafa;">
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Security Risk Mitigation</td>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0; text-align: right; font-weight: 600;">$2,100,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Maintenance Cost Reduction</td>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0; text-align: right; font-weight: 600;">$1,200,000</td>
-                                    </tr>
-                                    <tr style="background: #fafafa;">
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Compliance Cost Avoidance</td>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0; text-align: right; font-weight: 600;">$800,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Technology Debt Elimination</td>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0; text-align: right; font-weight: 600;">$700,000</td>
-                                    </tr>
-                                    <tr style="background: #fafafa;">
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Training Cost Reduction</td>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0; text-align: right; font-weight: 600;">$550,000</td>
-                                    </tr>
-                                    <tr style="background: #dcfce7; font-weight: 600;">
-                                        <td style="padding: 0.75rem; border-top: 2px solid #16a34a;">Total Benefits</td>
-                                        <td style="padding: 0.75rem; border-top: 2px solid #16a34a; text-align: right;">$8,550,000</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                                <div class="question-item">
+                                    <h4>Risk Tolerance</h4>
+                                    <div class="radio-group">
+                                        <label class="radio-option">
+                                            <input type="radio" name="risk" value="low" data-impact="risk:+3">
+                                            <span class="radio-text">Conservative (Minimal risk)</span>
+                                            <span class="impact-tag">+Safety</span>
+                                        </label>
+                                        <label class="radio-option">
+                                            <input type="radio" name="risk" value="moderate" data-impact="risk:0">
+                                            <span class="radio-text">Balanced</span>
+                                            <span class="impact-tag neutral">Neutral</span>
+                                        </label>
+                                        <label class="radio-option">
+                                            <input type="radio" name="risk" value="high" data-impact="risk:-2,viability:+2">
+                                            <span class="radio-text">Aggressive (Innovation first)</span>
+                                            <span class="impact-tag">+Innovation</span>
+                                        </label>
+                                    </div>
+                                </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
-                        <div class="content-card" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #0284c7;">
-                            <h3 class="card-title" style="color: #0284c7;">🎯 Key Metrics</h3>
-                            <div class="card-content">
-                                <div style="margin-bottom: 1rem;">
-                                    <div style="font-size: 2rem; font-weight: 700; color: #0284c7; margin-bottom: 0.25rem;">91%</div>
-                                    <div style="font-size: 0.875rem; color: #64748b;">Total ROI</div>
+                                <div class="question-item">
+                                    <h4>Team Collaboration Capacity</h4>
+                                    <div class="radio-group">
+                                        <label class="radio-option">
+                                            <input type="radio" name="collaboration" value="limited" data-impact="speed:+2,risk:-1">
+                                            <span class="radio-text">Limited (< 0.5 FTE available)</span>
+                                            <span class="impact-tag">+Independence</span>
+                                        </label>
+                                        <label class="radio-option">
+                                            <input type="radio" name="collaboration" value="moderate" data-impact="risk:0">
+                                            <span class="radio-text">Moderate (0.5-1 FTE available)</span>
+                                            <span class="impact-tag neutral">Balanced</span>
+                                        </label>
+                                        <label class="radio-option">
+                                            <input type="radio" name="collaboration" value="high" data-impact="viability:+2,maintenance:+1">
+                                            <span class="radio-text">High (1+ FTE dedicated)</span>
+                                            <span class="impact-tag">+Collaboration</span>
+                                        </label>
+                                    </div>
                                 </div>
-                                <div style="margin-bottom: 1rem;">
-                                    <div style="font-size: 1.5rem; font-weight: 600; color: #16a34a; margin-bottom: 0.25rem;">13.4 months</div>
-                                    <div style="font-size: 0.875rem; color: #64748b;">Payback Period</div>
-                                </div>
-                                <div>
-                                    <div style="font-size: 1.25rem; font-weight: 600; color: #dc2626; margin-bottom: 0.25rem;">$3.38M</div>
-                                    <div style="font-size: 0.875rem; color: #64748b;">Net Present Value</div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="content-card">
-                            <h3 class="card-title">📊 Scenario Analysis</h3>
-                            <div class="card-content">
-                                <div style="margin-bottom: 1rem; padding: 0.75rem; background: #f0fdf4; border-radius: 8px; border-left: 4px solid #16a34a;">
-                                    <div style="font-weight: 600; color: #166534; font-size: 0.875rem;">OPTIMISTIC (125%)</div>
-                                    <div style="color: #16a34a; font-weight: 600;">139% ROI</div>
-                                    <div style="font-size: 0.75rem; color: #65a30d;">10.7 month payback</div>
-                                </div>
-                                <div style="margin-bottom: 1rem; padding: 0.75rem; background: #fffbeb; border-radius: 8px; border-left: 4px solid #d97706;">
-                                    <div style="font-weight: 600; color: #92400e; font-size: 0.875rem;">REALISTIC (100%)</div>
-                                    <div style="color: #d97706; font-weight: 600;">91% ROI</div>
-                                    <div style="font-size: 0.75rem; color: #a16207;">13.4 month payback</div>
-                                </div>
-                                <div style="padding: 0.75rem; background: #fef2f2; border-radius: 8px; border-left: 4px solid #dc2626;">
-                                    <div style="font-weight: 600; color: #991b1b; font-size: 0.875rem;">CONSERVATIVE (75%)</div>
-                                    <div style="color: #dc2626; font-weight: 600;">44% ROI</div>
-                                    <div style="font-size: 0.75rem; color: #b91c1c;">17.8 month payback</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="content-card">
-                            <h3 class="card-title">⚖️ Risk Assessment</h3>
-                            <div class="card-content">
-                                <div style="margin-bottom: 1rem;">
-                                    <div style="font-weight: 600; color: #1e293b; font-size: 0.875rem;">Break-Even Threshold</div>
-                                    <div style="color: #16a34a; font-weight: 600;">52% of projected benefits</div>
-                                </div>
-                                <div style="margin-bottom: 1rem;">
-                                    <div style="font-weight: 600; color: #1e293b; font-size: 0.875rem;">Risk-Adjusted ROI</div>
-                                    <div style="color: #0284c7; font-weight: 600;">88% (vs 91% base)</div>
-                                </div>
-                                <div style="margin-bottom: 1rem;">
-                                    <div style="font-weight: 600; color: #1e293b; font-size: 0.875rem;">Implementation Risk</div>
-                                    <div style="color: #16a34a; font-weight: 600;">Low - Proven methodology</div>
-                                </div>
-                                <div>
-                                    <div style="font-weight: 600; color: #1e293b; font-size: 0.875rem;">Timeline Risk</div>
-                                    <div style="color: #16a34a; font-weight: 600;">Low - 12-18 months</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-card" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 2px solid #16a34a;">
-                        <h3 class="card-title" style="color: #16a34a;">✅ Executive Recommendation</h3>
-                        <div class="card-content">
-                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                                <div style="font-size: 2rem; color: #16a34a;">🚀</div>
-                                <div>
-                                    <div style="font-size: 1.125rem; font-weight: 600; color: #166534; margin-bottom: 0.5rem;">PROCEED WITH IMMEDIATE IMPLEMENTATION</div>
-                                    <div style="color: #16a34a; line-height: 1.6;">
-                                        The financial analysis demonstrates compelling ROI across all scenarios, with break-even achieved in conservative estimates and exceptional returns in realistic projections.
+                                <div class="question-item">
+                                    <h4>Long-term Priority</h4>
+                                    <div class="radio-group">
+                                        <label class="radio-option">
+                                            <input type="radio" name="longterm" value="maintenance" data-impact="maintenance:+3">
+                                            <span class="radio-text">Minimize maintenance</span>
+                                            <span class="impact-tag">+Low Maintenance</span>
+                                        </label>
+                                        <label class="radio-option">
+                                            <input type="radio" name="longterm" value="performance" data-impact="performance:+3">
+                                            <span class="radio-text">Maximize performance</span>
+                                            <span class="impact-tag">+Performance</span>
+                                        </label>
+                                        <label class="radio-option">
+                                            <input type="radio" name="longterm" value="flexibility" data-impact="viability:+3">
+                                            <span class="radio-text">Future flexibility</span>
+                                            <span class="impact-tag">+Adaptability</span>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                                <div>
-                                    <h4 style="color: #166534; margin-bottom: 0.5rem;">Immediate Benefits</h4>
-                                    <ul style="color: #16a34a; margin: 0; padding-left: 1.25rem;">
-                                        <li>Critical security vulnerability elimination</li>
-                                        <li>WCAG 2.1 AA compliance achievement</li>
-                                        <li>IE6 end-of-life risk mitigation</li>
-                                    </ul>
+
+                            <div class="calculator-actions">
+                                <button class="calc-btn calc-btn-primary" onclick="calculateRecommendation()" id="calculateBtn" disabled>
+                                    🎯 Calculate Best Approach
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Results -->
+                    <div id="calculatorResults" class="calculator-step" style="display: none;">
+                        <div class="calculator-card">
+                            <h3 class="calculator-title">🏆 Your Personalized Recommendation</h3>
+                            
+                            <div class="winner-announcement" id="winnerDisplay">
+                                <!-- Populated by JavaScript -->
+                            </div>
+
+                            <div class="results-grid">
+                                <div class="result-card">
+                                    <h4>🎯 Why This Approach?</h4>
+                                    <div id="winnerReasons">
+                                        <!-- Populated by JavaScript -->
+                                    </div>
                                 </div>
-                                <div>
-                                    <h4 style="color: #166534; margin-bottom: 0.5rem;">Long-term Value</h4>
-                                    <ul style="color: #16a34a; margin: 0; padding-left: 1.25rem;">
-                                        <li>Platform for future modernization</li>
-                                        <li>Significant productivity improvements</li>
-                                        <li>Reduced maintenance burden</li>
-                                    </ul>
+
+                                <div class="result-card">
+                                    <h4>📊 Scoring Breakdown</h4>
+                                    <div id="scoreBreakdown">
+                                        <!-- Populated by JavaScript -->
+                                    </div>
                                 </div>
+                            </div>
+
+                            <div class="calculator-actions">
+                                <button class="calc-btn calc-btn-secondary" onclick="resetCalculator()">↻ Try Different Answers</button>
+                                <button class="calc-btn calc-btn-secondary" onclick="showDetailedScoring()">📈 View All Scores</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Detailed Scoring (Optional) -->
+                    <div id="detailedScoring" class="calculator-step" style="display: none;">
+                        <div class="calculator-card">
+                            <h3 class="calculator-title">📈 Complete Scoring Matrix</h3>
+                            
+                            <div class="scoring-matrix">
+                                <table class="matrix-table" id="scoringTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Approach</th>
+                                            <th>Speed<br><span id="speedWeight" class="weight-display">(20%)</span></th>
+                                            <th>Risk<br><span id="riskWeight" class="weight-display">(25%)</span></th>
+                                            <th>Viability<br><span id="viabilityWeight" class="weight-display">(25%)</span></th>
+                                            <th>Maintenance<br><span id="maintenanceWeight" class="weight-display">(15%)</span></th>
+                                            <th>Performance<br><span id="performanceWeight" class="weight-display">(15%)</span></th>
+                                            <th>Total Score</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="scoreTableBody">
+                                        <!-- Populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="calculator-actions">
+                                <button class="calc-btn calc-btn-secondary" onclick="showResults()">← Back to Results</button>
+                                <button class="calc-btn calc-btn-secondary" onclick="resetCalculator()">↻ Start Over</button>
                             </div>
                         </div>
                     </div>
@@ -2810,6 +3045,297 @@
             }
         });
 
+
+        // Interactive Calculator Functions
+        let calculatorState = {
+            answers: {},
+            weights: {
+                speed: 20,
+                risk: 25,
+                viability: 25,
+                maintenance: 15,
+                performance: 15
+            },
+            scores: {},
+            winner: null
+        };
+
+        // Approach definitions and base scores
+        const approaches = {
+            'html-scraping': {
+                name: 'HTML-to-JSON Translation (Option 1)',
+                scores: { speed: 5, risk: 4, viability: 2, maintenance: 2, performance: 3 }
+            },
+            'service-layer': {
+                name: 'Service Layer Extraction (Option 2)',
+                scores: { speed: 3, risk: 3, viability: 4, maintenance: 4, performance: 4 }
+            }
+        };
+
+        // Enable calculate button when all questions answered
+        function checkCalculateButton() {
+            const questions = ['timeline', 'risk', 'collaboration', 'longterm'];
+            const answeredQuestions = questions.filter(q => calculatorState.answers[q]);
+            const calculateBtn = document.getElementById('calculateBtn');
+            
+            if (calculateBtn && answeredQuestions.length === questions.length) {
+                calculateBtn.disabled = false;
+            } else if (calculateBtn) {
+                calculateBtn.disabled = true;
+            }
+        }
+
+        // Handle radio button changes
+        document.addEventListener('change', function(e) {
+            if (e.target.type === 'radio' && e.target.closest('#quickAssessment')) {
+                const name = e.target.name;
+                const value = e.target.value;
+                const impact = e.target.dataset.impact;
+                
+                calculatorState.answers[name] = {
+                    value: value,
+                    impact: impact
+                };
+                
+                checkCalculateButton();
+            }
+        });
+
+        // Calculate recommendation based on answers
+        function calculateRecommendation() {
+            // Reset weights to base values
+            calculatorState.weights = {
+                speed: 20,
+                risk: 25,
+                viability: 25,
+                maintenance: 15,
+                performance: 15
+            };
+
+            // Apply impacts from answers
+            Object.values(calculatorState.answers).forEach(answer => {
+                if (answer.impact) {
+                    const impacts = answer.impact.split(',');
+                    impacts.forEach(impact => {
+                        const [criterion, change] = impact.split(':');
+                        const changeValue = parseInt(change);
+                        if (calculatorState.weights[criterion] !== undefined) {
+                            calculatorState.weights[criterion] += changeValue * 3; // Amplify impact
+                        }
+                    });
+                }
+            });
+
+            // Normalize weights to 100%
+            const totalWeight = Object.values(calculatorState.weights).reduce((a, b) => a + b, 0);
+            Object.keys(calculatorState.weights).forEach(key => {
+                calculatorState.weights[key] = Math.round((calculatorState.weights[key] / totalWeight) * 100);
+            });
+
+            // Calculate weighted scores
+            let maxScore = 0;
+            let winner = null;
+
+            Object.keys(approaches).forEach(approachKey => {
+                const approach = approaches[approachKey];
+                let totalScore = 0;
+
+                Object.keys(calculatorState.weights).forEach(criterion => {
+                    const weight = calculatorState.weights[criterion] / 100;
+                    const score = approach.scores[criterion];
+                    totalScore += score * weight;
+                });
+
+                calculatorState.scores[approachKey] = totalScore.toFixed(2);
+
+                if (totalScore > maxScore) {
+                    maxScore = totalScore;
+                    winner = approachKey;
+                }
+            });
+
+            calculatorState.winner = winner;
+            showResults();
+        }
+
+        // Show results step
+        function showResults() {
+            document.getElementById('quickAssessment').style.display = 'none';
+            document.getElementById('detailedScoring').style.display = 'none';
+            document.getElementById('calculatorResults').style.display = 'block';
+
+            const winnerDisplay = document.getElementById('winnerDisplay');
+            const winnerReasons = document.getElementById('winnerReasons');
+            const scoreBreakdown = document.getElementById('scoreBreakdown');
+
+            if (!winnerDisplay || !winnerReasons || !scoreBreakdown) return;
+
+            const winnerApproach = approaches[calculatorState.winner];
+            
+            winnerDisplay.innerHTML = `
+                <div style="font-size: 2rem; margin-bottom: 1rem;">🏆</div>
+                <div style="font-size: 1.5rem; font-weight: 700; color: #059669;">
+                    ${winnerApproach.name}
+                </div>
+                <div style="font-size: 1rem; color: #16a34a; margin-top: 0.5rem;">
+                    Score: ${calculatorState.scores[calculatorState.winner]} / 5.0
+                </div>
+            `;
+
+            // Generate reasons based on weights
+            let reasons = [];
+            const topWeights = Object.entries(calculatorState.weights)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 3);
+
+            topWeights.forEach(([criterion, weight]) => {
+                const score = winnerApproach.scores[criterion];
+                const criterionName = {
+                    speed: 'Implementation Speed',
+                    risk: 'Risk Management',
+                    viability: 'Long-term Viability',
+                    maintenance: 'Maintenance Efficiency',
+                    performance: 'Performance'
+                }[criterion];
+                
+                reasons.push(`• <strong>${criterionName}</strong> (${weight}% weight): ${score}/5 score - ${getReasonText(criterion, score)}`);
+            });
+
+            winnerReasons.innerHTML = reasons.join('<br/>');
+
+            // Score breakdown
+            const scoreItems = Object.keys(calculatorState.weights).map(criterion => {
+                const weight = calculatorState.weights[criterion];
+                const score = winnerApproach.scores[criterion];
+                const weightedScore = (score * weight / 100).toFixed(1);
+                
+                const criterionName = {
+                    speed: 'Speed',
+                    risk: 'Risk',
+                    viability: 'Viability',
+                    maintenance: 'Maintenance',
+                    performance: 'Performance'
+                }[criterion];
+                
+                return `<div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span>${criterionName} (${weight}%):</span>
+                    <span><strong>${score}/5</strong> → ${weightedScore}</span>
+                </div>`;
+            });
+
+            scoreBreakdown.innerHTML = scoreItems.join('');
+        }
+
+        // Get reason text for criterion
+        function getReasonText(criterion, score) {
+            const reasons = {
+                speed: {
+                    5: 'Fastest implementation path',
+                    4: 'Quick to implement',
+                    3: 'Moderate implementation time',
+                    2: 'Slower implementation',
+                    1: 'Longest implementation time'
+                },
+                risk: {
+                    5: 'Lowest risk approach',
+                    4: 'Low risk with proven patterns',
+                    3: 'Moderate risk level',
+                    2: 'Higher risk considerations',
+                    1: 'Highest risk approach'
+                },
+                viability: {
+                    5: 'Excellent long-term prospects',
+                    4: 'Good future-proofing',
+                    3: 'Adequate long-term viability',
+                    2: 'Limited long-term benefits',
+                    1: 'Poor long-term viability'
+                },
+                maintenance: {
+                    5: 'Minimal maintenance required',
+                    4: 'Low maintenance overhead',
+                    3: 'Moderate maintenance needs',
+                    2: 'Higher maintenance requirements',
+                    1: 'High maintenance burden'
+                },
+                performance: {
+                    5: 'Excellent performance characteristics',
+                    4: 'Good performance',
+                    3: 'Adequate performance',
+                    2: 'Performance limitations',
+                    1: 'Poor performance'
+                }
+            };
+            
+            return reasons[criterion] ? reasons[criterion][score] : 'Performance varies';
+        }
+
+        // Show detailed scoring matrix
+        function showDetailedScoring() {
+            document.getElementById('calculatorResults').style.display = 'none';
+            document.getElementById('detailedScoring').style.display = 'block';
+
+            // Update weight displays
+            Object.keys(calculatorState.weights).forEach(criterion => {
+                const element = document.getElementById(`${criterion}Weight`);
+                if (element) {
+                    element.textContent = `(${calculatorState.weights[criterion]}%)`;
+                }
+            });
+
+            // Populate score table
+            const tbody = document.getElementById('scoreTableBody');
+            if (!tbody) return;
+
+            let tableRows = '';
+
+            Object.keys(approaches).forEach(approachKey => {
+                const approach = approaches[approachKey];
+                const isWinner = approachKey === calculatorState.winner;
+                const rowClass = isWinner ? 'winner-row' : '';
+                
+                tableRows += `
+                    <tr class="${rowClass}">
+                        <td><strong>${approach.name}</strong></td>
+                        <td>${approach.scores.speed}</td>
+                        <td>${approach.scores.risk}</td>
+                        <td>${approach.scores.viability}</td>
+                        <td>${approach.scores.maintenance}</td>
+                        <td>${approach.scores.performance}</td>
+                        <td class="approach-score"><strong>${calculatorState.scores[approachKey]}</strong></td>
+                    </tr>
+                `;
+            });
+
+            tbody.innerHTML = tableRows;
+        }
+
+        // Reset calculator
+        function resetCalculator() {
+            calculatorState = {
+                answers: {},
+                weights: {
+                    speed: 20,
+                    risk: 25,
+                    viability: 25,
+                    maintenance: 15,
+                    performance: 15
+                },
+                scores: {},
+                winner: null
+            };
+
+            // Reset form
+            document.querySelectorAll('#quickAssessment input[type="radio"]').forEach(input => {
+                input.checked = false;
+            });
+
+            // Show first step
+            document.getElementById('calculatorResults').style.display = 'none';
+            document.getElementById('detailedScoring').style.display = 'none';
+            document.getElementById('quickAssessment').style.display = 'block';
+
+            checkCalculateButton();
+        }
 
         // Logout function
         function logout() {
