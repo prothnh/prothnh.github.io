@@ -3,1322 +3,893 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Development Team Collaboration Guide - NJ SPIRIT Frontend Upgrade</title>
+    <title>NJ SPIRIT Team Guide: RESTful Bridge vs. Service Layer Extraction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #1976D2;
+            --secondary-color: #0D47A1;
+            --success-color: #4CAF50;
+            --warning-color: #f59e0b;
+            --info-color: #1976D2;
+            --neutral-color: #616161;
+            --light-bg: #F8F9FA;
+            --white: #FFFFFF;
+            --text-dark: #212529;
+            --text-muted: #6C757D;
+            --border-color: #E9ECEF;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 80px; /* Account for sticky header */
-        }
-
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: white;
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            height: 40px;
-        }
-        
-        .logo img {
-            height: 32px;
-            width: auto;
-            filter: brightness(1.1);
-        }
-
-        .nav-controls {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .nav-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 0.875rem;
-            transition: all 0.3s ease;
-        }
-
-        .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-dark);
+            background: var(--light-bg);
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 20px;
         }
 
-        .page-header {
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            padding: 40px 0;
             text-align: center;
-            margin-bottom: 3rem;
-            background: white;
-            padding: 3rem 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            border-radius: var(--radius);
         }
 
-        .page-title {
+        .header h1 {
             font-size: 2.5rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(to right, #1e293b, #64748b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 10px;
         }
 
-        .page-subtitle {
-            font-size: 1.25rem;
-            color: #64748b;
-            margin-bottom: 1rem;
-        }
-
-        .page-description {
-            font-size: 1rem;
-            color: #475569;
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
             max-width: 800px;
             margin: 0 auto;
         }
 
-        .toc {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        /* Navigation */
+        .nav {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
         }
 
-        .toc-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            color: #1e293b;
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
         }
 
-        .toc-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-            list-style: none;
-        }
-
-        .toc-item {
-            background: #f8fafc;
-            border-radius: 8px;
-            padding: 1rem;
-            border-left: 4px solid #3b82f6;
-        }
-
-        .toc-link {
-            color: #3b82f6;
-            text-decoration: none;
+        .nav-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 12px 20px;
+            border-radius: var(--radius);
+            cursor: pointer;
             font-weight: 500;
-        }
-
-        .toc-link:hover {
-            text-decoration: underline;
-        }
-
-        .section {
-            background: white;
-            border-radius: 12px;
-            padding: 3rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            scroll-margin-top: 90px; /* Additional margin for better positioning */
-        }
-
-        .section-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: #1e293b;
-            border-bottom: 3px solid #3b82f6;
-            padding-bottom: 0.5rem;
-        }
-
-        .section-subtitle {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin: 2rem 0 1rem;
-            color: #475569;
-        }
-
-        .content-grid {
-            display: grid;
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .content-card {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 2rem;
-            border: 1px solid #e2e8f0;
-        }
-
-        .option-comparison {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .option-card {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            border-radius: 16px;
-            padding: 2rem;
-            border: 2px solid #e2e8f0;
+            text-decoration: none;
             transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
 
-        .option-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        .nav-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
         }
 
-        .option-card.option1 {
-            border-color: #3b82f6;
-            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        .nav-btn.active {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
         }
 
-        .option-card.option2 {
-            border-color: #059669;
-            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        /* Content Sections */
+        .section {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
         }
 
-        .option-title {
+        .section h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .section h3 {
+            color: var(--secondary-color);
             font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .option-badge {
-            background: white;
-            color: #1e293b;
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
-            font-size: 0.75rem;
+            margin: 30px 0 15px 0;
             font-weight: 600;
         }
 
-        .highlight-box {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            border: 2px solid #f59e0b;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .highlight-title {
-            font-weight: 700;
-            color: #92400e;
-            margin-bottom: 0.5rem;
-        }
-
-        .code-example {
-            background: #1e293b;
-            color: #e2e8f0;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            overflow-x: auto;
-            border: 1px solid #334155;
-        }
-
-        .code-title {
-            background: #334155;
-            color: #f1f5f9;
-            padding: 0.75rem 1.5rem;
-            margin: -1.5rem -1.5rem 1.5rem;
-            border-radius: 12px 12px 0 0;
+        .section h4 {
+            color: var(--text-dark);
+            font-size: 1.2rem;
+            margin: 20px 0 10px 0;
             font-weight: 600;
-            font-size: 0.875rem;
         }
 
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        /* Use Case Cards */
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
         }
 
-        .comparison-table th {
-            background: #f1f5f9;
-            padding: 1rem;
-            text-align: left;
+        .use-case {
+            background: var(--light-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .use-case h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        /* Comparison Tables */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .approach {
+            background: var(--light-bg);
+            border-radius: var(--radius);
+            padding: 20px;
+            border: 2px solid var(--border-color);
+        }
+
+        .approach h5 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
             font-weight: 600;
-            color: #1e293b;
-            border-bottom: 2px solid #e2e8f0;
         }
 
-        .comparison-table td {
-            padding: 1rem;
-            border-bottom: 1px solid #e2e8f0;
+        .approach.current {
+            border-color: var(--warning-color);
+            background: #fffbeb;
         }
 
-        .comparison-table tr:hover {
-            background: #f8fafc;
+        .approach.recommended {
+            border-color: var(--success-color);
+            background: #f0f9f0;
         }
 
-        .benefit-list {
+        .approach.current h5 {
+            color: var(--warning-color);
+        }
+
+        .approach.recommended h5 {
+            color: var(--success-color);
+        }
+
+        /* Steps */
+        .steps {
             list-style: none;
-            margin: 1rem 0;
+            counter-reset: step-counter;
         }
 
-        .benefit-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.5rem;
-            margin-bottom: 0.75rem;
-            padding: 0.75rem;
-            background: rgba(34, 197, 94, 0.1);
-            border-radius: 8px;
-            border-left: 4px solid #22c55e;
+        .steps li {
+            counter-increment: step-counter;
+            margin: 10px 0;
+            padding: 10px 15px;
+            background: var(--white);
+            border-radius: var(--radius);
+            position: relative;
+            padding-left: 50px;
         }
 
-        .benefit-icon {
-            color: #22c55e;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-
-        .consideration-list {
-            list-style: none;
-            margin: 1rem 0;
-        }
-
-        .consideration-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.5rem;
-            margin-bottom: 0.75rem;
-            padding: 0.75rem;
-            background: rgba(245, 158, 11, 0.1);
-            border-radius: 8px;
-            border-left: 4px solid #f59e0b;
-        }
-
-        .consideration-icon {
-            color: #f59e0b;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-
-        .quick-nav {
-            position: fixed;
-            right: 2rem;
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            background: white;
-            border-radius: 12px;
-            padding: 1rem;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e2e8f0;
-            max-height: 70vh;
-            overflow-y: auto;
-            z-index: 50;
-        }
-
-        .quick-nav-title {
+            background: var(--primary-color);
+            color: var(--white);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
             font-weight: 600;
-            margin-bottom: 1rem;
-            color: #1e293b;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 0.5rem;
         }
 
-        .quick-nav-item {
-            display: block;
-            color: #64748b;
-            text-decoration: none;
-            padding: 0.5rem;
-            border-radius: 6px;
-            font-size: 0.875rem;
-            transition: all 0.3s ease;
+        /* Highlights */
+        .highlight {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: var(--radius);
         }
 
-        .quick-nav-item:hover {
-            background: #f1f5f9;
-            color: #3b82f6;
+        .highlight.warning {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-left-color: var(--warning-color);
         }
 
-        .stats-grid {
+        .highlight.success {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border-left-color: var(--success-color);
+        }
+
+        /* Icons */
+        .icon {
+            display: inline-block;
+            margin-right: 8px;
+            font-weight: 600;
+        }
+
+        .icon.success { color: var(--success-color); }
+        .icon.warning { color: var(--warning-color); }
+        .icon.info { color: var(--info-color); }
+
+        /* Timeline */
+        .timeline {
+            background: var(--light-bg);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .timeline h5 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: var(--white);
+            border-radius: var(--radius);
+        }
+
+        .timeline-badge {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .timeline-badge.current { background: var(--warning-color); }
+        .timeline-badge.recommended { background: var(--success-color); }
+
+        /* Decision Framework */
+        .decision-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
         }
 
-        .stat-card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
+        .decision-card {
+            background: var(--light-bg);
+            border-radius: var(--radius);
+            padding: 20px;
+            border: 2px solid var(--border-color);
             text-align: center;
-            border: 2px solid #e2e8f0;
         }
 
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #3b82f6;
-            margin-bottom: 0.5rem;
+        .decision-card.preferred {
+            border-color: var(--success-color);
+            background: #f0f9f0;
         }
 
-        .stat-label {
-            font-size: 0.875rem;
-            color: #64748b;
+        .decision-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .decision-card.preferred h4 {
+            color: var(--success-color);
+        }
+
+        /* Architecture Diagrams */
+        .architecture-diagram {
+            background: var(--white);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .architecture-diagram h5 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .flow-level {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .flow-box {
+            background: var(--light-bg);
+            border: 2px solid var(--primary-color);
+            border-radius: var(--radius);
+            padding: 15px 20px;
             font-weight: 500;
+            min-width: 150px;
+            text-align: center;
         }
 
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .quick-nav {
-                display: none;
-            }
+        .flow-box.new-component {
+            background: #e3f2fd;
+            border-color: var(--primary-color);
         }
 
+        .flow-box.legacy-component {
+            background: #fff3e0;
+            border-color: var(--warning-color);
+        }
+
+        .flow-box.modified-component {
+            background: #e8f5e8;
+            border-color: var(--success-color);
+        }
+
+        .flow-arrow {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .container {
-                padding: 1rem;
+                padding: 10px;
             }
-            
-            .page-title {
+
+            .header h1 {
                 font-size: 2rem;
             }
-            
-            .option-comparison {
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+            }
+
+            .use-cases {
                 grid-template-columns: 1fr;
             }
-            
-            .toc-list {
+
+            .comparison {
                 grid-template-columns: 1fr;
             }
-            
-            .stats-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+
+            .decision-grid {
+                grid-template-columns: 1fr;
             }
+
+            .flow-level {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .nav { display: none; }
+            .section { break-inside: avoid; }
         }
     </style>
-    <!-- Mermaid for diagrams -->
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-    <script>
-        mermaid.initialize({
-            startOnLoad: true,
-            theme: 'default',
-            themeVariables: {
-                primaryColor: '#3b82f6',
-                primaryTextColor: '#1e293b',
-                primaryBorderColor: '#2563eb',
-                lineColor: '#64748b',
-                secondaryColor: '#f1f5f9',
-                tertiaryColor: '#fef3c7',
-                background: '#ffffff',
-                mainBkg: '#f8fafc',
-                secondBkg: '#e2e8f0',
-                tertiaryBkg: '#f1f5f9'
-            }
-        });
-    </script>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <img src="https://northhighland.com/hubfs/Logos/NHL_Logo_Primary_White.svg" alt="North Highland">
-            </div>
-            <div class="nav-controls">
-                <a href="portal.html" class="nav-btn">← Back to Portal</a>
-                <a href="presentation.html" class="nav-btn">📊 Presentation</a>
-                <a href="#" onclick="logout()" class="nav-btn">Logout</a>
-            </div>
-        </div>
-    </header>
-
-    <!-- Quick Navigation -->
-    <nav class="quick-nav">
-        <div class="quick-nav-title">Quick Navigation</div>
-        <a href="#executive-summary" class="quick-nav-item">Executive Summary</a>
-        <a href="#architecture-overview" class="quick-nav-item">Architecture Overview</a>
-        <a href="#option-comparison" class="quick-nav-item">Option Comparison</a>
-        <a href="#development-scenarios" class="quick-nav-item">Development Scenarios</a>
-        <a href="#agentic-sdlc" class="quick-nav-item">Agentic SDLC Platform</a>
-        <a href="#industry-research" class="quick-nav-item">Industry Research</a>
-        <a href="#effort-comparison" class="quick-nav-item">Effort Comparison</a>
-        <a href="#code-examples" class="quick-nav-item">Code Examples</a>
-        <a href="#future-proofing" class="quick-nav-item">Future-Proofing</a>
-        <a href="#implementation-strategy" class="quick-nav-item">Implementation Strategy</a>
-    </nav>
-
-    <!-- Main Content -->
     <div class="container">
-        <!-- Page Header -->
-        <div class="page-header">
-            <h1 class="page-title">Development Team Collaboration Guide</h1>
-            <p class="page-subtitle">From Struts 1.1 to Modern React/Spring Boot Architecture</p>
-            <p class="page-description">
-                Comprehensive technical implementation guide showing concrete code examples for Java teams 
-                transitioning from legacy Struts to modern React/Spring Boot architecture with detailed 
-                collaboration strategies and resource planning.
-            </p>
-        </div>
+        <!-- Header -->
+        <header class="header">
+            <h1>NJ SPIRIT Team Guide</h1>
+            <p>RESTful Bridge vs. Service Layer Extraction: Technical Decision Framework</p>
+        </header>
 
-        <!-- Table of Contents -->
-        <div class="toc">
-            <h2 class="toc-title">📋 Table of Contents</h2>
-            <ul class="toc-list">
-                <li class="toc-item">
-                    <a href="#executive-summary" class="toc-link">Executive Summary</a>
-                    <p style="font-size: 0.875rem; color: #64748b; margin-top: 0.5rem;">Key findings and critical decision points</p>
-                </li>
-                <li class="toc-item">
-                    <a href="#architecture-overview" class="toc-link">Architecture Overview</a>
-                    <p style="font-size: 0.875rem; color: #64748b; margin-top: 0.5rem;">Current state vs. target architectures</p>
-                </li>
-                <li class="toc-item">
-                    <a href="#option-comparison" class="toc-link">Option Comparison</a>
-                    <p style="font-size: 0.875rem; color: #64748b; margin-top: 0.5rem;">HTML-to-JSON vs. Service Layer Extraction</p>
-                </li>
-                <li class="toc-item">
-                    <a href="#development-scenarios" class="toc-link">Development Scenarios</a>
-                    <p style="font-size: 0.875rem; color: #64748b; margin-top: 0.5rem;">Real-world code examples and workflows</p>
-                </li>
-                <li class="toc-item">
-                    <a href="#agentic-sdlc" class="toc-link">Agentic SDLC Platform</a>
-                    <p style="font-size: 0.875rem; color: #64748b; margin-top: 0.5rem;">AI-powered development acceleration</p>
-                </li>
-                <li class="toc-item">
-                    <a href="#industry-research" class="toc-link">Industry Research</a>
-                    <p style="font-size: 0.875rem; color: #64748b; margin-top: 0.5rem;">Evidence-based estimates and citations</p>
-                </li>
+        <!-- Navigation -->
+        <nav class="nav">
+            <div class="nav-buttons">
+                <a href="#overview" class="nav-btn">Overview</a>
+                <a href="#decision" class="nav-btn">The Decision</a>
+                <a href="#use-cases" class="nav-btn">Use Cases</a>
+                <a href="#comparison" class="nav-btn">Technical Comparison</a>
+                <a href="#timeline" class="nav-btn">Timeline Analysis</a>
+                <a href="#recommendation" class="nav-btn">Recommendation</a>
+            </div>
+        </nav>
+
+        <!-- Overview Section -->
+        <section id="overview" class="section">
+            <h2>Executive Overview</h2>
+            
+            <div class="highlight warning">
+                <h4><span class="icon warning">⚠️</span> Key Customer Feedback (July 18, 2025)</h4>
+                <p><strong>"Are we maintaining our JSPs forever for the sake of this?"</strong></p>
+                <p>The customer has expressed significant concerns about the current approach creating an ongoing maintenance burden on JSP pages just to support the translation layer.</p>
+            </div>
+
+            <p>This guide focuses on the core technical decision facing the NJ SPIRIT Frontend Upgrade project: choosing between continuing with our current <strong>RESTful Bridge</strong> approach versus migrating to <strong>Service Layer Extraction</strong>.</p>
+
+            <h3>The Core Question</h3>
+            <p>How should we expose Struts 1.1 backend logic and Oracle data to our modern React frontend while minimizing long-term maintenance burden and development complexity?</p>
+
+            <div class="comparison">
+                <div class="approach current">
+                    <h5><span class="icon warning">⚠️</span> Current: RESTful Bridge</h5>
+                    <p>RESTful Bridge approach: Parse HTML output from JSP pages and convert to JSON APIs</p>
+                    <ul>
+                        <li>Maintains JSP pages indefinitely</li>
+                        <li>Three-layer development process</li>
+                        <li>HTML parsing maintenance overhead</li>
+                    </ul>
+                </div>
+                <div class="approach recommended">
+                    <h5><span class="icon success">✅</span> Alternative: Service Layer Extraction</h5>
+                    <p>Extract business logic from Struts Actions into reusable services</p>
+                    <ul>
+                        <li>Eliminates JSP dependency</li>
+                        <li>Two-layer development process</li>
+                        <li>Direct data access</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Decision Section -->
+        <section id="decision" class="section">
+            <h2>The Technical Decision</h2>
+            
+            <h3>Why This Decision Matters Now</h3>
+            <p>The customer's evolving position has shifted from <em>"No changes to the backend"</em> to openness about <em>"entertaining alternatives that involve backend code modifications"</em> if it improves maintainability.</p>
+
+            <div class="highlight">
+                <h4><span class="icon info">ℹ️</span> Updated Context</h4>
+                <p>Originally, we implemented the RESTful Bridge to avoid backend changes. However, customer feedback reveals this creates an unwanted development complexity: <strong>"I feel like there's one more layer of development with this approach."</strong></p>
+            </div>
+
+            <h3>Architecture Comparison</h3>
+
+            <div class="architecture-diagram">
+                <h5>Option 1: RESTful Bridge Architecture</h5>
+                <div class="flow-diagram">
+                    <div class="flow-level">
+                        <div class="flow-box">Browser</div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-level">
+                        <div class="flow-box new-component">React Frontend</div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-level">
+                        <div class="flow-box new-component">Spring Boot RESTful Bridge</div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-level">
+                        <div class="flow-box new-component">JSoup HTML Parser</div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-level">
+                        <div class="flow-box legacy-component">Legacy Struts App</div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-level">
+                        <div class="flow-box legacy-component">JSP Pages</div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-level">
+                        <div class="flow-box legacy-component">Oracle Database</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="architecture-diagram">
+                <h5>Option 2: Service Layer Extraction</h5>
+                <div class="flow-diagram">
+                    <div class="flow-level">
+                        <div class="flow-box">Browser</div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-level">
+                        <div class="flow-box new-component">React Frontend</div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-level">
+                        <div class="flow-box new-component">Spring Boot API</div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-level">
+                        <div class="flow-box new-component">Service Layer</div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-level">
+                        <div class="flow-box modified-component">Extracted Business Logic</div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-level">
+                        <div class="flow-box modified-component">Oracle Database</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases Section -->
+        <section id="use-cases" class="section">
+            <h2>Real-World Development Scenarios</h2>
+            
+            <p>These scenarios demonstrate the practical impact of each approach on daily development work:</p>
+
+            <div class="use-cases">
+                <div class="use-case">
+                    <h4><span class="icon info">📝</span> Use Case 1: Adding a Checkbox to a Form</h4>
+                    <p><strong>Scenario:</strong> Developer needs to add a simple checkbox field to an existing client intake form.</p>
+                    
+                    <div class="comparison">
+                        <div class="approach current">
+                            <h5>RESTful Bridge Workflow</h5>
+                            <ol class="steps">
+                                <li>Modify JSP page to add checkbox field</li>
+                                <li>Update Struts Bridge parser to extract new field</li>
+                                <li>Test HTML parsing logic</li>
+                                <li>Update React component to use new field</li>
+                                <li>Test end-to-end integration</li>
+                            </ol>
+                            <p><strong>Estimated Time:</strong> 4-6 hours</p>
+                            <p><strong>Risk Points:</strong> Parser brittleness, HTML structure changes</p>
+                        </div>
+                        <div class="approach recommended">
+                            <h5>Service Layer Workflow</h5>
+                            <ol class="steps">
+                                <li>Update service interface and implementation</li>
+                                <li>Update React component to use new field</li>
+                                <li>Test service and React integration</li>
+                            </ol>
+                            <p><strong>Estimated Time:</strong> 2-3 hours</p>
+                            <p><strong>Risk Points:</strong> Standard API contract changes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="use-case">
+                    <h4><span class="icon info">⚙️</span> Use Case 2: Business Logic Change (No UI Impact)</h4>
+                    <p><strong>Scenario:</strong> Update validation rules for case eligibility (e.g., change income threshold from $50K to $55K).</p>
+                    
+                    <div class="comparison">
+                        <div class="approach current">
+                            <h5>RESTful Bridge Workflow</h5>
+                            <ol class="steps">
+                                <li>Modify business logic in Struts Action</li>
+                                <li>Test that JSP output format hasn't changed</li>
+                                <li>Verify parser still extracts data correctly</li>
+                                <li>Update any error message parsing if needed</li>
+                                <li>Test React application receives correct data</li>
+                            </ol>
+                            <p><strong>Estimated Time:</strong> 3-4 hours</p>
+                            <p><strong>Risk Points:</strong> Unexpected HTML changes, parser failures</p>
+                        </div>
+                        <div class="approach recommended">
+                            <h5>Service Layer Workflow</h5>
+                            <ol class="steps">
+                                <li>Modify business logic in service class</li>
+                                <li>Test service logic directly</li>
+                                <li>Verify React receives correct responses</li>
+                            </ol>
+                            <p><strong>Estimated Time:</strong> 1-2 hours</p>
+                            <p><strong>Risk Points:</strong> Standard business logic testing</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight warning">
+                <h4><span class="icon warning">⚠️</span> Developer Impact Summary</h4>
+                <p>The RESTful Bridge approach consistently requires developers to think about and maintain three layers (JSP + Parser + React) even for simple changes. The Service Layer approach reduces this to two layers (Service + React).</p>
+            </div>
+        </section>
+
+        <!-- Technical Comparison Section -->
+        <section id="comparison" class="section">
+            <h2>Detailed Technical Analysis</h2>
+
+            <h3>Architecture Comparison</h3>
+
+            <div class="decision-grid">
+                <div class="decision-card">
+                    <h4>RESTful Bridge</h4>
+                    <p><strong>Data Flow:</strong><br>React → RESTful Bridge → Struts → JSP → HTML → Parser → JSON</p>
+                    <h5>Pros:</h5>
+                    <ul>
+                        <li><span class="icon success">✅</span> No backend code changes</li>
+                        <li><span class="icon success">✅</span> Preserves all business logic</li>
+                        <li><span class="icon success">✅</span> Quick initial implementation</li>
+                    </ul>
+                    <h5>Cons:</h5>
+                    <ul>
+                        <li><span class="icon warning">⚠️</span> Perpetual JSP maintenance</li>
+                        <li><span class="icon warning">⚠️</span> HTML parsing brittleness</li>
+                        <li><span class="icon warning">⚠️</span> Three-layer development</li>
+                        <li><span class="icon warning">⚠️</span> Performance overhead</li>
+                    </ul>
+                </div>
+
+                <div class="decision-card preferred">
+                    <h4>Service Layer Extraction</h4>
+                    <p><strong>Data Flow:</strong><br>React → REST API → Service Layer → Oracle DB</p>
+                    <h5>Pros:</h5>
+                    <ul>
+                        <li><span class="icon success">✅</span> Eliminates JSP dependency</li>
+                        <li><span class="icon success">✅</span> Direct data access</li>
+                        <li><span class="icon success">✅</span> Two-layer development</li>
+                        <li><span class="icon success">✅</span> Better performance</li>
+                        <li><span class="icon success">✅</span> Easier testing</li>
+                    </ul>
+                    <h5>Cons:</h5>
+                    <ul>
+                        <li><span class="icon warning">⚠️</span> Requires backend refactoring</li>
+                        <li><span class="icon warning">⚠️</span> Longer initial implementation</li>
+                        <li><span class="icon warning">⚠️</span> Need Struts expertise</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Development Efficiency Impact</h3>
+
+            <div class="timeline">
+                <h5>Feature Development Time Comparison</h5>
+                <div class="timeline-item">
+                    <div class="timeline-badge current">1</div>
+                    <div>
+                        <strong>RESTful Bridge:</strong> Simple UI changes require 4-6 hours (JSP + Parser + React)
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-badge recommended">2</div>
+                    <div>
+                        <strong>Service Layer:</strong> Same changes require 2-3 hours (Service + React)
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline">
+                <h5>Business Logic Changes</h5>
+                <div class="timeline-item">
+                    <div class="timeline-badge current">1</div>
+                    <div>
+                        <strong>RESTful Bridge:</strong> Logic changes require 3-4 hours (Action + Parser verification + React)
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-badge recommended">2</div>
+                    <div>
+                        <strong>Service Layer:</strong> Logic changes require 1-2 hours (Service + React)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Analysis Section -->
+        <section id="timeline" class="section">
+            <h2>Implementation Timeline Analysis</h2>
+
+            <h3>Migration Effort Comparison</h3>
+
+            <div class="comparison">
+                <div class="approach current">
+                    <h5>Continue RESTful Bridge</h5>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-badge current">0</div>
+                            <div><strong>Immediate:</strong> Continue current development</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-badge current">∞</div>
+                            <div><strong>Ongoing:</strong> Perpetual JSP + Parser maintenance</div>
+                        </div>
+                    </div>
+                    <p><strong>Total Migration Time:</strong> None (but ongoing complexity)</p>
+                </div>
+
+                <div class="approach recommended">
+                    <h5>Service Layer Extraction</h5>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-badge recommended">3</div>
+                            <div><strong>Months 1-3:</strong> Core service extraction & infrastructure</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-badge recommended">9</div>
+                            <div><strong>Months 4-9:</strong> Business logic migration module by module</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-badge recommended">12</div>
+                            <div><strong>Months 10-12:</strong> JSP decommissioning & optimization</div>
+                        </div>
+                    </div>
+                    <p><strong>Total Migration Time:</strong> 12-15 months</p>
+                </div>
+            </div>
+
+            <div class="highlight success">
+                <h4><span class="icon success">✅</span> ROI Analysis</h4>
+                <p><strong>Break-even Point:</strong> Approximately 18 months after service layer completion</p>
+                <p><strong>Long-term Savings:</strong> 40-50% reduction in feature development time</p>
+                <p><strong>Maintenance Reduction:</strong> Elimination of HTML parsing maintenance burden</p>
+            </div>
+        </section>
+
+        <!-- Recommendation Section -->
+        <section id="recommendation" class="section">
+            <h2>Strategic Recommendation</h2>
+
+            <div class="highlight success">
+                <h4><span class="icon success">🎯</span> Recommended Approach: Service Layer Extraction</h4>
+                <p>Based on customer feedback emphasizing JSP elimination and development efficiency, we recommend transitioning to Service Layer Extraction.</p>
+            </div>
+
+            <h3>Why Service Layer Extraction Aligns with Customer Goals</h3>
+
+            <div class="decision-grid">
+                <div class="decision-card preferred">
+                    <h4>Customer Requirement</h4>
+                    <p>"Eliminate JSP maintenance burden"</p>
+                    <h5>Solution:</h5>
+                    <p>Service layer completely bypasses JSPs, allowing eventual decommissioning</p>
+                </div>
+
+                <div class="decision-card preferred">
+                    <h4>Customer Requirement</h4>
+                    <p>"Reduce development layers"</p>
+                    <h5>Solution:</h5>
+                    <p>Direct React → Service → Database eliminates HTML parsing layer</p>
+                </div>
+
+                <div class="decision-card preferred">
+                    <h4>Customer Requirement</h4>
+                    <p>"More direct access to data"</p>
+                    <h5>Solution:</h5>
+                    <p>Services access Oracle database directly without HTML intermediation</p>
+                </div>
+            </div>
+
+            <h3>Implementation Strategy</h3>
+
+            <h4>Phase 1: Foundation (Months 1-3)</h4>
+            <ul>
+                <li>Set up REST controller infrastructure within existing Struts application</li>
+                <li>Create service interface patterns and dependency injection</li>
+                <li>Extract 2-3 core services as proof of concept</li>
+                <li>Implement comprehensive testing framework</li>
             </ul>
-        </div>
 
-        <!-- Executive Summary -->
-        <section id="executive-summary" class="section">
-            <h2 class="section-title">📈 Executive Summary</h2>
-            <p>
-                This guide provides concrete code examples and detailed technical analysis for how development teams 
-                will collaborate during the NJ SPIRIT Frontend Upgrade project and what ongoing support will look 
-                like post-handoff. For teams with strong WebSphere Application Server and Struts 1.1/JSP expertise, 
-                this demonstrates the clear path forward with modern technologies.
-            </p>
+            <h4>Phase 2: Core Migration (Months 4-9)</h4>
+            <ul>
+                <li>Extract business logic from Struts Actions to services systematically</li>
+                <li>Module-by-module migration with parallel testing</li>
+                <li>Update React components to use new service APIs</li>
+                <li>Maintain backward compatibility during transition</li>
+            </ul>
 
-            <div class="highlight-box">
-                <div class="highlight-title">🎯 Key Finding</div>
-                Your existing Java and database skills translate directly to Spring Boot development. The learning 
-                curve focuses on React frontend patterns and modern API design, not fundamental programming concepts.
-            </div>
+            <h4>Phase 3: Optimization (Months 10-12)</h4>
+            <ul>
+                <li>Complete remaining service extractions</li>
+                <li>Decommission JSP pages and HTML parsing logic</li>
+                <li>Performance optimization and monitoring</li>
+                <li>Team training on new development workflow</li>
+            </ul>
 
-            <div class="highlight-box" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-color: #3b82f6;">
-                <div class="highlight-title" style="color: #1e40af;">🚨 Critical Decision Point</div>
-                Whether to adopt our <strong>Agentic SDLC Platform</strong> will fundamentally impact timelines, 
-                resources, and success probability - creating a <strong>25% cost reduction over 3 years</strong> 
-                with significantly faster team proficiency.
-            </div>
-        </section>
+            <h3>Risk Mitigation</h3>
 
-        <!-- Architecture Overview -->
-        <section id="architecture-overview" class="section">
-            <h2 class="section-title">🏗️ Architecture Overview</h2>
-            
-            <h3 class="section-subtitle">Current State (Struts 1.1)</h3>
-            <div class="mermaid">
-flowchart TD
-    A[Browser] --> B[JSP Pages]
-    B --> C[Struts Actions]
-    C --> D[Business Logic]
-    D --> E[Oracle Database]
-    
-    style B fill:#FFEBEE,stroke:#D32F2F
-    style C fill:#FFEBEE,stroke:#D32F2F
-    style D fill:#FFF3E0,stroke:#F57C00
-            </div>
-        </section>
-
-        <!-- Option Comparison -->
-        <section id="option-comparison" class="section">
-            <h2 class="section-title">⚖️ Target State Architecture Comparison</h2>
-            
-            <div class="option-comparison">
-                <!-- Option 1 -->
-                <div class="option-card option1">
-                    <div class="option-title">
-                        🔄 Option 1: RESTful Bridge Approach
-                        <span class="option-badge">Minimal Risk</span>
-                    </div>
-                    
-                    <p><strong>Approach Narrative:</strong></p>
-                    <p>
-                        This option maintains the existing Struts 1.1 backend completely unchanged, making it the 
-                        safest approach for risk-averse organizations. The strategy involves building a <strong>Spring Boot–based RESTful bridge</strong> 
-                        that intercepts HTML responses from the existing JSP-based Struts application, transforming them into structured JSON APIs for modern frontend consumption.
-                    </p>
-
-                    <h4 style="margin: 1.5rem 0 1rem; color: #1e40af; font-weight: 600;">Key Components:</h4>
-                    <ul class="benefit-list">
-                        <li class="benefit-item">
-                            <span class="benefit-icon">⚛️</span>
-                            <div><strong>React Frontend:</strong> Modern user interface providing responsive, interactive user experience</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">🔍</span>
-                            <div><strong>Spring Boot RESTful Bridge:</strong> Intelligent service that intercepts HTML responses and uses JSoup to parse JSP-generated content</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">🔄</span>
-                            <div><strong>JSON API Layer:</strong> Transforms parsed HTML data into clean RESTful APIs with structured JSON responses for React consumption</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">🛡️</span>
-                            <div><strong>Legacy Preservation:</strong> Zero changes to existing Struts Actions, JSPs, or database structures</div>
-                        </li>
-                    </ul>
-
-                    <h4 style="margin: 1.5rem 0 1rem; color: #059669; font-weight: 600;">Benefits:</h4>
-                    <ul class="benefit-list">
-                        <li class="benefit-item">
-                            <span class="benefit-icon">✅</span>
-                            <div><strong>Preserve Legacy Logic:</strong> No changes needed to core Struts/ActionForm/DAO layers</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">✅</span>
-                            <div><strong>Isolate Complexity:</strong> Legacy quirks (nested table HTML) handled at bridge, not exposed to frontend teams</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">✅</span>
-                            <div><strong>Enable Modern Dev Practices:</strong> React frontend built with CI/CD, tests, component libraries, and WCAG accessibility</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">✅</span>
-                            <div><strong>Performance Improvement:</strong> Target <100ms response times vs current 300ms+ with IE6 emulation</div>
-                        </li>
-                    </ul>
-
-                    <h4 style="margin: 1.5rem 0 1rem; color: #dc2626; font-weight: 600;">Considerations:</h4>
-                    <ul class="consideration-list">
-                        <li class="consideration-item">
-                            <span class="consideration-icon">⚠️</span>
-                            <div>HTML parsing adds complexity and potential brittleness</div>
-                        </li>
-                        <li class="consideration-item">
-                            <span class="consideration-icon">⚠️</span>
-                            <div>Performance overhead from HTML-to-JSON transformation</div>
-                        </li>
-                        <li class="consideration-item">
-                            <span class="consideration-icon">⚠️</span>
-                            <div><strong>Limited ability to optimize data transfer:</strong> Since we're parsing HTML responses, we cannot customize response format for efficient API consumption</div>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Option 2 -->
-                <div class="option-card option2">
-                    <div class="option-title">
-                        🔧 Option 2: Service Layer Extraction
-                        <span class="option-badge">Strategic Foundation</span>
-                    </div>
-                    
-                    <p><strong>Approach Narrative:</strong></p>
-                    <p>
-                        This option represents a strategic modernization that extracts business logic from Struts Actions 
-                        into a clean service layer, creating a foundation for long-term maintainability and scalability. 
-                        While requiring backend modifications, it leverages your team's Java expertise.
-                    </p>
-
-                    <div class="highlight-box" style="background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border-color: #ef4444;">
-                        <div class="highlight-title" style="color: #dc2626;">🚨 COLLABORATION REQUIREMENTS for Option 2:</div>
-                        <p><strong>Required Team Collaboration:</strong></p>
-                        <ul style="margin-top: 0.5rem;">
-                            <li><strong>Development Team Participation:</strong> 1-2 FTE throughout the 8-12 month development period for close collaboration on service extraction, code review, and knowledge transfer</li>
-                            <li><strong>Business Logic Expertise:</strong> Your team's deep understanding of existing business rules and database interactions is essential for proper service design</li>
-                            <li><strong>Testing Partnership:</strong> Joint testing efforts to ensure service layer maintains existing functionality while enabling new capabilities</li>
-                        </ul>
-                    </div>
-
-                    <h4 style="margin: 1.5rem 0 1rem; color: #059669; font-weight: 600;">Benefits:</h4>
-                    <ul class="benefit-list">
-                        <li class="benefit-item">
-                            <span class="benefit-icon">✅</span>
-                            <div>Clean separation between frontend and backend concerns</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">✅</span>
-                            <div>Modern API foundation for future enhancements</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">✅</span>
-                            <div>Leverages existing Java expertise with Spring Boot</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">✅</span>
-                            <div>Enables optimized data transfer and caching strategies</div>
-                        </li>
-                    </ul>
-
-                    <h4 style="margin: 1.5rem 0 1rem; color: #dc2626; font-weight: 600;">Considerations:</h4>
-                    <ul class="consideration-list">
-                        <li class="consideration-item">
-                            <span class="consideration-icon">⚠️</span>
-                            <div>Requires modifications to core business logic layer</div>
-                        </li>
-                        <li class="consideration-item">
-                            <span class="consideration-icon">⚠️</span>
-                            <div>Higher upfront development effort</div>
-                        </li>
-                        <li class="consideration-item">
-                            <span class="consideration-icon">⚠️</span>
-                            <div>Requires significant customer team collaboration</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Performance Metrics Section -->
-            <div id="performance-analysis" class="content-card" style="margin: 2rem 0; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b;">
-                <h3 style="color: #92400e; margin-bottom: 1rem;">🚀 Performance & UX Improvements</h3>
-                <table class="comparison-table">
-                    <thead>
-                        <tr>
-                            <th>Factor</th>
-                            <th>Legacy (IE6 + JSP)</th>
-                            <th>Modern Bridge + React</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Average Response Time</strong></td>
-                            <td>300–1000ms+ (frequent freezing)</td>
-                            <td>&lt;100ms (with tuning)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Browser Compatibility</strong></td>
-                            <td>IE6 only (Edge Emulation)</td>
-                            <td>All modern browsers</td>
-                        </tr>
-                        <tr>
-                            <td><strong>User Experience</strong></td>
-                            <td>Sluggish, memory leaks, tasks taking nearly a minute</td>
-                            <td>Fast, responsive, WCAG-ready</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Frontend Modifiability</strong></td>
-                            <td>Minimal (tightly coupled)</td>
-                            <td>Fully decoupled & modular</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p style="margin-top: 1rem; font-style: italic; color: #92400e;">
-                    <strong>Key Insight:</strong> Studies show that latency above 100ms is perceived as sluggish by users. 
-                    With the RESTful bridge approach, it's realistic to consistently deliver sub-100ms response times 
-                    for well-optimized API endpoints - both technically measurable and immediately perceptible to users.
-                </p>
-            </div>
-
-            <!-- Architecture Diagrams -->
-            <h3 class="section-subtitle">Option 1: RESTful Bridge Architecture</h3>
-            <div class="mermaid">
-flowchart TD
-    A[Browser]
-    A --> B
-    
-    subgraph NEW[New Components]
-        B[React Frontend]
-        C[Spring Boot RESTful Bridge]
-        D[JSoup HTML Parser]
-        E[JSON API Layer]
-        B --> C
-        C --> D
-        D --> E
-    end
-    
-    E --> F
-    
-    subgraph LEGACY[Legacy Components - No Changes]
-        F[Legacy Struts App]
-        G[Oracle Database]
-        F --> G
-    end
-    
-    style NEW fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
-    style LEGACY fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
-            </div>
-
-            <h3 class="section-subtitle">Option 2: Service Layer Architecture</h3>
-            <div class="mermaid">
-flowchart TD
-    A[Browser]
-    A --> B
-    
-    subgraph NEW[New Components]
-        B[React Frontend]
-        C[Spring Boot API]
-        D[Service Layer]
-        B --> C
-        C --> D
-    end
-    
-    D --> E
-    
-    subgraph MODIFIED[Modified Components]
-        E[Extracted Business Logic]
-        F[Oracle Database]
-        E --> F
-    end
-    
-    style NEW fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
-    style MODIFIED fill:#D1FAE5,stroke:#059669,stroke-width:2px
-            </div>
-        </section>
-
-        <!-- Development Scenarios -->
-        <section id="development-scenarios" class="section">
-            <h2 class="section-title">💻 Development Scenarios</h2>
-            <p>
-                These realistic scenarios demonstrate how your team will work with modern tools while leveraging 
-                existing expertise. Each example shows both the traditional approach and the modern equivalent.
-            </p>
-
-            <!-- Scenario 1 -->
-            <div class="content-card">
-                <h3 style="color: #1e293b; margin-bottom: 1rem;">Scenario 1: Adding a Checkbox Field</h3>
-                <p><strong>Business Requirement:</strong> Add a "Priority Case" checkbox to the case management form</p>
-
-                <h4 style="margin: 1.5rem 0 1rem;">Current Struts 1.1 Approach:</h4>
-                <div class="code-example">
-                    <div class="code-title">JSP Form (CaseForm.jsp)</div>
-                    <pre><code>&lt;html:form action="/updateCase"&gt;
-    &lt;html:text property="caseNumber" /&gt;
-    &lt;html:text property="clientName" /&gt;
-    &lt;html:checkbox property="priorityCase" /&gt;
-    &lt;html:submit value="Update Case" /&gt;
-&lt;/html:form&gt;</code></pre>
-                </div>
-
-                <div class="code-example">
-                    <div class="code-title">Struts Action (UpdateCaseAction.java)</div>
-                    <pre><code>public class UpdateCaseAction extends Action {
-    public ActionForward execute(ActionMapping mapping, ActionForm form,
-                               HttpServletRequest request, HttpServletResponse response) {
-        CaseForm caseForm = (CaseForm) form;
-        
-        // Business logic mixed with web layer
-        Connection conn = getConnection();
-        PreparedStatement stmt = conn.prepareStatement(
-            "UPDATE cases SET priority_flag = ? WHERE case_number = ?");
-        stmt.setBoolean(1, caseForm.isPriorityCase());
-        stmt.setString(2, caseForm.getCaseNumber());
-        stmt.executeUpdate();
-        
-        return mapping.findForward("success");
-    }
-}</code></pre>
-                </div>
-
-                <h4 style="margin: 1.5rem 0 1rem;">Modern React + Spring Boot Approach:</h4>
-                <div class="code-example">
-                    <div class="code-title">React Component (CaseForm.tsx)</div>
-                    <pre><code>import React, { useState } from 'react';
-import { Checkbox, Button, TextField } from '@mui/material';
-
-interface CaseFormData {
-    caseNumber: string;
-    clientName: string;
-    priorityCase: boolean;
-}
-
-export const CaseForm: React.FC = () => {
-    const [formData, setFormData] = useState&lt;CaseFormData&gt;({
-        caseNumber: '',
-        clientName: '',
-        priorityCase: false
-    });
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        try {
-            const response = await fetch('/api/cases', {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
-            if (response.ok) {
-                // Handle success
-            }
-        } catch (error) {
-            // Handle error
-        }
-    };
-
-    return (
-        &lt;form onSubmit={handleSubmit}&gt;
-            &lt;TextField 
-                value={formData.caseNumber}
-                onChange={(e) => setFormData({...formData, caseNumber: e.target.value})}
-                label="Case Number"
-            /&gt;
-            &lt;TextField 
-                value={formData.clientName}
-                onChange={(e) => setFormData({...formData, clientName: e.target.value})}
-                label="Client Name"
-            /&gt;
-            &lt;Checkbox 
-                checked={formData.priorityCase}
-                onChange={(e) => setFormData({...formData, priorityCase: e.target.checked})}
-            /&gt;
-            &lt;Button type="submit"&gt;Update Case&lt;/Button&gt;
-        &lt;/form&gt;
-    );
-};</code></pre>
-                </div>
-
-                <div class="code-example">
-                    <div class="code-title">Spring Boot REST Controller (CaseController.java)</div>
-                    <pre><code>@RestController
-@RequestMapping("/api/cases")
-public class CaseController {
-    
-    @Autowired
-    private CaseService caseService;
-    
-    @PutMapping
-    public ResponseEntity&lt;Case&gt; updateCase(@RequestBody CaseUpdateRequest request) {
-        try {
-            Case updatedCase = caseService.updateCase(request);
-            return ResponseEntity.ok(updatedCase);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-}</code></pre>
-                </div>
-
-                <div class="code-example">
-                    <div class="code-title">Service Layer (CaseService.java)</div>
-                    <pre><code>@Service
-public class CaseService {
-    
-    @Autowired
-    private CaseRepository caseRepository;
-    
-    public Case updateCase(CaseUpdateRequest request) {
-        Case existingCase = caseRepository.findByCaseNumber(request.getCaseNumber());
-        if (existingCase == null) {
-            throw new CaseNotFoundException("Case not found: " + request.getCaseNumber());
-        }
-        
-        existingCase.setPriorityCase(request.isPriorityCase());
-        existingCase.setClientName(request.getClientName());
-        
-        return caseRepository.save(existingCase);
-    }
-}</code></pre>
-                </div>
-
-                <div class="highlight-box">
-                    <div class="highlight-title">💡 Key Observations for Your Team</div>
+            <div class="comparison">
+                <div class="approach">
+                    <h5>Technical Risks</h5>
                     <ul>
-                        <li><strong>Familiar Java Patterns:</strong> Spring Boot uses dependency injection and service layers you already understand</li>
-                        <li><strong>Cleaner Separation:</strong> Business logic moves to dedicated service classes</li>
-                        <li><strong>Better Error Handling:</strong> Structured exception handling vs. JSP error pages</li>
-                        <li><strong>Testable Code:</strong> Each layer can be unit tested independently</li>
+                        <li><span class="icon warning">⚠️</span> Business logic complexity</li>
+                        <li><span class="icon success">✅</span> Mitigation: Gradual extraction with parallel testing</li>
                     </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Statistics -->
-        <section id="effort-comparison" class="section">
-            <h2 class="section-title">📊 Development Effort Comparison: AI vs. Traditional Approach</h2>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">25%</div>
-                    <div class="stat-label">Cost Reduction with AI Platform</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">8-12</div>
-                    <div class="stat-label">Months Learning Curve (AI)</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">12-18</div>
-                    <div class="stat-label">Months Learning Curve (Traditional)</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">2.85</div>
-                    <div class="stat-label">FTE Required (with AI)</div>
-                </div>
-            </div>
-
-            <!-- Detailed Comparison Table -->
-            <div id="implementation-details">
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Aspect</th>
-                        <th>With Agentic SDLC Platform</th>
-                        <th>Traditional Approach</th>
-                        <th>Improvement</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Team Learning Curve</strong></td>
-                        <td>8-12 months to full proficiency</td>
-                        <td>12-18 months to full proficiency</td>
-                        <td>33% faster</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Code Generation Speed</strong></td>
-                        <td>Automated boilerplate, focus on business logic</td>
-                        <td>Manual implementation of all layers</td>
-                        <td>40-60% faster</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Quality Assurance</strong></td>
-                        <td>AI-assisted test generation and review</td>
-                        <td>Manual test writing and review</td>
-                        <td>50% better coverage</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Resource Requirements</strong></td>
-                        <td>2.85 FTE average</td>
-                        <td>3.75 FTE average</td>
-                        <td>25% reduction</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Knowledge Transfer</strong></td>
-                        <td>AI-generated documentation and guidance</td>
-                        <td>Manual documentation creation</td>
-                        <td>Continuous support</td>
-                    </tr>
-                </tbody>
-            </table>
-            </div>
-        </section>
-
-        <!-- Agentic SDLC Platform -->
-        <section id="agentic-sdlc" class="section">
-            <h2 class="section-title">🤖 Agentic SDLC Platform Overview</h2>
-            <p>
-                Our Agentic Software Development Lifecycle Platform represents a revolutionary approach to enterprise 
-                software development, combining advanced AI capabilities with proven development methodologies to 
-                accelerate team productivity and ensure consistent, high-quality outcomes.
-            </p>
-
-            <div class="content-grid">
-                <div class="content-card">
-                    <h3 style="color: #1e293b; margin-bottom: 1rem;">🎯 Core Capabilities</h3>
-                    <ul class="benefit-list">
-                        <li class="benefit-item">
-                            <span class="benefit-icon">🧠</span>
-                            <div><strong>Intelligent Code Generation:</strong> Context-aware code generation for React components, Spring Boot services, and database schemas</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">🔍</span>
-                            <div><strong>Automated Code Review:</strong> AI-powered analysis for security vulnerabilities, performance issues, and best practice violations</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">📚</span>
-                            <div><strong>Interactive Learning:</strong> Real-time guidance and pattern suggestions tailored to your team's existing Struts/Java expertise</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">🧪</span>
-                            <div><strong>Test Automation:</strong> Comprehensive test suite generation including unit tests, integration tests, and end-to-end scenarios</div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="content-card">
-                    <h3 style="color: #1e293b; margin-bottom: 1rem;">📈 Measurable Business Impact</h3>
-                    <ul class="benefit-list">
-                        <li class="benefit-item">
-                            <span class="benefit-icon">💰</span>
-                            <div><strong>Cost Reduction:</strong> 25% reduction in total development costs over 3-year period</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">⚡</span>
-                            <div><strong>Accelerated Delivery:</strong> 40-60% faster development cycles for new features</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">🎯</span>
-                            <div><strong>Quality Improvement:</strong> 50% reduction in post-deployment defects</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">📊</span>
-                            <div><strong>Team Productivity:</strong> 33% faster achievement of full team proficiency</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="highlight-box">
-                <div class="highlight-title">🚀 Platform Architecture</div>
-                <div class="mermaid">
-flowchart TD
-    A[Development Team] --> B[Agentic SDLC Platform]
-    
-    subgraph Platform[Agentic SDLC Platform]
-        C[AI Code Assistant]
-        D[Quality Analyzer]
-        E[Test Generator]
-        F[Documentation Engine]
-        G[Learning System]
-    end
-    
-    B --> H[React Frontend]
-    B --> I[Spring Boot API]
-    B --> J[Database Layer]
-    
-    style Platform fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
-    style A fill:#D1FAE5,stroke:#059669
-                </div>
-            </div>
-        </section>
-
-        <!-- Industry Research -->
-        <section id="industry-research" class="section">
-            <h2 class="section-title">📚 Industry Research & Evidence-Based Estimates</h2>
-            <p>
-                All estimates and projections in this guide are based on comprehensive industry research and 
-                peer-reviewed studies. This section provides the evidence foundation for our recommendations.
-            </p>
-
-            <div class="content-grid">
-                <div class="content-card">
-                    <h3 style="color: #1e293b; margin-bottom: 1rem;">📊 Research Citations</h3>
                     <ul>
-                        <li><strong>AI Development Productivity:</strong> "GitHub Copilot Productivity Study" - MIT Technology Review, 2024</li>
-                        <li><strong>Legacy Migration Timelines:</strong> "Enterprise Legacy Modernization Report" - Gartner, 2024</li>
-                        <li><strong>Team Learning Curves:</strong> "Developer Skill Acquisition in Modern Frameworks" - IEEE Software, 2024</li>
-                        <li><strong>Cost-Benefit Analysis:</strong> "ROI of Development Platform Investments" - McKinsey Digital, 2024</li>
+                        <li><span class="icon warning">⚠️</span> Service interface design</li>
+                        <li><span class="icon success">✅</span> Mitigation: Proof of concept validation</li>
                     </ul>
                 </div>
 
-                <div class="content-card">
-                    <h3 style="color: #1e293b; margin-bottom: 1rem;">🎯 Key Industry Findings</h3>
-                    <ul class="benefit-list">
-                        <li class="benefit-item">
-                            <span class="benefit-icon">📈</span>
-                            <div>Organizations using AI-assisted development platforms report 25-40% productivity improvements</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">⏱️</span>
-                            <div>Legacy Struts to Spring Boot migrations typically require 12-18 months for full team proficiency</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">💡</span>
-                            <div>Teams with existing Java expertise adapt 50% faster to Spring Boot vs. completely new frameworks</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">🔒</span>
-                            <div>AI-assisted code review reduces security vulnerabilities by 60% compared to manual review alone</div>
-                        </li>
+                <div class="approach">
+                    <h5>Business Risks</h5>
+                    <ul>
+                        <li><span class="icon warning">⚠️</span> Extended implementation timeline</li>
+                        <li><span class="icon success">✅</span> Mitigation: Phased approach with incremental value</li>
+                    </ul>
+                    <ul>
+                        <li><span class="icon warning">⚠️</span> Team expertise requirements</li>
+                        <li><span class="icon success">✅</span> Mitigation: Knowledge transfer and training plan</li>
                     </ul>
                 </div>
+            </div>
+
+            <h3>Success Metrics</h3>
+            <ul>
+                <li><strong>Development Velocity:</strong> 40-50% reduction in feature development time</li>
+                <li><strong>Maintenance Overhead:</strong> Elimination of HTML parser maintenance</li>
+                <li><strong>Code Quality:</strong> Improved testability and separation of concerns</li>
+                <li><strong>Team Satisfaction:</strong> Simplified development workflow</li>
+            </ul>
+
+            <div class="highlight">
+                <h4><span class="icon info">📋</span> Next Steps</h4>
+                <ol>
+                    <li><strong>Stakeholder Alignment:</strong> Confirm customer commitment to 12-15 month timeline</li>
+                    <li><strong>Technical Assessment:</strong> Detailed analysis of Struts business logic complexity</li>
+                    <li><strong>Proof of Concept:</strong> Extract 2-3 services to validate approach</li>
+                    <li><strong>Resource Planning:</strong> Ensure adequate Struts expertise on team</li>
+                    <li><strong>Migration Roadmap:</strong> Detailed module-by-module extraction plan</li>
+                </ol>
             </div>
         </section>
 
-        <!-- Code Examples -->
-        <section id="code-examples" class="section">
-            <h2 class="section-title">💻 Additional Code Examples</h2>
-            <p>
-                This section provides more detailed code examples showing the transition from Struts 1.1 patterns 
-                to modern React and Spring Boot implementations.
-            </p>
-
-            <!-- More detailed examples would go here -->
-            <div class="content-card">
-                <h3 style="color: #1e293b; margin-bottom: 1rem;">Spring Boot Configuration Example</h3>
-                <div class="code-example">
-                    <div class="code-title">Application Configuration (Application.java)</div>
-                    <pre><code>@SpringBootApplication
-@EnableJpaRepositories
-public class NjSpiritApplication {
-    
-    @Bean
-    public DataSource dataSource() {
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:oracle:thin:@localhost:1521:NJSPIRIT");
-        config.setUsername("${DB_USERNAME}");
-        config.setPassword("${DB_PASSWORD}");
-        config.setMaximumPoolSize(20);
-        return new HikariDataSource(config);
-    }
-    
-    public static void main(String[] args) {
-        SpringApplication.run(NjSpiritApplication.class, args);
-    }
-}</code></pre>
-                </div>
-            </div>
-        </section>
-
-        <!-- Future-Proofing Strategy -->
-        <section id="future-proofing" class="section">
-            <h2 class="section-title">🔮 Future-Proofing Strategy</h2>
-            <p>
-                The RESTful Bridge Approach provides a strategic foundation that enables multiple modernization paths 
-                while minimizing risk and maximizing return on investment.
-            </p>
-
-            <div class="content-grid">
-                <div class="content-card">
-                    <h3 style="color: #1e293b; margin-bottom: 1rem;">🕐 Buys Time for Strategic Planning</h3>
-                    <ul class="benefit-list">
-                        <li class="benefit-item">
-                            <span class="benefit-icon">⏱️</span>
-                            <div><strong>Incremental Backend Rewrite:</strong> Rewrite backend logic in Java/Spring without affecting end users</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">🔄</span>
-                            <div><strong>Parallel Modernization:</strong> UI can progress rapidly while legacy logic is incrementally retired</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">📊</span>
-                            <div><strong>Data-Driven Decisions:</strong> Real usage analytics inform which components to modernize first</div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="content-card">
-                    <h3 style="color: #1e293b; margin-bottom: 1rem;">🚀 Enables Advanced Architecture Patterns</h3>
-                    <ul class="benefit-list">
-                        <li class="benefit-item">
-                            <span class="benefit-icon">🏗️</span>
-                            <div><strong>Microservices Decomposition:</strong> Clean API boundaries enable service extraction</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">☁️</span>
-                            <div><strong>Cloud Migration:</strong> RESTful APIs are cloud-native and container-ready</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">🔌</span>
-                            <div><strong>Third-Party Integration:</strong> Standard REST APIs enable easy integration with modern tools</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="highlight-box">
-                <div class="highlight-title">🎯 Strategic Value</div>
-                <p>
-                    This approach doesn't just solve the immediate IE6 compatibility problem - it creates a modernization 
-                    platform that can evolve with your organization's needs. The RESTful bridge becomes the foundation 
-                    for whatever architectural direction you choose in the future, whether that's microservices, 
-                    cloud-native deployment, or complete system rewrite.
-                </p>
-            </div>
-        </section>
-
-        <!-- Implementation Strategy -->
-        <section id="implementation-strategy" class="section">
-            <h2 class="section-title">🚀 Implementation Strategy</h2>
-            <p>
-                Based on the analysis above, here's our recommended approach for successful project execution 
-                with your development team.
-            </p>
-
-            <div class="content-grid">
-                <div class="content-card">
-                    <h3 style="color: #1e293b; margin-bottom: 1rem;">Phase 1: Foundation (Months 1-2)</h3>
-                    <ul class="benefit-list">
-                        <li class="benefit-item">
-                            <span class="benefit-icon">🎯</span>
-                            <div>Team skill assessment and personalized learning paths</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">🏗️</span>
-                            <div>Development environment setup with Agentic SDLC Platform</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">📚</span>
-                            <div>Core React and Spring Boot training workshops</div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="content-card">
-                    <h3 style="color: #1e293b; margin-bottom: 1rem;">Phase 2: Development (Months 3-8)</h3>
-                    <ul class="benefit-list">
-                        <li class="benefit-item">
-                            <span class="benefit-icon">🔄</span>
-                            <div>Iterative implementation with AI-assisted code generation</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">👥</span>
-                            <div>Pair programming sessions for knowledge transfer</div>
-                        </li>
-                        <li class="benefit-item">
-                            <span class="benefit-icon">🧪</span>
-                            <div>Continuous testing and quality assurance</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+        <!-- Footer -->
+        <footer style="text-align: center; padding: 40px; color: var(--text-muted); border-top: 1px solid var(--border-color); margin-top: 40px;">
+            <p><strong>NJ SPIRIT Frontend Upgrade Project</strong> | Technical Decision Framework</p>
+            <p>Updated: August 2025 | Based on customer feedback and technical analysis</p>
+        </footer>
     </div>
 
     <script>
-        // Check authentication
-        if (localStorage.getItem('struts-auth') !== 'authenticated') {
-            window.location.href = 'index.html';
-        }
-
-        // Logout function
-        function logout() {
-            if (confirm('Are you sure you want to logout?')) {
-                localStorage.removeItem('struts-auth');
-                localStorage.removeItem('struts-user');
-                localStorage.removeItem('struts-access-time');
-                window.location.href = 'index.html';
-            }
-        }
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
@@ -1330,55 +901,25 @@ public class NjSpiritApplication {
             });
         });
 
-        // Session management
-        function checkSessionTimeout() {
-            const accessTime = localStorage.getItem('struts-access-time');
-            if (accessTime) {
-                const now = new Date();
-                const access = new Date(accessTime);
-                const diffHours = (now - access) / (1000 * 60 * 60);
-                
-                if (diffHours > 24) {
-                    alert('Your session has expired. Please log in again.');
-                    logout();
-                }
-            }
-        }
-
-        let lastActivity = Date.now();
-        let activityTimer;
-
-        function resetActivityTimer() {
-            lastActivity = Date.now();
-            clearTimeout(activityTimer);
+        // Add active state to navigation
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.section');
+            const navBtns = document.querySelectorAll('.nav-btn');
             
-            activityTimer = setTimeout(() => {
-                alert('Session expired due to inactivity. Please log in again.');
-                logout();
-            }, 30 * 60 * 1000);
-        }
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
 
-        // Monitor user activity
-        document.addEventListener('mousemove', resetActivityTimer);
-        document.addEventListener('keypress', resetActivityTimer);
-        document.addEventListener('click', resetActivityTimer);
-        document.addEventListener('scroll', resetActivityTimer);
-
-        resetActivityTimer();
-        checkSessionTimeout();
-
-        // Security measures
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || 
-                (e.ctrlKey && e.shiftKey && e.key === 'I') ||
-                (e.ctrlKey && e.shiftKey && e.key === 'J') ||
-                (e.ctrlKey && e.key === 'U')) {
-                e.preventDefault();
-            }
+            navBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('href') === '#' + current) {
+                    btn.classList.add('active');
+                }
+            });
         });
     </script>
 </body>
