@@ -1339,7 +1339,7 @@
                         <span>Option 2</span>
                     </a>
             <a href="#slide-4" class="nav-link" data-slide="4">
-                <span>Analysis</span>
+                <span>Recommendation</span>
             </a>
             <a href="#slide-5" class="nav-link" data-slide="5">
                 <span>Team Collaboration</span>
@@ -1382,7 +1382,7 @@
                 <span>Option 2</span>
             </a>
             <a href="#slide-4" class="nav-link" data-slide="4">
-                <span>Analysis</span>
+                <span>Recommendation</span>
             </a>
             <a href="#slide-5" class="nav-link" data-slide="5">
                 <span>Team Collaboration</span>
@@ -2073,6 +2073,91 @@
                     </div>
                 </div>
 
+                <!-- Decision Calculator -->
+                <div class="questionnaire-section" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border: 2px solid #64748b; margin-top: 2rem;">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <h3 style="color: #1e293b; margin-bottom: 0.5rem;">🧮 Decision Calculator</h3>
+                        <p style="color: #64748b; font-size: 1rem;">Answer these questions to see which approach aligns with your priorities</p>
+                    </div>
+
+                    <form id="decisionCalculator" style="max-width: 800px; margin: 0 auto;">
+                        <div class="question-group">
+                            <h4>Project Timeline Priorities</h4>
+                            <div class="question">
+                                <label>
+                                    <input type="checkbox" name="timeline" value="fast"> 
+                                    Speed to production is our top priority
+                                </label>
+                            </div>
+                            <div class="question">
+                                <label>
+                                    <input type="checkbox" name="timeline" value="thorough"> 
+                                    We prefer thorough modernization even if it takes longer
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <h4>Team Resources & Collaboration</h4>
+                            <div class="question">
+                                <label>
+                                    <input type="checkbox" name="team" value="minimal"> 
+                                    We want minimal NJ SPIRIT team involvement
+                                </label>
+                            </div>
+                            <div class="question">
+                                <label>
+                                    <input type="checkbox" name="team" value="collaborative"> 
+                                    We're open to close collaboration on backend changes
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <h4>Technical Architecture Preferences</h4>
+                            <div class="question">
+                                <label>
+                                    <input type="checkbox" name="tech" value="preserve"> 
+                                    Preserve existing backend architecture
+                                </label>
+                            </div>
+                            <div class="question">
+                                <label>
+                                    <input type="checkbox" name="tech" value="modernize"> 
+                                    Modernize backend architecture for long-term benefits
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <h4>Risk Tolerance</h4>
+                            <div class="question">
+                                <label>
+                                    <input type="checkbox" name="risk" value="low"> 
+                                    Minimize production risk above all else
+                                </label>
+                            </div>
+                            <div class="question">
+                                <label>
+                                    <input type="checkbox" name="risk" value="moderate"> 
+                                    Accept moderate risk for strategic advantages
+                                </label>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 2rem;">
+                            <button type="button" onclick="calculateRecommendation()" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; padding: 1rem 2rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem;">
+                                Calculate Best Approach
+                            </button>
+                        </div>
+
+                        <div id="calculatorResult" style="margin-top: 2rem; padding: 1.5rem; background: white; border-radius: 12px; border: 2px solid #e5e7eb; display: none;">
+                            <h4 style="color: #1e293b; margin-bottom: 1rem;">📊 Analysis Result</h4>
+                            <div id="resultContent"></div>
+                        </div>
+                    </form>
+                </div>
+
             </section>
 
             
@@ -2094,20 +2179,20 @@
                             The two modernization options have dramatically different collaboration requirements:
                         </p>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem;">
-                            <div style="background: white; border-radius: 8px; padding: 1rem;">
-                                <h4 style="color: #059669;">Option 1: RESTful Bridge</h4>
+                            <div style="background: white; border-radius: 8px; padding: 1rem; border: 2px solid #e5e7eb;">
+                                <h4 style="color: #374151;">Option 1: RESTful Bridge</h4>
                                 <ul style="list-style: none; padding: 0; font-size: 0.9rem;">
-                                    <li>✅ <strong>Minimal NJ SPIRIT team involvement</strong></li>
-                                    <li>✅ Independent North Highland development</li>
-                                    <li>✅ No backend code modifications needed</li>
+                                    <li style="margin: 0.5rem 0;">📋 <strong>Minimal NJ SPIRIT team involvement</strong></li>
+                                    <li style="margin: 0.5rem 0;">📋 Independent North Highland development</li>
+                                    <li style="margin: 0.5rem 0;">📋 No backend code modifications needed</li>
                                 </ul>
                             </div>
-                            <div style="background: white; border-radius: 8px; padding: 1rem;">
-                                <h4 style="color: #dc2626;">Option 2: Service Layer</h4>
+                            <div style="background: white; border-radius: 8px; padding: 1rem; border: 2px solid #e5e7eb;">
+                                <h4 style="color: #374151;">Option 2: Service Layer</h4>
                                 <ul style="list-style: none; padding: 0; font-size: 0.9rem;">
-                                    <li>⚠️ <strong>1-2 FTE from NJ SPIRIT required</strong></li>
-                                    <li>⚠️ 8-12 months of close collaboration</li>
-                                    <li>⚠️ Significant backend refactoring needed</li>
+                                    <li style="margin: 0.5rem 0;">📋 <strong>1-2 FTE from NJ SPIRIT required</strong></li>
+                                    <li style="margin: 0.5rem 0;">📋 8-12 months of close collaboration</li>
+                                    <li style="margin: 0.5rem 0;">📋 Significant backend refactoring needed</li>
                                 </ul>
                             </div>
                         </div>
@@ -3347,6 +3432,104 @@
             if (event.target == standardModal) {
                 standardModal.style.display = 'none';
             }
+        }
+
+        // Decision Calculator Function
+        function calculateRecommendation() {
+            const form = document.getElementById('decisionCalculator');
+            const formData = new FormData(form);
+            const resultDiv = document.getElementById('calculatorResult');
+            const resultContent = document.getElementById('resultContent');
+            
+            // Score tracking
+            let option1Score = 0;
+            let option2Score = 0;
+            
+            // Analyze responses
+            const timeline = formData.getAll('timeline');
+            const team = formData.getAll('team');
+            const tech = formData.getAll('tech');
+            const risk = formData.getAll('risk');
+            
+            // Score timeline preferences
+            if (timeline.includes('fast')) option1Score += 2;
+            if (timeline.includes('thorough')) option2Score += 2;
+            
+            // Score team preferences
+            if (team.includes('minimal')) option1Score += 2;
+            if (team.includes('collaborative')) option2Score += 2;
+            
+            // Score technical preferences
+            if (tech.includes('preserve')) option1Score += 2;
+            if (tech.includes('modernize')) option2Score += 2;
+            
+            // Score risk preferences
+            if (risk.includes('low')) option1Score += 2;
+            if (risk.includes('moderate')) option2Score += 2;
+            
+            // Determine recommendation
+            let recommendedOption, backgroundColor, borderColor, reasoning;
+            
+            if (option1Score > option2Score) {
+                recommendedOption = "Option 1: RESTful Bridge Approach";
+                backgroundColor = "linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)";
+                borderColor = "#3b82f6";
+                reasoning = `
+                    <p><strong>Based on your responses, Option 1 aligns best with your priorities:</strong></p>
+                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                        <li>✅ <strong>Faster time to production</strong> - No backend changes required</li>
+                        <li>✅ <strong>Lower risk approach</strong> - Existing system remains unchanged</li>
+                        <li>✅ <strong>Minimal team coordination</strong> - North Highland can work independently</li>
+                        <li>✅ <strong>Preserves current architecture</strong> - JSP/Struts backend untouched</li>
+                    </ul>
+                    <p style="margin-top: 1rem;"><strong>Timeline:</strong> 12-15 months to full deployment</p>
+                `;
+            } else if (option2Score > option1Score) {
+                recommendedOption = "Option 2: Service Layer Extraction";
+                backgroundColor = "linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)";
+                borderColor = "#22c55e";
+                reasoning = `
+                    <p><strong>Based on your responses, Option 2 aligns best with your priorities:</strong></p>
+                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                        <li>✅ <strong>Long-term modernization benefits</strong> - Clean service architecture</li>
+                        <li>✅ <strong>Eliminates JSP maintenance burden</strong> - Addresses core customer concern</li>
+                        <li>✅ <strong>Close collaboration opportunities</strong> - Joint development approach</li>
+                        <li>✅ <strong>Strategic architecture improvement</strong> - Modern API layer</li>
+                    </ul>
+                    <p style="margin-top: 1rem;"><strong>Timeline:</strong> 18-24 months with backend modernization</p>
+                `;
+            } else {
+                recommendedOption = "Hybrid Approach Recommended";
+                backgroundColor = "linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%)";
+                borderColor = "#f59e0b";
+                reasoning = `
+                    <p><strong>Your responses suggest a balanced approach might be best:</strong></p>
+                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                        <li>💡 <strong>Start with Option 1</strong> - Get immediate browser compatibility</li>
+                        <li>🔄 <strong>Plan for Option 2</strong> - Transition to service layer when ready</li>
+                        <li>📈 <strong>Phased approach</strong> - Balance speed and modernization goals</li>
+                    </ul>
+                    <p style="margin-top: 1rem;"><strong>Timeline:</strong> 12-15 months (Phase 1), then evaluate Phase 2</p>
+                `;
+            }
+            
+            // Display result
+            resultContent.innerHTML = `
+                <div style="background: ${backgroundColor}; border: 2px solid ${borderColor}; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+                    <h5 style="color: #1e293b; margin-bottom: 1rem; font-size: 1.25rem;">
+                        🎯 Recommended: ${recommendedOption}
+                    </h5>
+                    ${reasoning}
+                </div>
+                <div style="background: #f8fafc; border-radius: 8px; padding: 1rem; font-size: 0.9rem; color: #64748b;">
+                    <strong>Note:</strong> This analysis is based on your responses and provides guidance for decision-making. 
+                    Both options are viable and the final choice should consider your specific organizational context and priorities.
+                </div>
+            `;
+            
+            // Show result with animation
+            resultDiv.style.display = 'block';
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     </script>
 
