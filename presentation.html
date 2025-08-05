@@ -2662,17 +2662,17 @@
             <section id="slide-8" class="slide">
                 <div class="slide-header">
                     <span class="slide-number">SLIDE 8</span>
-                    <h2 class="slide-title">Interactive Decision Calculator</h2>
-                    <p class="slide-subtitle">Find the Best Approach Based on Your Specific Context</p>
+                    <h2 class="slide-title">Interactive Approach Analyzer</h2>
+                    <p class="slide-subtitle">Compare Approaches Based on Your Specific Context</p>
                 </div>
 
                 <div class="executive-context" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; color: white;">
                     <div style="display: flex; align-items: flex-start; gap: 1rem;">
                         <div style="font-size: 1.5rem; flex-shrink: 0;">🎯</div>
                         <div>
-                            <h3 style="margin: 0 0 0.75rem 0; font-size: 1.1rem;">Personalized Decision Tool</h3>
+                            <h3 style="margin: 0 0 0.75rem 0; font-size: 1.1rem;">Personalized Analysis Tool</h3>
                             <p style="margin: 0 0 0.75rem 0; line-height: 1.6; opacity: 0.9;">
-                                Answer a few questions about your context and requirements to get a weighted recommendation for the best modernization approach.
+                                Answer a few questions about your context and requirements to get a weighted analysis comparing both modernization approaches.
                             </p>
                             <p style="margin: 0; line-height: 1.6; opacity: 0.9;">
                                 <strong>How it works:</strong> Your answers automatically adjust the weight of different decision criteria to match your priorities.
@@ -2687,7 +2687,7 @@
                     <div id="quickAssessment" class="calculator-step active">
                         <div class="calculator-card">
                             <h3 class="calculator-title">📋 Quick Assessment</h3>
-                            <p style="margin-bottom: 2rem; color: #64748b;">Answer these key questions to get personalized recommendations:</p>
+                            <p style="margin-bottom: 2rem; color: #64748b;">Answer these key questions to get personalized comparison analysis:</p>
                             
                             <div class="question-grid">
                                 <div class="question-item">
@@ -2777,7 +2777,7 @@
 
                             <div class="calculator-actions">
                                 <button class="calc-btn calc-btn-primary" onclick="calculateRecommendation()" id="calculateBtn" disabled>
-                                    🎯 Calculate Best Approach
+                                    📊 Generate Comparison Analysis
                                 </button>
                             </div>
                         </div>
@@ -2786,7 +2786,7 @@
                     <!-- Step 2: Results -->
                     <div id="calculatorResults" class="calculator-step" style="display: none;">
                         <div class="calculator-card">
-                            <h3 class="calculator-title">🏆 Your Personalized Recommendation</h3>
+                            <h3 class="calculator-title">📊 Your Contextual Analysis</h3>
                             
                             <div class="winner-announcement" id="winnerDisplay">
                                 <!-- Populated by JavaScript -->
@@ -2794,7 +2794,7 @@
 
                             <div class="results-grid">
                                 <div class="result-card">
-                                    <h4>🎯 Why This Approach?</h4>
+                                    <h4>📈 Analysis Highlights</h4>
                                     <div id="winnerReasons">
                                         <!-- Populated by JavaScript -->
                                     </div>
@@ -2806,6 +2806,10 @@
                                         <!-- Populated by JavaScript -->
                                     </div>
                                 </div>
+                            </div>
+
+                            <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 1rem; margin: 1.5rem 0; font-size: 0.9rem; color: #6c757d;">
+                                <p style="margin: 0; text-align: center;"><strong>📊 Analysis Disclaimer:</strong> This tool provides factual comparisons without recommendations. Both approaches are viable solutions with different characteristics and trade-offs. The choice depends entirely on your specific context, priorities, and constraints.</p>
                             </div>
 
                             <div class="calculator-actions">
@@ -3753,7 +3757,7 @@
             accuracy: {
                 title: "✅ Accuracy - Evidence-Based Analysis",
                 content: `
-                    <p><strong>What it means:</strong> Every claim, metric, and recommendation is backed by verifiable evidence from real implementations, industry studies, or technical documentation.</p>
+                    <p><strong>What it means:</strong> Every claim, metric, and analysis is backed by verifiable evidence from real implementations, industry studies, or technical documentation.</p>
 
                     <h4>Our verification process:</h4>
                     <ul>
@@ -3804,7 +3808,7 @@
             depth: {
                 title: "🔍 Depth - Comprehensive Analysis",
                 content: `
-                    <p><strong>What it means:</strong> We go beyond surface-level recommendations to examine implementation details, edge cases, and long-term implications.</p>
+                    <p><strong>What it means:</strong> We go beyond surface-level analysis to examine implementation details, edge cases, and long-term implications.</p>
 
                     <h4>Deep dive includes:</h4>
                     <ul>
@@ -3840,7 +3844,7 @@
             logic: {
                 title: "🧠 Logic - Sound Reasoning",
                 content: `
-                    <p><strong>What it means:</strong> Our recommendations follow a clear, logical progression from evidence to conclusion with no gaps in reasoning.</p>
+                    <p><strong>What it means:</strong> Our analysis follows a clear, logical progression from evidence to conclusion with no gaps in reasoning.</p>
 
                     <h4>Our logical framework:</h4>
                     <ol>
@@ -3887,7 +3891,7 @@
                     </ul>
 
                     <h4>Example in our analysis:</h4>
-                    <p>We immediately addressed the customer's July 18 concern about "maintaining JSPs forever" and structured our entire recommendation around eliminating this burden.</p>
+                    <p>We immediately addressed the customer's July 18 concern about "maintaining JSPs forever" and structured our entire analysis around understanding options to address this burden.</p>
                 `
             },
             completeness: {

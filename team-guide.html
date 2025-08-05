@@ -467,10 +467,10 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
-        .decision-card.preferred {
-            border-color: var(--info-color);
-            background: #f8fafc;
-            border-width: 3px;
+        .decision-card.approach-option {
+            border-color: var(--neutral-color);
+            background: var(--light-bg);
+            border-width: 2px;
         }
 
         .decision-card h4 {
@@ -484,9 +484,9 @@
             border-radius: 6px;
         }
 
-        .decision-card.preferred h4 {
-            color: var(--info-color);
-            background: #e3f2fd;
+        .decision-card.approach-option h4 {
+            color: var(--primary-color);
+            background: var(--light-bg);
         }
 
         .decision-card .data-flow {
@@ -645,7 +645,7 @@
                     </div>
                     <div class="presentation-info">
                         <div class="presentation-title">NJ SPIRIT Team Guide</div>
-                        <div class="presentation-subtitle">Technical Decision Framework</div>
+                        <div class="presentation-subtitle">Technical Comparison Framework</div>
                     </div>
                 </div>
             </div>
@@ -664,7 +664,7 @@
             <!-- Page Title Section -->
             <section class="page-title-section">
                 <h1>NJ SPIRIT Team Guide</h1>
-                <p>RESTful Bridge vs. Service Layer Extraction: Technical Decision Framework</p>
+                <p>RESTful Bridge vs. Service Layer Extraction: Technical Comparison Framework</p>
             </section>
 
         <!-- Navigation -->
@@ -676,6 +676,7 @@
                 <a href="#comparison" class="nav-btn">Technical Comparison</a>
                 <a href="#timeline" class="nav-btn">Timeline Analysis</a>
                 <a href="#decision-framework" class="nav-btn">Decision Framework</a>
+                <a href="#code-examples" class="nav-btn">Code Examples</a>
             </div>
         </nav>
 
@@ -718,7 +719,7 @@
 
         <!-- The Decision Section -->
         <section id="decision" class="section">
-            <h2>Technical Decision</h2>
+            <h2>Technical Comparison Framework</h2>
             
             <h3>Why This Decision Matters Now</h3>
             <p>The customer's evolving position has shifted from <em>"No changes to the backend"</em> to openness about <em>"entertaining alternatives that involve backend code modifications"</em> if it improves maintainability.</p>
@@ -895,7 +896,7 @@
                     </ul>
                 </div>
 
-                <div class="decision-card preferred">
+                <div class="decision-card approach-option">
                     <h4>Service Layer Extraction</h4>
                     <div class="data-flow">
                         <strong>Data Flow:</strong><br>
@@ -1009,27 +1010,27 @@
 
             <div class="highlight success">
                 <h4><span class="icon info">🎯</span> Objective Analysis for Informed Decision-Making</h4>
-                <p>Both approaches offer distinct advantages and considerations. The optimal choice depends on your specific priorities, constraints, and strategic objectives.</p>
+                <p>Both approaches offer distinct advantages and considerations. Each approach aligns with different priorities, constraints, and strategic objectives based on your specific context.</p>
             </div>
 
             <h3>How Each Approach Addresses Key Requirements</h3>
 
             <div class="decision-grid">
-                <div class="decision-card preferred">
+                <div class="decision-card approach-option">
                     <h4>Customer Requirement</h4>
                     <p>"Eliminate JSP maintenance burden"</p>
                     <h5>Solution:</h5>
                     <p>Service layer completely bypasses JSPs, allowing eventual decommissioning</p>
                 </div>
 
-                <div class="decision-card preferred">
+                <div class="decision-card approach-option">
                     <h4>Customer Requirement</h4>
                     <p>"Reduce development layers"</p>
                     <h5>Solution:</h5>
                     <p>Direct React → Service → Database eliminates HTML parsing layer</p>
                 </div>
 
-                <div class="decision-card preferred">
+                <div class="decision-card approach-option">
                     <h4>Customer Requirement</h4>
                     <p>"More direct access to data"</p>
                     <h5>Solution:</h5>
@@ -1111,9 +1112,200 @@
             </div>
         </section>
 
+        <!-- Neutrality Disclaimer -->
+        <section style="background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 12px; padding: 2rem; margin: 2rem 0;">
+            <div style="text-align: center;">
+                <h3 style="color: #495057; margin-bottom: 1rem;">📊 Analysis Approach</h3>
+                <p style="margin: 0; color: #6c757d; font-size: 1rem; line-height: 1.6;">
+                    <strong>This guide provides factual technical analysis without recommendations.</strong> Both RESTful Bridge and Service Layer Extraction are viable approaches with different characteristics and trade-offs. The choice depends entirely on your specific context, priorities, constraints, and strategic objectives. We present objective information to help you make the best decision for your team and organization.
+                </p>
+            </div>
+        </section>
+
+        <!-- Appendix: Code Examples -->
+        <section id="code-examples" class="section">
+            <h2 class="section-title">📋 Appendix A: Code Examples</h2>
+            <p>This appendix provides detailed code examples showing the transition from Struts 1.1 patterns to modern React and Spring Boot implementations. These examples illustrate the technical differences between approaches without favoring either option.</p>
+
+            <div class="content-card">
+                <h3 style="color: #1e293b; margin-bottom: 1rem;">Business Scenario Example</h3>
+                <p><strong>Business Requirement:</strong> Add a "Priority Case" checkbox to the case management form</p>
+
+                <h4 style="margin: 1.5rem 0 1rem;">Current Struts 1.1 Implementation:</h4>
+                <div class="code-example" style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+                    <div style="font-weight: 600; color: #495057; margin-bottom: 0.5rem;">JSP Form (CaseForm.jsp)</div>
+                    <pre style="background: #ffffff; border: 1px solid #e9ecef; border-radius: 4px; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; overflow-x: auto;"><code>&lt;html:form action="/updateCase"&gt;
+    &lt;html:text property="caseNumber" /&gt;
+    &lt;html:text property="clientName" /&gt;
+    &lt;html:checkbox property="priorityCase" /&gt;
+    &lt;html:submit value="Update Case" /&gt;
+&lt;/html:form&gt;</code></pre>
+                </div>
+
+                <div class="code-example" style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+                    <div style="font-weight: 600; color: #495057; margin-bottom: 0.5rem;">Struts Action (UpdateCaseAction.java)</div>
+                    <pre style="background: #ffffff; border: 1px solid #e9ecef; border-radius: 4px; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; overflow-x: auto;"><code>public class UpdateCaseAction extends Action {
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
+                               HttpServletRequest request, HttpServletResponse response) {
+        CaseForm caseForm = (CaseForm) form;
+        
+        // Business logic mixed with web layer
+        Connection conn = getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+            "UPDATE cases SET priority_flag = ? WHERE case_number = ?");
+        stmt.setBoolean(1, caseForm.isPriorityCase());
+        stmt.setString(2, caseForm.getCaseNumber());
+        stmt.executeUpdate();
+        
+        return mapping.findForward("success");
+    }
+}</code></pre>
+                </div>
+
+                <h4 style="margin: 1.5rem 0 1rem;">Modern React + Spring Boot Implementation:</h4>
+                <div class="code-example" style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+                    <div style="font-weight: 600; color: #495057; margin-bottom: 0.5rem;">React Component (CaseForm.tsx)</div>
+                    <pre style="background: #ffffff; border: 1px solid #e9ecef; border-radius: 4px; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; overflow-x: auto;"><code>import React, { useState } from 'react';
+import { Checkbox, Button, TextField } from '@mui/material';
+
+interface CaseFormData {
+    caseNumber: string;
+    clientName: string;
+    priorityCase: boolean;
+}
+
+export const CaseForm: React.FC = () => {
+    const [formData, setFormData] = useState&lt;CaseFormData&gt;({
+        caseNumber: '',
+        clientName: '',
+        priorityCase: false
+    });
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            const response = await fetch('/api/cases', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            if (response.ok) {
+                // Handle success
+            }
+        } catch (error) {
+            // Handle error
+        }
+    };
+
+    return (
+        &lt;form onSubmit={handleSubmit}&gt;
+            &lt;TextField 
+                value={formData.caseNumber}
+                onChange={(e) => setFormData({...formData, caseNumber: e.target.value})}
+                label="Case Number"
+            /&gt;
+            &lt;TextField 
+                value={formData.clientName}
+                onChange={(e) => setFormData({...formData, clientName: e.target.value})}
+                label="Client Name"
+            /&gt;
+            &lt;Checkbox 
+                checked={formData.priorityCase}
+                onChange={(e) => setFormData({...formData, priorityCase: e.target.checked})}
+            /&gt;
+            &lt;Button type="submit"&gt;Update Case&lt;/Button&gt;
+        &lt;/form&gt;
+    );
+};</code></pre>
+                </div>
+
+                <div class="code-example" style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+                    <div style="font-weight: 600; color: #495057; margin-bottom: 0.5rem;">Spring Boot REST Controller (CaseController.java)</div>
+                    <pre style="background: #ffffff; border: 1px solid #e9ecef; border-radius: 4px; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; overflow-x: auto;"><code>@RestController
+@RequestMapping("/api/cases")
+public class CaseController {
+    
+    @Autowired
+    private CaseService caseService;
+    
+    @PutMapping
+    public ResponseEntity&lt;Case&gt; updateCase(@RequestBody CaseUpdateRequest request) {
+        try {
+            Case updatedCase = caseService.updateCase(request);
+            return ResponseEntity.ok(updatedCase);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+}</code></pre>
+                </div>
+
+                <div class="code-example" style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+                    <div style="font-weight: 600; color: #495057; margin-bottom: 0.5rem;">Service Layer (CaseService.java)</div>
+                    <pre style="background: #ffffff; border: 1px solid #e9ecef; border-radius: 4px; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; overflow-x: auto;"><code>@Service
+public class CaseService {
+    
+    @Autowired
+    private CaseRepository caseRepository;
+    
+    public Case updateCase(CaseUpdateRequest request) {
+        Case existingCase = caseRepository.findByCaseNumber(request.getCaseNumber());
+        if (existingCase == null) {
+            throw new CaseNotFoundException("Case not found: " + request.getCaseNumber());
+        }
+        
+        existingCase.setPriorityCase(request.isPriorityCase());
+        existingCase.setClientName(request.getClientName());
+        
+        return caseRepository.save(existingCase);
+    }
+}</code></pre>
+                </div>
+
+                <div style="background: #e3f2fd; border: 1px solid #90caf9; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0;">
+                    <div style="font-weight: 600; color: #1565c0; margin-bottom: 1rem;">💡 Technical Observations</div>
+                    <ul style="margin: 0; color: #1565c0;">
+                        <li><strong>Familiar Java Patterns:</strong> Spring Boot uses dependency injection and service layers familiar to Java developers</li>
+                        <li><strong>Cleaner Separation:</strong> Business logic moves to dedicated service classes vs. mixed in web layer</li>
+                        <li><strong>Better Error Handling:</strong> Structured exception handling vs. JSP error pages</li>
+                        <li><strong>Testable Code:</strong> Each layer can be unit tested independently</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3 style="color: #1e293b; margin-bottom: 1rem;">Spring Boot Configuration Example</h3>
+                <div class="code-example" style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+                    <div style="font-weight: 600; color: #495057; margin-bottom: 0.5rem;">Application Configuration (Application.java)</div>
+                    <pre style="background: #ffffff; border: 1px solid #e9ecef; border-radius: 4px; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; overflow-x: auto;"><code>@SpringBootApplication
+@EnableJpaRepositories
+public class NjSpiritApplication {
+    
+    @Bean
+    public DataSource dataSource() {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:oracle:thin:@localhost:1521:NJSPIRIT");
+        config.setUsername("${DB_USERNAME}");
+        config.setPassword("${DB_PASSWORD}");
+        config.setMaximumPoolSize(20);
+        return new HikariDataSource(config);
+    }
+    
+    public static void main(String[] args) {
+        SpringApplication.run(NjSpiritApplication.class, args);
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <p style="margin-top: 2rem; font-style: italic; color: #6c757d;">
+                <strong>Reference Note:</strong> These code examples can be referenced throughout the guide when comparing technical implementation approaches. Both Struts 1.1 and modern Spring Boot patterns have their place in different contexts.
+            </p>
+        </section>
+
             <!-- Footer -->
             <footer style="text-align: center; padding: 40px; color: var(--text-muted); border-top: 1px solid var(--border-color); margin-top: 40px;">
-                <p><strong>NJ SPIRIT Frontend Upgrade Project</strong> | Technical Decision Framework</p>
+                <p><strong>NJ SPIRIT Frontend Upgrade Project</strong> | Technical Comparison Framework</p>
                 <p>Updated: August 2025 | Based on customer feedback and technical analysis</p>
             </footer>
         </div>
