@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NJ SPIRIT Team Guide: RESTful Bridge vs. Service Layer Extraction</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #1976D2;
@@ -32,36 +32,182 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
             color: var(--text-dark);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+        }
+
+        .main-content {
             background: var(--light-bg);
+            min-height: 100vh;
+            padding-top: 80px;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            background: var(--light-bg);
         }
 
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: var(--white);
-            padding: 40px 0;
-            text-align: center;
-            margin-bottom: 30px;
+        /* Presentation-style Header */
+        .presentation-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 0.75rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 2000;
+            overflow: hidden;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .presentation-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .presentation-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -50%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+            transform: skewX(-25deg);
+            animation: shimmer 8s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) skewX(-25deg); }
+            100% { transform: translateX(100%) skewX(-25deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .company-branding {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .company-logo {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            opacity: 0.95;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nh-logo {
+            height: 40px;
+            width: auto;
+            flex-shrink: 0;
+            opacity: 1;
+            filter: brightness(1.2);
+        }
+
+        .presentation-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.125rem;
+        }
+
+        .presentation-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .presentation-subtitle {
+            font-size: 0.75rem;
+            font-weight: 400;
+            opacity: 0.8;
+            color: #94a3b8;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-control-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Page Title Section */
+        .page-title-section {
+            background: var(--white);
             border-radius: var(--radius);
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
         }
 
-        .header h1 {
+        .page-title-section h1 {
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 10px;
+            color: var(--primary-color);
         }
 
-        .header p {
+        .page-title-section p {
             font-size: 1.2rem;
-            opacity: 0.9;
+            opacity: 0.8;
             max-width: 800px;
             margin: 0 auto;
+            color: var(--text-muted);
         }
 
         /* Navigation */
@@ -72,7 +218,7 @@
             margin-bottom: 30px;
             box-shadow: var(--shadow);
             position: sticky;
-            top: 20px;
+            top: 80px;
             z-index: 100;
         }
 
@@ -434,12 +580,38 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <h1>NJ SPIRIT Team Guide</h1>
-            <p>RESTful Bridge vs. Service Layer Extraction: Technical Decision Framework</p>
-        </header>
+    <!-- Presentation Header -->
+    <header class="presentation-header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="company-branding">
+                    <div class="company-logo">
+                        <img src="https://northhighland.com/hubfs/Logos/NHL_Logo_Primary_White.svg" alt="North Highland" class="nh-logo">
+                        <span>North Highland</span>
+                    </div>
+                    <div class="presentation-info">
+                        <div class="presentation-title">NJ SPIRIT Team Guide</div>
+                        <div class="presentation-subtitle">Technical Decision Framework</div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="nav-controls">
+                    <a href="portal.html" class="nav-control-btn">← Portal</a>
+                    <a href="presentation.html" class="nav-control-btn">Strategic Presentation</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Page Title Section -->
+            <section class="page-title-section">
+                <h1>NJ SPIRIT Team Guide</h1>
+                <p>RESTful Bridge vs. Service Layer Extraction: Technical Decision Framework</p>
+            </section>
 
         <!-- Navigation -->
         <nav class="nav">
@@ -613,11 +785,13 @@
                             <h5>RESTful Bridge Workflow</h5>
                             <ol class="steps">
                                 <li>Modify business logic in Struts Action</li>
+                                <li>Test that JSP output format hasn't changed</li>
                                 <li>Verify parser still extracts data correctly</li>
+                                <li>Update any error message parsing if needed</li>
                                 <li>Test React application receives correct data</li>
                             </ol>
                             <p><strong>Estimated Time:</strong> 3-4 hours</p>
-                            <p><strong>Risk Points:</strong> Parser complexity, data extraction verification</p>
+                            <p><strong>Risk Points:</strong> Unexpected HTML changes, parser failures</p>
                         </div>
                         <div class="approach recommended">
                             <h5>Service Layer Workflow</h5>
@@ -877,11 +1051,12 @@
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer style="text-align: center; padding: 40px; color: var(--text-muted); border-top: 1px solid var(--border-color); margin-top: 40px;">
-            <p><strong>NJ SPIRIT Frontend Upgrade Project</strong> | Technical Decision Framework</p>
-            <p>Updated: August 2025 | Based on customer feedback and technical analysis</p>
-        </footer>
+            <!-- Footer -->
+            <footer style="text-align: center; padding: 40px; color: var(--text-muted); border-top: 1px solid var(--border-color); margin-top: 40px;">
+                <p><strong>NJ SPIRIT Frontend Upgrade Project</strong> | Technical Decision Framework</p>
+                <p>Updated: August 2025 | Based on customer feedback and technical analysis</p>
+            </footer>
+        </div>
     </div>
 
     <script>
