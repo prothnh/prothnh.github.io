@@ -195,31 +195,62 @@
 
         .key-insights {
             margin-top: 2rem;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             border-radius: 12px;
+            border: 1px solid #cbd5e1;
+        }
+        .key-insights h3 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #1e293b;
+            font-size: 1.25rem;
+            font-weight: 700;
         }
 
         .insights-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-top: 1rem;
+            gap: 1.5rem;
+            margin-top: 0;
         }
 
         .insight-item {
             display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-            padding: 1rem;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem;
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f1f5f9;
+            transition: all 0.2s ease;
+        }
+        .insight-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            transform: translateY(-1px);
         }
 
         .insight-icon {
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             flex-shrink: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-radius: 8px;
+        }
+        .insight-content {
+            flex: 1;
+            line-height: 1.4;
+        }
+        .insight-content strong {
+            color: #1e293b;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.25rem;
         }
 
         .learning-timeline {
@@ -2516,19 +2547,31 @@
                         <div class="insights-grid">
                             <div class="insight-item">
                                 <span class="insight-icon">⏱️</span>
-                                <strong>Timeline Advantage:</strong> AI approach reduces development time by 25-40%
+                                <div class="insight-content">
+                                    <strong>Timeline Advantage:</strong>
+                                    AI approach reduces development time by 25-40%
+                                </div>
                             </div>
                             <div class="insight-item">
                                 <span class="insight-icon">👥</span>
-                                <strong>Resource Efficiency:</strong> AI reduces FTE requirements during transition and ongoing
+                                <div class="insight-content">
+                                    <strong>Resource Efficiency:</strong>
+                                    AI reduces FTE requirements during transition and ongoing
+                                </div>
                             </div>
                             <div class="insight-item">
                                 <span class="insight-icon">🎓</span>
-                                <strong>Learning Acceleration:</strong> AI tutoring reduces external mentorship needs
+                                <div class="insight-content">
+                                    <strong>Learning Acceleration:</strong>
+                                    AI tutoring reduces external mentorship needs
+                                </div>
                             </div>
                             <div class="insight-item">
                                 <span class="insight-icon">🔄</span>
-                                <strong>Productivity Multiplier:</strong> AI assistance maintains higher ongoing productivity
+                                <div class="insight-content">
+                                    <strong>Productivity Multiplier:</strong>
+                                    AI assistance maintains higher ongoing productivity
+                                </div>
                             </div>
                         </div>
                     </div>
