@@ -167,59 +167,148 @@
         }
 
         /* Team Collaboration Slides Styles */
+        .section-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .approach-section {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .approach-header {
+            padding: 1rem 1.5rem;
+            text-align: center;
+            margin: 0;
+        }
+
+        .approach-header h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
         .resource-breakdown {
-            background: #f8fafc;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-top: 1rem;
+            padding: 1.25rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
         }
 
         .timeline-section {
-            margin-bottom: 1.5rem;
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #f1f5f9;
         }
 
         .timeline-section h4 {
             color: #1e293b;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
         }
 
         .timeline-section ul {
             margin: 0;
-            padding-left: 1.5rem;
+            padding-left: 0;
+            list-style: none;
         }
 
         .timeline-section li {
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.5rem;
+            padding: 0.25rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .timeline-section li:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            color: #1e293b;
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            padding: 0.5rem;
+            border-radius: 6px;
+            margin-top: 0.5rem;
+        }
+
+        .role-title {
+            flex: 1;
+        }
+
+        .fte-value {
+            font-weight: 600;
+            color: #3b82f6;
         }
 
         .key-insights {
             margin-top: 2rem;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             border-radius: 12px;
+            border: 1px solid #cbd5e1;
+        }
+        .key-insights h3 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #1e293b;
+            font-size: 1.25rem;
+            font-weight: 700;
         }
 
         .insights-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-top: 1rem;
+            gap: 1.5rem;
+            margin-top: 0;
         }
 
         .insight-item {
             display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-            padding: 1rem;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem;
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f1f5f9;
+            transition: all 0.2s ease;
+        }
+        .insight-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            transform: translateY(-1px);
         }
 
         .insight-icon {
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             flex-shrink: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-radius: 8px;
+        }
+        .insight-content {
+            flex: 1;
+            line-height: 1.4;
+        }
+        .insight-content strong {
+            color: #1e293b;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.25rem;
         }
 
         .learning-timeline {
@@ -1322,10 +1411,10 @@
                 <div class="questionnaire-section" style="background: #fef3c7; border: 2px solid #f59e0b; margin-bottom: 2rem;">
                     <h3 class="card-title" style="color: #92400e;">📅 Key Meeting Insights (July 18, 2025)</h3>
                     <div style="font-size: 1.05rem; line-height: 1.7; color: #78350f;">
-                        <p style="margin-bottom: 1rem;"><strong>Critical Customer Concerns:</strong></p>
+                        <p style="margin-bottom: 1rem;"><strong>Critical DCF Concerns:</strong></p>
                         <ul style="list-style: none; padding-left: 0;">
-                            <li style="margin-bottom: 0.5rem;">❓ <strong>"Are we maintaining our JSPs forever?"</strong> - Direct customer question highlighting maintenance burden</li>
-                            <li style="margin-bottom: 0.5rem;">🔄 <strong>Now open to backend modifications</strong> - Significant shift from original "no backend changes" requirement</li>
+                            <li style="margin-bottom: 0.5rem;">❓ <strong>"Are we maintaining our JSPs forever?"</strong> - Direct DCF question highlighting maintenance burden</li>
+                            <li style="margin-bottom: 0.5rem;">🔄 <strong>DCF is now open to backend modifications</strong> - Significant shift from original "no backend changes" requirement</li>
                             <li style="margin-bottom: 0.5rem;">⚠️ <strong>Struts Bridge creates extra development layer</strong> - Concern about architectural complexity</li>
                             <li style="margin-bottom: 0.5rem;">🔧 <strong>How to manage CRs that affect both the frontend and backend</strong> - Change request coordination across layers</li>
                         </ul>
@@ -1767,9 +1856,9 @@
                             <li style="color: #0c4a6e;">Direct API testing reduces validation time</li>
                             <li style="color: #0c4a6e;">Cleaner architecture = fewer technical issues</li>
                             <li style="color: #0c4a6e;"><strong>Coordination challenges:</strong></li>
-                            <li style="color: #0c4a6e;">Heavy coordination with NJ SPIRIT dev team required</li>
+                            <li style="color: #0c4a6e;">Heavy coordination with NJ SPIRIT DCF team required</li>
                             <li style="color: #0c4a6e;">Dependencies on their development processes & timelines</li>
-                            <li style="color: #0c4a6e;"><strong>Net result:</strong> Technical gains offset by team dependencies</li>
+                            <li style="color: #0c4a6e;"><strong>Net result:</strong> Technical gains offset by DCF team dependencies</li>
                         </ul>
                     </div>
                 </div>
@@ -1957,7 +2046,7 @@
                             <li style="padding: 0.25rem 0;">• Minimizing production risk is paramount</li>
                             <li style="padding: 0.25rem 0;">• Quick browser compatibility is urgent</li>
                             <li style="padding: 0.25rem 0;">• Backend expertise is limited</li>
-                            <li style="padding: 0.25rem 0;">• Minimal dependency on internal SPIRIT dev team</li>
+                            <li style="padding: 0.25rem 0;">• Minimal dependency on internal SPIRIT DCF team</li>
                         </ul>
                     </div>
                     <div class="content-card" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border: 2px solid #22c55e;">
@@ -1965,8 +2054,8 @@
                         <ul style="list-style: none; padding: 0; color: #166534;">
                             <li style="padding: 0.25rem 0;">• Long-term architecture matters</li>
                             <li style="padding: 0.25rem 0;">• Eliminating technical debt is priority</li>
-                            <li style="padding: 0.25rem 0;">• Team has Struts expertise</li>
-                            <li style="padding: 0.25rem 0;">• Significant dependency on internal SPIRIT dev team acceptable</li>
+                            <li style="padding: 0.25rem 0;">• DCF team has Struts expertise</li>
+                            <li style="padding: 0.25rem 0;">• Significant dependency on internal SPIRIT DCF team acceptable</li>
                         </ul>
                     </div>
                 </div>
@@ -1984,6 +2073,91 @@
                     </div>
                 </div>
 
+                <!-- Decision Calculator -->
+                <div class="questionnaire-section" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border: 2px solid #64748b; margin-top: 2rem;">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <h3 style="color: #1e293b; margin-bottom: 0.5rem;">🧮 Decision Calculator</h3>
+                        <p style="color: #64748b; font-size: 1rem;">Answer these questions to see which approach aligns with your priorities</p>
+                    </div>
+
+                    <form id="decisionCalculator" style="max-width: 800px; margin: 0 auto;">
+                        <div class="question-group">
+                            <h4>Project Timeline Priorities</h4>
+                            <div class="question">
+                                <label>
+                                    <input type="radio" name="timeline" value="fast"> 
+                                    Speed to production is our top priority
+                                </label>
+                            </div>
+                            <div class="question">
+                                <label>
+                                    <input type="radio" name="timeline" value="thorough"> 
+                                    We prefer thorough modernization even if it takes longer
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <h4>Team Resources & Collaboration</h4>
+                            <div class="question">
+                                <label>
+                                    <input type="radio" name="team" value="minimal"> 
+                                    We want minimal NJ SPIRIT DCF team involvement
+                                </label>
+                            </div>
+                            <div class="question">
+                                <label>
+                                    <input type="radio" name="team" value="collaborative"> 
+                                    We're open to close collaboration on backend changes
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <h4>Technical Architecture Preferences</h4>
+                            <div class="question">
+                                <label>
+                                    <input type="radio" name="tech" value="preserve"> 
+                                    Preserve existing backend architecture
+                                </label>
+                            </div>
+                            <div class="question">
+                                <label>
+                                    <input type="radio" name="tech" value="modernize"> 
+                                    Modernize backend architecture for long-term benefits
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <h4>Risk Tolerance</h4>
+                            <div class="question">
+                                <label>
+                                    <input type="radio" name="risk" value="low"> 
+                                    Minimize production risk above all else
+                                </label>
+                            </div>
+                            <div class="question">
+                                <label>
+                                    <input type="radio" name="risk" value="moderate"> 
+                                    Accept moderate risk for strategic advantages
+                                </label>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 2rem;">
+                            <button type="button" onclick="calculateRecommendation()" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; padding: 1rem 2rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem;">
+                                Calculate Best Approach
+                            </button>
+                        </div>
+
+                        <div id="calculatorResult" style="margin-top: 2rem; padding: 1.5rem; background: white; border-radius: 12px; border: 2px solid #e5e7eb; display: none;">
+                            <h4 style="color: #1e293b; margin-bottom: 1rem;">📊 Analysis Result</h4>
+                            <div id="resultContent"></div>
+                        </div>
+                    </form>
+                </div>
+
             </section>
 
             
@@ -1993,8 +2167,8 @@
             <section id="slide-5" class="slide">
                 <div class="slide-header">
                     <span class="slide-number">SLIDE 5</span>
-                    <h2 class="slide-title">Team Collaboration</h2>
-                    <p class="slide-subtitle">How team requirements differ between RESTful Bridge and Service Layer approaches</p>
+                    <h2 class="slide-title">DCF Team Collaboration</h2>
+                    <p class="slide-subtitle">How DCF team requirements differ between RESTful Bridge and Service Layer approaches</p>
                 </div>
 
                 <!-- Critical Distinction -->
@@ -2008,7 +2182,7 @@
                             <div style="background: white; border-radius: 8px; padding: 1rem;">
                                 <h4 style="color: #059669;">Option 1: RESTful Bridge</h4>
                                 <ul style="list-style: none; padding: 0; font-size: 0.9rem;">
-                                    <li>✅ <strong>Minimal NJ SPIRIT team involvement</strong></li>
+                                    <li>✅ <strong>Minimal NJ SPIRIT DCF team involvement</strong></li>
                                     <li>✅ Independent North Highland development</li>
                                     <li>✅ No backend code modifications needed</li>
                                 </ul>
@@ -2061,7 +2235,7 @@
                 <!-- Integration Strategy -->
                 <div style="background: #f8fafc; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
                     <h3 style="color: #1e293b; margin-bottom: 1.5rem; text-align: center;">🔗 Integration Strategy</h3>
-                    <p style="text-align: center; color: #64748b; margin-bottom: 2rem; font-size: 1rem;">How the two teams coordinate their different development approaches</p>
+                    <p style="text-align: center; color: #64748b; margin-bottom: 2rem; font-size: 1rem;">How the DCF teams coordinate their different development approaches</p>
                     
                     <!-- Clean Two-Team Coordination -->
                     <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 3rem; align-items: center; margin-bottom: 2rem;">
@@ -2121,7 +2295,7 @@
                         <div class="card-content">
                             <h4 style="color: #f57c00; margin-bottom: 0.5rem;">Regular Sync Points:</h4>
                             <ul style="font-size: 0.9rem;">
-                                <li><strong>Daily:</strong> 15-min standup (team representatives)</li>
+                                <li><strong>Daily:</strong> 15-min standup (DCF team representatives)</li>
                                 <li><strong>Weekly:</strong> Technical sync & code review</li>
                                 <li><strong>Monthly:</strong> Architecture alignment</li>
                                 <li><strong>Quarterly:</strong> Release planning</li>
@@ -2196,10 +2370,10 @@
                         <div>
                             <h3 style="color: #1e293b; margin: 0 0 0.75rem 0; font-size: 1.1rem;">Executive Context: Why Resource Planning Matters</h3>
                             <p style="color: #475569; margin: 0 0 0.75rem 0; line-height: 1.6;">
-                                The <strong>team collaboration requirements</strong> discussed in the previous slide translate directly into resource allocation decisions that impact project success, timeline, and budget planning.
+                                The <strong>DCF team collaboration requirements</strong> discussed in the previous slide translate directly into resource allocation decisions that impact project success, timeline, and budget planning.
                             </p>
                             <p style="color: #475569; margin: 0; line-height: 1.6;">
-                                <strong>This detailed breakdown enables executive-level decisions</strong> on staffing models, external consultation needs, and long-term team capacity planning based on your chosen technical approach.
+                                <strong>This detailed breakdown enables executive-level decisions</strong> on staffing models, external consultation needs, and long-term DCF team capacity planning based on your chosen technical approach.
                             </p>
                         </div>
                     </div>
@@ -2216,19 +2390,19 @@
                                 <div class="timeline-section">
                                     <h4>During Development (8-10 months)</h4>
                                     <ul>
-                                        <li>Java Developers: 2.0 FTE</li>
-                                        <li>React Mentor: 0.5 FTE</li>
-                                        <li>DevOps Support: 0.5 FTE</li>
-                                        <li>Business Analyst: 0.5 FTE</li>
+                                        <li><span class="role-title">Java Developers</span><span class="fte-value">2.0 FTE</span></li>
+                                        <li><span class="role-title">React Mentor</span><span class="fte-value">0.5 FTE</span></li>
+                                        <li><span class="role-title">DevOps Support</span><span class="fte-value">0.5 FTE</span></li>
+                                        <li><span class="role-title">Business Analyst</span><span class="fte-value">0.5 FTE</span></li>
                                         <li><strong>Total: 3.5 FTE during transition</strong></li>
                                     </ul>
                                 </div>
                                 <div class="timeline-section">
                                     <h4>Post-Handoff (Ongoing)</h4>
                                     <ul>
-                                        <li>Full-Stack Developers: 2.5 FTE</li>
-                                        <li>DevOps: 0.25 FTE</li>
-                                        <li>Domain Expert: 0.1 FTE</li>
+                                        <li><span class="role-title">Full-Stack Developers</span><span class="fte-value">2.5 FTE</span></li>
+                                        <li><span class="role-title">DevOps</span><span class="fte-value">0.25 FTE</span></li>
+                                        <li><span class="role-title">Domain Expert</span><span class="fte-value">0.1 FTE</span></li>
                                         <li><strong>Total: 2.85 FTE ongoing</strong></li>
                                     </ul>
                                 </div>
@@ -2244,19 +2418,19 @@
                                 <div class="timeline-section">
                                     <h4>During Development (12-15 months)</h4>
                                     <ul>
-                                        <li>Java Developers: 2.5 FTE</li>
-                                        <li>React Mentor: 1.0 FTE</li>
-                                        <li>DevOps Support: 0.75 FTE</li>
-                                        <li>Business Analyst: 0.5 FTE</li>
+                                        <li><span class="role-title">Java Developers</span><span class="fte-value">2.5 FTE</span></li>
+                                        <li><span class="role-title">React Mentor</span><span class="fte-value">1.0 FTE</span></li>
+                                        <li><span class="role-title">DevOps Support</span><span class="fte-value">0.75 FTE</span></li>
+                                        <li><span class="role-title">Business Analyst</span><span class="fte-value">0.5 FTE</span></li>
                                         <li><strong>Total: 4.75 FTE during transition</strong></li>
                                     </ul>
                                 </div>
                                 <div class="timeline-section">
                                     <h4>Post-Handoff (Ongoing)</h4>
                                     <ul>
-                                        <li>Full-Stack Developers: 3.0 FTE</li>
-                                        <li>DevOps: 0.5 FTE</li>
-                                        <li>Domain Expert: 0.25 FTE</li>
+                                        <li><span class="role-title">Full-Stack Developers</span><span class="fte-value">3.0 FTE</span></li>
+                                        <li><span class="role-title">DevOps</span><span class="fte-value">0.5 FTE</span></li>
+                                        <li><span class="role-title">Domain Expert</span><span class="fte-value">0.25 FTE</span></li>
                                         <li><strong>Total: 3.75 FTE ongoing</strong></li>
                                     </ul>
                                 </div>
@@ -2269,19 +2443,31 @@
                         <div class="insights-grid">
                             <div class="insight-item">
                                 <span class="insight-icon">⏱️</span>
-                                <strong>Timeline Advantage:</strong> AI approach reduces development time by 25-40%
+                                <div class="insight-content">
+                                    <strong>Timeline Advantage:</strong>
+                                    AI approach reduces development time by 25-40%
+                                </div>
                             </div>
                             <div class="insight-item">
                                 <span class="insight-icon">👥</span>
-                                <strong>Resource Efficiency:</strong> AI reduces FTE requirements during transition and ongoing
+                                <div class="insight-content">
+                                    <strong>Resource Efficiency:</strong>
+                                    AI reduces FTE requirements during transition and ongoing
+                                </div>
                             </div>
                             <div class="insight-item">
                                 <span class="insight-icon">🎓</span>
-                                <strong>Learning Acceleration:</strong> AI tutoring reduces external mentorship needs
+                                <div class="insight-content">
+                                    <strong>Learning Acceleration:</strong>
+                                    AI tutoring reduces external mentorship needs
+                                </div>
                             </div>
                             <div class="insight-item">
                                 <span class="insight-icon">🔄</span>
-                                <strong>Productivity Multiplier:</strong> AI assistance maintains higher ongoing productivity
+                                <div class="insight-content">
+                                    <strong>Productivity Multiplier:</strong>
+                                    AI assistance maintains higher ongoing productivity
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2293,7 +2479,7 @@
                 <div class="slide-header">
                     <span class="slide-number">SLIDE 7</span>
                     <h2 class="slide-title">Learning Path</h2>
-                    <p class="slide-subtitle">Phased approach to team skill development and knowledge transfer</p>
+                    <p class="slide-subtitle">Phased approach to DCF team skill development and knowledge transfer</p>
                 </div>
 
                 <!-- Executive Context -->
@@ -2303,7 +2489,7 @@
                         <div>
                             <h3 style="color: #1e293b; margin: 0 0 0.75rem 0; font-size: 1.1rem;">Executive Context: Implementation Strategy & Risk Mitigation</h3>
                             <p style="color: #475569; margin: 0 0 0.75rem 0; line-height: 1.6;">
-                                Beyond resource allocation, <strong>HOW the team transitions</strong> determines project success and business continuity. This phased approach minimizes risk while ensuring predictable timeline delivery.
+                                Beyond resource allocation, <strong>HOW the DCF team transitions</strong> determines project success and business continuity. This phased approach minimizes risk while ensuring predictable timeline delivery.
                             </p>
                             <p style="color: #475569; margin: 0; line-height: 1.6;">
                                 <strong>Executive value:</strong> Clear milestones for progress tracking, defined success criteria for each phase, and structured approach to maintain productivity throughout the technology transition.
@@ -2321,7 +2507,7 @@
                             </div>
                             <div class="phase-details">
                                 <div class="team-composition">
-                                    <strong>Team:</strong> 1-2 developers + external React consultant
+                                    <strong>DCF Team:</strong> 1-2 developers + external React consultant
                                 </div>
                                 <div class="phase-goals">
                                     <strong>Goal:</strong> Validate approach, build initial patterns
@@ -2337,7 +2523,7 @@
                             </div>
                             <div class="phase-details">
                                 <div class="team-composition">
-                                    <strong>Team:</strong> 3-4 developers with lessons learned integration
+                                    <strong>DCF Team:</strong> 3-4 developers with lessons learned integration
                                 </div>
                                 <div class="phase-goals">
                                     <strong>Goal:</strong> Scale knowledge, refine processes
@@ -2353,10 +2539,10 @@
                             </div>
                             <div class="phase-details">
                                 <div class="team-composition">
-                                    <strong>Team:</strong> All developers with reduced external support
+                                    <strong>DCF Team:</strong> All developers with reduced external support
                                 </div>
                                 <div class="phase-goals">
-                                    <strong>Goal:</strong> Team independence with consultation available
+                                    <strong>Goal:</strong> DCF team independence with consultation available
                                     <br><strong>Outcome:</strong> 70% of baseline productivity achieved
                                 </div>
                             </div>
@@ -2369,7 +2555,7 @@
                             </div>
                             <div class="phase-details">
                                 <div class="team-composition">
-                                    <strong>Team:</strong> Fully independent with periodic consultation
+                                    <strong>DCF Team:</strong> Fully independent with periodic consultation
                                 </div>
                                 <div class="phase-goals">
                                     <strong>Goal:</strong> Full productivity with modern stack
@@ -3246,6 +3432,101 @@
             if (event.target == standardModal) {
                 standardModal.style.display = 'none';
             }
+        }
+
+        // Decision Calculator Function
+        function calculateRecommendation() {
+            const form = document.getElementById('decisionCalculator');
+            const formData = new FormData(form);
+            const resultDiv = document.getElementById('calculatorResult');
+            const resultContent = document.getElementById('resultContent');
+            
+            // Score tracking
+            let option1Score = 0;
+            let option2Score = 0;
+            
+            // Analyze responses
+            const timeline = formData.getAll('timeline');
+            const team = formData.getAll('team');
+            const tech = formData.getAll('tech');
+            const risk = formData.getAll('risk');
+            
+            // Score timeline preferences
+            if (timeline.includes('fast')) option1Score += 2;
+            if (timeline.includes('thorough')) option2Score += 2;
+            
+            // Score team preferences
+            if (team.includes('minimal')) option1Score += 2;
+            if (team.includes('collaborative')) option2Score += 2;
+            
+            // Score technical preferences
+            if (tech.includes('preserve')) option1Score += 2;
+            if (tech.includes('modernize')) option2Score += 2;
+            
+            // Score risk preferences
+            if (risk.includes('low')) option1Score += 2;
+            if (risk.includes('moderate')) option2Score += 2;
+            
+            // Determine recommendation
+            let recommendedOption, backgroundColor, borderColor, reasoning;
+            
+            if (option1Score > option2Score) {
+                recommendedOption = "Option 1: RESTful Bridge Approach";
+                backgroundColor = "linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)";
+                borderColor = "#3b82f6";
+                reasoning = `
+                    <p><strong>Based on your responses, Option 1 aligns best with your priorities:</strong></p>
+                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                        <li>✅ <strong>Faster time to production</strong> - No backend changes required</li>
+                        <li>✅ <strong>Lower risk approach</strong> - Existing system remains unchanged</li>
+                        <li>✅ <strong>Minimal DCF team coordination</strong> - North Highland can work independently</li>
+                        <li>✅ <strong>Preserves current architecture</strong> - JSP/Struts backend untouched</li>
+                    </ul>
+                `;
+            } else if (option2Score > option1Score) {
+                recommendedOption = "Option 2: Service Layer Extraction";
+                backgroundColor = "linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)";
+                borderColor = "#22c55e";
+                reasoning = `
+                    <p><strong>Based on your responses, Option 2 aligns best with your priorities:</strong></p>
+                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                        <li>✅ <strong>Long-term modernization benefits</strong> - Clean service architecture</li>
+                        <li>✅ <strong>Eliminates JSP maintenance burden</strong> - Addresses core customer concern</li>
+                        <li>✅ <strong>Close collaboration opportunities</strong> - Joint development approach</li>
+                        <li>✅ <strong>Strategic architecture improvement</strong> - Modern API layer</li>
+                    </ul>
+                `;
+            } else {
+                recommendedOption = "Hybrid Approach Recommended";
+                backgroundColor = "linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%)";
+                borderColor = "#f59e0b";
+                reasoning = `
+                    <p><strong>Your responses suggest a balanced approach might be best:</strong></p>
+                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                        <li>💡 <strong>Start with Option 1</strong> - Get immediate browser compatibility</li>
+                        <li>🔄 <strong>Plan for Option 2</strong> - Transition to service layer when ready</li>
+                        <li>📈 <strong>Phased approach</strong> - Balance speed and modernization goals</li>
+                    </ul>
+                `;
+            }
+            
+            // Display result
+            resultContent.innerHTML = `
+                <div style="background: ${backgroundColor}; border: 2px solid ${borderColor}; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+                    <h5 style="color: #1e293b; margin-bottom: 1rem; font-size: 1.25rem;">
+                        🎯 Recommended: ${recommendedOption}
+                    </h5>
+                    ${reasoning}
+                </div>
+                <div style="background: #f8fafc; border-radius: 8px; padding: 1rem; font-size: 0.9rem; color: #64748b;">
+                    <strong>Note:</strong> This analysis is based on your responses and provides guidance for decision-making. 
+                    Both options are viable and the final choice should consider your specific organizational context and priorities.
+                </div>
+            `;
+            
+            // Show result with animation
+            resultDiv.style.display = 'block';
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     </script>
 
