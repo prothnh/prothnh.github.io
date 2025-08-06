@@ -1339,7 +1339,7 @@
                         <span>Option 2</span>
                     </a>
             <a href="#slide-4" class="nav-link" data-slide="4">
-                <span>Analysis</span>
+                <span>Recommendation</span>
             </a>
             <a href="#slide-5" class="nav-link" data-slide="5">
                 <span>Team Collaboration</span>
@@ -1382,7 +1382,7 @@
                 <span>Option 2</span>
             </a>
             <a href="#slide-4" class="nav-link" data-slide="4">
-                <span>Analysis</span>
+                <span>Recommendation</span>
             </a>
             <a href="#slide-5" class="nav-link" data-slide="5">
                 <span>Team Collaboration</span>
@@ -1866,11 +1866,11 @@
 
             
 
-<!-- Slide 4: Analysis -->
+<!-- Slide 4: Recommendation -->
             <section id="slide-4" class="slide">
                 <div class="slide-header">
                     <span class="slide-number">SLIDE 4</span>
-                    <h2 class="slide-title">Strategic Analysis</h2>
+                    <h2 class="slide-title">Strategic Recommendation</h2>
                     <p class="slide-subtitle">Comparing our two implementation approaches</p>
                 </div>
 
@@ -2060,10 +2060,10 @@
                     </div>
                 </div>
 
-                <!-- Analysis -->
+                <!-- Recommendation -->
                 <div class="content-card" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b;">
                     <div class="card-content" style="text-align: center; padding: 1.5rem;">
-                        <h3 style="color: #92400e; margin-bottom: 1rem;">💡 Our Strategic Analysis</h3>
+                        <h3 style="color: #92400e; margin-bottom: 1rem;">💡 Our Strategic Recommendation</h3>
                         <p style="font-size: 1.125rem; font-weight: 600; color: #92400e; margin: 0;">
                             Start with Option 1 to solve the immediate browser compatibility challenge
                         </p>
@@ -2179,20 +2179,20 @@
                             The two modernization options have dramatically different collaboration requirements:
                         </p>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem;">
-                            <div style="background: white; border-radius: 8px; padding: 1rem; border: 2px solid #e5e7eb;">
-                                <h4 style="color: #374151;">Option 1: RESTful Bridge</h4>
+                            <div style="background: white; border-radius: 8px; padding: 1rem;">
+                                <h4 style="color: #059669;">Option 1: RESTful Bridge</h4>
                                 <ul style="list-style: none; padding: 0; font-size: 0.9rem;">
-                                    <li style="margin: 0.5rem 0;">📋 <strong>Minimal NJ SPIRIT team involvement</strong></li>
-                                    <li style="margin: 0.5rem 0;">📋 Independent North Highland development</li>
-                                    <li style="margin: 0.5rem 0;">📋 No backend code modifications needed</li>
+                                    <li>✅ <strong>Minimal NJ SPIRIT team involvement</strong></li>
+                                    <li>✅ Independent North Highland development</li>
+                                    <li>✅ No backend code modifications needed</li>
                                 </ul>
                             </div>
-                            <div style="background: white; border-radius: 8px; padding: 1rem; border: 2px solid #e5e7eb;">
-                                <h4 style="color: #374151;">Option 2: Service Layer</h4>
+                            <div style="background: white; border-radius: 8px; padding: 1rem;">
+                                <h4 style="color: #dc2626;">Option 2: Service Layer</h4>
                                 <ul style="list-style: none; padding: 0; font-size: 0.9rem;">
-                                    <li style="margin: 0.5rem 0;">📋 <strong>1-2 FTE from NJ SPIRIT required</strong></li>
-                                    <li style="margin: 0.5rem 0;">📋 8-12 months of close collaboration</li>
-                                    <li style="margin: 0.5rem 0;">📋 Significant backend refactoring needed</li>
+                                    <li>⚠️ <strong>1-2 FTE from NJ SPIRIT required</strong></li>
+                                    <li>⚠️ 8-12 months of close collaboration</li>
+                                    <li>⚠️ Significant backend refactoring needed</li>
                                 </ul>
                             </div>
                         </div>
@@ -3482,7 +3482,6 @@
                         <li>✅ <strong>Minimal team coordination</strong> - North Highland can work independently</li>
                         <li>✅ <strong>Preserves current architecture</strong> - JSP/Struts backend untouched</li>
                     </ul>
-                    <p style="margin-top: 1rem;"><strong>Timeline:</strong> 12-15 months to full deployment</p>
                 `;
             } else if (option2Score > option1Score) {
                 recommendedOption = "Option 2: Service Layer Extraction";
@@ -3496,7 +3495,6 @@
                         <li>✅ <strong>Close collaboration opportunities</strong> - Joint development approach</li>
                         <li>✅ <strong>Strategic architecture improvement</strong> - Modern API layer</li>
                     </ul>
-                    <p style="margin-top: 1rem;"><strong>Timeline:</strong> 18-24 months with backend modernization</p>
                 `;
             } else {
                 recommendedOption = "Hybrid Approach Recommended";
@@ -3509,7 +3507,6 @@
                         <li>🔄 <strong>Plan for Option 2</strong> - Transition to service layer when ready</li>
                         <li>📈 <strong>Phased approach</strong> - Balance speed and modernization goals</li>
                     </ul>
-                    <p style="margin-top: 1rem;"><strong>Timeline:</strong> 12-15 months (Phase 1), then evaluate Phase 2</p>
                 `;
             }
             
