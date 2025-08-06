@@ -1411,10 +1411,10 @@
                 <div class="questionnaire-section" style="background: #fef3c7; border: 2px solid #f59e0b; margin-bottom: 2rem;">
                     <h3 class="card-title" style="color: #92400e;">📅 Key Meeting Insights (July 18, 2025)</h3>
                     <div style="font-size: 1.05rem; line-height: 1.7; color: #78350f;">
-                        <p style="margin-bottom: 1rem;"><strong>Critical DCF Concerns:</strong></p>
+                        <p style="margin-bottom: 1rem;"><strong>Critical Customer Concerns:</strong></p>
                         <ul style="list-style: none; padding-left: 0;">
-                            <li style="margin-bottom: 0.5rem;">❓ <strong>"Are we maintaining our JSPs forever?"</strong> - Direct DCF question highlighting maintenance burden</li>
-                            <li style="margin-bottom: 0.5rem;">🔄 <strong>DCF is now open to backend modifications</strong> - Significant shift from original "no backend changes" requirement</li>
+                            <li style="margin-bottom: 0.5rem;">❓ <strong>"Are we maintaining our JSPs forever?"</strong> - Direct customer question highlighting maintenance burden</li>
+                            <li style="margin-bottom: 0.5rem;">🔄 <strong>Customer now open to backend modifications</strong> - Significant shift from original "no backend changes" requirement</li>
                             <li style="margin-bottom: 0.5rem;">⚠️ <strong>Struts Bridge creates extra development layer</strong> - Concern about architectural complexity</li>
                             <li style="margin-bottom: 0.5rem;">🔧 <strong>How to manage CRs that affect both the frontend and backend</strong> - Change request coordination across layers</li>
                         </ul>
@@ -1459,7 +1459,7 @@
                 <div class="slide-header">
                     <span class="slide-number">SLIDE 2</span>
                     <h2 class="slide-title">Option 1: RESTful Bridge Approach</h2>
-                    <p class="slide-subtitle">Spring Boot Bridge with JSoup Parsing (No Backend Modifications)</p>
+                    <p class="slide-subtitle">Struts Bridge with JSoup Parsing (No Backend Modifications)</p>
                 </div>
 
                 <!-- Main Architecture Diagram -->
@@ -1506,55 +1506,36 @@
                             </div>
                         </div>
 
-                        <!-- Layer 2: Spring Boot RESTful Bridge -->
+                        <!-- Layer 2: Struts Bridge (Translation Layer) -->
                         <div style="background: #E8F5E9; border: 2px solid #4CAF50; border-radius: 8px; padding: 1rem; position: relative;">
                             <div style="position: absolute; top: -8px; left: 15px; background: #4CAF50; color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.7rem; font-weight: 700;">🆕 NEW</div>
                             <div style="position: absolute; top: -12px; left: 80px; background: white; padding: 0 0.5rem;">
-                                <span style="color: #2E7D32; font-weight: 700; font-size: 0.85rem;">🎯 RESTFUL BRIDGE</span>
+                                <span style="color: #2E7D32; font-weight: 700; font-size: 0.85rem;">🔗 TRANSLATION BRIDGE</span>
                             </div>
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <div>
-                                    <h4 style="color: #2E7D32; margin: 0;">Layer 2: Spring Boot RESTful Bridge</h4>
+                                    <h4 style="color: #2E7D32; margin: 0;">Layer 2: Struts Bridge</h4>
                                     <p style="color: #1B5E20; font-size: 0.85rem; margin: 0.25rem 0 0 0; font-weight: 600;">
-                                        JSoup HTML parsing to clean JSON APIs
+                                        Bidirectional translation between React and legacy Struts
                                     </p>
                                 </div>
                                 <div style="text-align: right;">
                                     <span style="background: #A5D6A7; color: #1B5E20; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
-                                        ⚡ <100ms target
+                                        ⚡ &lt;100ms target
                                     </span>
                                 </div>
                             </div>
                             <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #2E7D32;">
-                                • JSoup parsing • Response caching • Connection pooling • Async processing
+                                • JSoup HTML parsing • JSON API responses • Request transformation • Response caching
                             </div>
                         </div>
 
-                        <!-- Layer 3: Performance Optimization -->
-                        <div style="background: #FFF3E0; border: 2px solid #F57C00; border-radius: 8px; padding: 1rem; position: relative;">
-                            <div style="position: absolute; top: -8px; left: 15px; background: #4CAF50; color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.7rem; font-weight: 700;">🆕 NEW</div>
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <div>
-                                    <h4 style="color: #F57C00; margin: 0;">Layer 3: Struts Bridge</h4>
-                                    <p style="color: #64748b; font-size: 0.85rem; margin: 0.25rem 0 0 0;">HTML parsing and API transformation</p>
-                                </div>
-                                <div style="text-align: right;">
-                                    <span style="background: #FFF3E0; color: #F57C00; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
-                                        ✅ Net gain expected
-                                    </span>
-                                </div>
-                            </div>
-                            <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #795548;">
-                                • Response caching • Connection pooling • Async processing • CDN integration
-                            </div>
-                        </div>
-
-                        <!-- Layer 4: Legacy Struts App -->
+                        <!-- Layer 3: Legacy Struts 1.1 -->
                         <div style="background: #FFEBEE; border: 2px solid #D32F2F; border-radius: 8px; padding: 1rem; position: relative;">
                             <div style="position: absolute; top: -8px; left: 15px; background: #FF9800; color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.7rem; font-weight: 700;">📦 EXISTING</div>
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <div style="flex: 1;">
-                                    <h4 style="color: #D32F2F; margin: 0;">Layer 4: Legacy Struts 1.1</h4>
+                                    <h4 style="color: #D32F2F; margin: 0;">Layer 3: Legacy Struts 1.1</h4>
                                     <p style="color: #64748b; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Business Logic + Actions</p>
                                     <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #D32F2F;">
                                         • Business rules • Validation • Transaction management • Action classes
@@ -1565,44 +1546,6 @@
                                         ⚠️ Legacy
                                     </span>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- Layer 5: JSP Pages (Abstraction Point) -->
-                        <div style="background: #e0f2fe; border: 2px solid #0284c7; border-radius: 8px; padding: 1rem; position: relative;">
-                            <div style="position: absolute; top: -8px; left: 15px; background: #FF9800; color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.7rem; font-weight: 700;">📦 EXISTING</div>
-                            <div style="position: absolute; top: -12px; right: 20px; background: white; padding: 0 0.5rem;">
-                                <span style="color: #0284c7; font-weight: 700; font-size: 0.85rem;">🔄 ABSTRACTION LAYER</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <div>
-                                    <h4 style="color: #0284c7; margin: 0;">Layer 5: JSP Pages</h4>
-                                    <p style="color: #075985; font-size: 0.85rem; margin: 0.25rem 0 0 0; font-weight: 600;">
-                                        Clean separation point for team independence
-                                    </p>
-                                </div>
-                                <div style="text-align: right;">
-                                    <span style="background: #FFCDD2; color: #D32F2F; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
-                                        ⚠️ Legacy
-                                    </span>
-                                </div>
-                            </div>
-                            <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #075985;">
-                                • Existing JSP templates • UI rendering • Forms and data display
-                            </div>
-                        </div>
-
-                        <!-- JSoup Parser -->
-                        <div style="background: #F3E5F5; border: 2px solid #7B1FA2; border-radius: 8px; padding: 0.75rem; margin-top: 0.5rem; position: relative;">
-                            <div style="position: absolute; top: -8px; left: 15px; background: #4CAF50; color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.7rem; font-weight: 700;">🆕 NEW</div>
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <div>
-                                    <h4 style="color: #7B1FA2; margin: 0; font-size: 0.9rem;">JSoup HTML Parser</h4>
-                                    <p style="color: #64748b; font-size: 0.8rem; margin: 0;">Extracts data from HTML → JSON</p>
-                                </div>
-                                <span style="background: #E1BEE7; color: #7B1FA2; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
-                                    ⚡ +30ms parsing
-                                </span>
                             </div>
                         </div>
                     </div>
@@ -1711,7 +1654,7 @@
                         <div style="text-align: center;">
                             <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏗️</div>
                             <h4 style="color: #1976D2; margin-bottom: 0.5rem;">Foundation in Place</h4>
-                            <p style="font-size: 0.85rem; color: #64748b;">Spring Boot bridge provides clean API foundation</p>
+                            <p style="font-size: 0.85rem; color: #64748b;">Struts bridge provides clean API foundation</p>
                         </div>
                         <div style="text-align: center;">
                             <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔄</div>
@@ -1856,9 +1799,9 @@
                             <li style="color: #0c4a6e;">Direct API testing reduces validation time</li>
                             <li style="color: #0c4a6e;">Cleaner architecture = fewer technical issues</li>
                             <li style="color: #0c4a6e;"><strong>Coordination challenges:</strong></li>
-                            <li style="color: #0c4a6e;">Heavy coordination with NJ SPIRIT DCF team required</li>
+                            <li style="color: #0c4a6e;">Heavy coordination with NJ SPIRIT dev team required</li>
                             <li style="color: #0c4a6e;">Dependencies on their development processes & timelines</li>
-                            <li style="color: #0c4a6e;"><strong>Net result:</strong> Technical gains offset by DCF team dependencies</li>
+                            <li style="color: #0c4a6e;"><strong>Net result:</strong> Technical gains offset by team dependencies</li>
                         </ul>
                     </div>
                 </div>
@@ -2046,7 +1989,7 @@
                             <li style="padding: 0.25rem 0;">• Minimizing production risk is paramount</li>
                             <li style="padding: 0.25rem 0;">• Quick browser compatibility is urgent</li>
                             <li style="padding: 0.25rem 0;">• Backend expertise is limited</li>
-                            <li style="padding: 0.25rem 0;">• Minimal dependency on internal SPIRIT DCF team</li>
+                            <li style="padding: 0.25rem 0;">• Minimal dependency on internal SPIRIT dev team</li>
                         </ul>
                     </div>
                     <div class="content-card" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border: 2px solid #22c55e;">
@@ -2054,8 +1997,8 @@
                         <ul style="list-style: none; padding: 0; color: #166534;">
                             <li style="padding: 0.25rem 0;">• Long-term architecture matters</li>
                             <li style="padding: 0.25rem 0;">• Eliminating technical debt is priority</li>
-                            <li style="padding: 0.25rem 0;">• DCF team has Struts expertise</li>
-                            <li style="padding: 0.25rem 0;">• Significant dependency on internal SPIRIT DCF team acceptable</li>
+                            <li style="padding: 0.25rem 0;">• Team has Struts expertise</li>
+                            <li style="padding: 0.25rem 0;">• Significant dependency on internal SPIRIT dev team acceptable</li>
                         </ul>
                     </div>
                 </div>
@@ -2102,7 +2045,7 @@
                             <div class="question">
                                 <label>
                                     <input type="radio" name="team" value="minimal"> 
-                                    We want minimal NJ SPIRIT DCF team involvement
+                                    We want minimal NJ SPIRIT team involvement
                                 </label>
                             </div>
                             <div class="question">
@@ -2167,8 +2110,8 @@
             <section id="slide-5" class="slide">
                 <div class="slide-header">
                     <span class="slide-number">SLIDE 5</span>
-                    <h2 class="slide-title">DCF Team Collaboration</h2>
-                    <p class="slide-subtitle">How DCF team requirements differ between RESTful Bridge and Service Layer approaches</p>
+                    <h2 class="slide-title">Team Collaboration</h2>
+                    <p class="slide-subtitle">How team requirements differ between RESTful Bridge and Service Layer approaches</p>
                 </div>
 
                 <!-- Critical Distinction -->
@@ -2182,7 +2125,7 @@
                             <div style="background: white; border-radius: 8px; padding: 1rem;">
                                 <h4 style="color: #059669;">Option 1: RESTful Bridge</h4>
                                 <ul style="list-style: none; padding: 0; font-size: 0.9rem;">
-                                    <li>✅ <strong>Minimal NJ SPIRIT DCF team involvement</strong></li>
+                                    <li>✅ <strong>Minimal NJ SPIRIT team involvement</strong></li>
                                     <li>✅ Independent North Highland development</li>
                                     <li>✅ No backend code modifications needed</li>
                                 </ul>
@@ -2235,7 +2178,7 @@
                 <!-- Integration Strategy -->
                 <div style="background: #f8fafc; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
                     <h3 style="color: #1e293b; margin-bottom: 1.5rem; text-align: center;">🔗 Integration Strategy</h3>
-                    <p style="text-align: center; color: #64748b; margin-bottom: 2rem; font-size: 1rem;">How the DCF teams coordinate their different development approaches</p>
+                    <p style="text-align: center; color: #64748b; margin-bottom: 2rem; font-size: 1rem;">How the two teams coordinate their different development approaches</p>
                     
                     <!-- Clean Two-Team Coordination -->
                     <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 3rem; align-items: center; margin-bottom: 2rem;">
@@ -2295,7 +2238,7 @@
                         <div class="card-content">
                             <h4 style="color: #f57c00; margin-bottom: 0.5rem;">Regular Sync Points:</h4>
                             <ul style="font-size: 0.9rem;">
-                                <li><strong>Daily:</strong> 15-min standup (DCF team representatives)</li>
+                                <li><strong>Daily:</strong> 15-min standup (team representatives)</li>
                                 <li><strong>Weekly:</strong> Technical sync & code review</li>
                                 <li><strong>Monthly:</strong> Architecture alignment</li>
                                 <li><strong>Quarterly:</strong> Release planning</li>
@@ -2370,10 +2313,10 @@
                         <div>
                             <h3 style="color: #1e293b; margin: 0 0 0.75rem 0; font-size: 1.1rem;">Executive Context: Why Resource Planning Matters</h3>
                             <p style="color: #475569; margin: 0 0 0.75rem 0; line-height: 1.6;">
-                                The <strong>DCF team collaboration requirements</strong> discussed in the previous slide translate directly into resource allocation decisions that impact project success, timeline, and budget planning.
+                                The <strong>team collaboration requirements</strong> discussed in the previous slide translate directly into resource allocation decisions that impact project success, timeline, and budget planning.
                             </p>
                             <p style="color: #475569; margin: 0; line-height: 1.6;">
-                                <strong>This detailed breakdown enables executive-level decisions</strong> on staffing models, external consultation needs, and long-term DCF team capacity planning based on your chosen technical approach.
+                                <strong>This detailed breakdown enables executive-level decisions</strong> on staffing models, external consultation needs, and long-term team capacity planning based on your chosen technical approach.
                             </p>
                         </div>
                     </div>
@@ -2479,7 +2422,7 @@
                 <div class="slide-header">
                     <span class="slide-number">SLIDE 7</span>
                     <h2 class="slide-title">Learning Path</h2>
-                    <p class="slide-subtitle">Phased approach to DCF team skill development and knowledge transfer</p>
+                    <p class="slide-subtitle">Phased approach to team skill development and knowledge transfer</p>
                 </div>
 
                 <!-- Executive Context -->
@@ -2489,7 +2432,7 @@
                         <div>
                             <h3 style="color: #1e293b; margin: 0 0 0.75rem 0; font-size: 1.1rem;">Executive Context: Implementation Strategy & Risk Mitigation</h3>
                             <p style="color: #475569; margin: 0 0 0.75rem 0; line-height: 1.6;">
-                                Beyond resource allocation, <strong>HOW the DCF team transitions</strong> determines project success and business continuity. This phased approach minimizes risk while ensuring predictable timeline delivery.
+                                Beyond resource allocation, <strong>HOW the team transitions</strong> determines project success and business continuity. This phased approach minimizes risk while ensuring predictable timeline delivery.
                             </p>
                             <p style="color: #475569; margin: 0; line-height: 1.6;">
                                 <strong>Executive value:</strong> Clear milestones for progress tracking, defined success criteria for each phase, and structured approach to maintain productivity throughout the technology transition.
@@ -2507,7 +2450,7 @@
                             </div>
                             <div class="phase-details">
                                 <div class="team-composition">
-                                    <strong>DCF Team:</strong> 1-2 developers + external React consultant
+                                    <strong>Team:</strong> 1-2 developers + external React consultant
                                 </div>
                                 <div class="phase-goals">
                                     <strong>Goal:</strong> Validate approach, build initial patterns
@@ -2523,7 +2466,7 @@
                             </div>
                             <div class="phase-details">
                                 <div class="team-composition">
-                                    <strong>DCF Team:</strong> 3-4 developers with lessons learned integration
+                                    <strong>Team:</strong> 3-4 developers with lessons learned integration
                                 </div>
                                 <div class="phase-goals">
                                     <strong>Goal:</strong> Scale knowledge, refine processes
@@ -2539,10 +2482,10 @@
                             </div>
                             <div class="phase-details">
                                 <div class="team-composition">
-                                    <strong>DCF Team:</strong> All developers with reduced external support
+                                    <strong>Team:</strong> All developers with reduced external support
                                 </div>
                                 <div class="phase-goals">
-                                    <strong>Goal:</strong> DCF team independence with consultation available
+                                    <strong>Goal:</strong> Team independence with consultation available
                                     <br><strong>Outcome:</strong> 70% of baseline productivity achieved
                                 </div>
                             </div>
@@ -2555,7 +2498,7 @@
                             </div>
                             <div class="phase-details">
                                 <div class="team-composition">
-                                    <strong>DCF Team:</strong> Fully independent with periodic consultation
+                                    <strong>Team:</strong> Fully independent with periodic consultation
                                 </div>
                                 <div class="phase-goals">
                                     <strong>Goal:</strong> Full productivity with modern stack
@@ -3479,7 +3422,7 @@
                     <ul style="margin: 1rem 0; padding-left: 1.5rem;">
                         <li>✅ <strong>Faster time to production</strong> - No backend changes required</li>
                         <li>✅ <strong>Lower risk approach</strong> - Existing system remains unchanged</li>
-                        <li>✅ <strong>Minimal DCF team coordination</strong> - North Highland can work independently</li>
+                        <li>✅ <strong>Minimal team coordination</strong> - North Highland can work independently</li>
                         <li>✅ <strong>Preserves current architecture</strong> - JSP/Struts backend untouched</li>
                     </ul>
                 `;
